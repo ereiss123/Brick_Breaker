@@ -1,6 +1,6 @@
 *.qws
 *.bak
-*/db/*
+./db/*
 */incremental_db/*
 */output_files/*
 DE10-Lite_v.2.0.2_SystemCD*
@@ -49,3 +49,5 @@ DE10-Lite_v.2.0.2_SystemCD*
 */.vscode
 *.exe
 ./midterm.vhd
+*.qui*
+db/
