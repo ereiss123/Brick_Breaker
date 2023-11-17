@@ -51,3 +51,4 @@ DE10-Lite_v.2.0.2_SystemCD*
 ./midterm.vhd
 *.qui*
 db/
+incremental_db/
