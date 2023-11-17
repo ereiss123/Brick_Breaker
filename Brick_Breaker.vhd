@@ -58,33 +58,90 @@ entity Brick_Breaker is
 end entity Brick_Breaker;
 
 architecture Behavioral of Brick_Breaker is
-    -- REG/WIRE declarations can be added here if needed
+    -- Component declaration
     component VGA_controller 
         port(
+            -- FPGA side
+            clk : in std_logic;
+            rst_l : in std_logic; 
+            R : in std_logic_vector(3 downto 0);
+            G : in std_logic_vector(3 downto 0);
+            B : in std_logic_vector(3 downto 0);
+            request_data : out std_logic;
+            current_line : out unsigned(9 downto 0);
+            data_pos : out unsigned(9 downto 0);
 
+            -- Monitor side
+            VGA_B : out std_logic_vector(3 downto 0);
+            VGA_G : out std_logic_vector(3 downto 0);
+            VGA_R : out std_logic_vector(3 downto 0);
+            VGA_HS : out std_logic;
+            VGA_VS : out std_logic
         );
+        end component;
     
-        component VGA_PLL
-            PORT
-            (
-                areset		: IN STD_LOGIC  := '0';
-                inclk0		: IN STD_LOGIC  := '0';
-                c0		: OUT STD_LOGIC ;
-                locked		: OUT STD_LOGIC 
-            );
-            end component;
+    component VGA_PLL
+        PORT
+        (
+            areset		: IN STD_LOGIC  := '0';
+            inclk0		: IN STD_LOGIC  := '0';
+            c0		: OUT STD_LOGIC ;
+            locked		: OUT STD_LOGIC 
+        );
+    end component;
+
+    -- Signal declaration
+    signal rst : std_logic;
+    signal rst_l : std_logic;
+    signal R : std_logic_vector(3 downto 0);
+    signal G : std_logic_vector(3 downto 0);
+    signal B : std_logic_vector(3 downto 0);
+    signal request_data : std_logic;
+    signal current_line : unsigned(9 downto 0);
+    signal data_pos : unsigned(9 downto 0);
+    signal c0_sig : std_logic;
+    signal locked_sig : std_logic;
+
 
 begin
-    -- Structural coding (connections go here if needed)
-
-    VGA_controller_inst VGA_controller(
+    rst_l <= KEY(0);
+    rst <= not KEY(0) when KEY(0) = '0' else '0';
+    
+    VGA_controller_inst : VGA_controller 
+    port map(
         -- Connections go here
+        clk => c0_sig,
+        rst_l => rst_l,
+        R => R,
+        G => G,
+        B => B,
+        request_data => request_data,
+        current_line => current_line,
+        data_pos => data_pos,
+        VGA_B => VGA_B,
+        VGA_G => VGA_G,
+        VGA_R => VGA_R
     );
-    PLL_inst : VGA_PLL PORT MAP 
-(
-    areset	 => areset_sig,
-    inclk0	 => MAX10_CLK1_50,
-    c0	 => c0_sig,
-    locked	 => locked_sig
-);
+    PLL_inst : VGA_PLL 
+    port map(
+        areset	 => rst,
+        inclk0	 => MAX10_CLK1_50,
+        c0	 => c0_sig,
+        locked	 => locked_sig
+    );
+
+    process(c0_sig,rst_l) 
+    begin
+        if(not rst_l = '1') then
+            R <= (others => '0');
+            G <= (others => '0');
+            B <= (others => '0');
+        elsif rising_edge(c0_sig) then
+            if request_data = '1' then
+                R <= x"F";
+                G <= x"0";
+                B <= x"0";
+            end if;
+        end if;
+    end process;
 end architecture Behavioral;

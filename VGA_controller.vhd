@@ -5,33 +5,37 @@ use ieee.numeric_std.all;
 
 entity VGA_controller is
     port (
+        -- FPGA side
         clk : in std_logic;
-        rst_l : in std_logic_vector(1 downto 0); 
-        pixel_x : in std_logic_vector(9 downto 0); -- pixel location
-        pixel_y : in std_logic_vector(8 downto 0);
+        rst_l : in std_logic; 
+        R : in std_logic_vector(3 downto 0);
+        G : in std_logic_vector(3 downto 0);
+        B : in std_logic_vector(3 downto 0);
+        request_data : out std_logic;
+        current_line : out unsigned(9 downto 0);
+        data_pos : out unsigned(9 downto 0);
 
+        -- Monitor side
         VGA_B : out std_logic_vector(3 downto 0);
         VGA_G : out std_logic_vector(3 downto 0);
         VGA_R : out std_logic_vector(3 downto 0);
         VGA_HS : out std_logic;
         VGA_VS : out std_logic
     );
-end entity VGA;
+end entity VGA_controller;
 
 architecture rtl of VGA_controller is
-    signal areset_sig : std_logic;
-    signal inclk0_sig : std_logic;
-    signal clk : std_logic;
-    signal locked_sig : std_logic;
+    -- signal areset_sig : std_logic;
+    -- signal inclk0_sig : std_logic;
+    -- signal locked_sig : std_logic;
 
     signal horizontal_counter : integer := 0;
     signal vertical_counter : integer := 0;
-    signal advance : std_logic := '0';
-    signal rst_l : std_logic := '0';
-    signal db_state : std_logic_vector(1 downto 0) := "00";
-    signal button_count : integer := 0;
+    -- signal rst_l : std_logic := '0';
+    -- signal db_state : std_logic_vector(1 downto 0) := "00";
+    -- signal button_count : integer := 0;
 
-    signal flag_state : integer := 0;
+    -- signal flag_state : integer := 0;
     
     signal hor_state : integer := 0;
     signal ver_state : integer := 0;
@@ -43,7 +47,7 @@ begin
     -- Horizontal state machine
     process(clk, rst_l)
     begin
-        if rst_l = '1' then
+        if rst_l = '0' then
             horizontal_counter <= 0;
             hor_state <= 0;
             VGA_HS <= '0';
@@ -88,7 +92,7 @@ begin
     -- Vertical state machine
     process(clk, rst_l)
     begin
-        if rst_l = '1' then
+        if rst_l = '0' then
             vertical_counter <= 0;
             ver_state <= 0;
             VGA_VS <= '0';
@@ -138,6 +142,28 @@ begin
         end if;
     end process;
 
+    process(clk, rst_l)
+    begin
+        if(rst_l = '0') then
+            current_line <= "0000000000";
+            data_pos <= "0000000000";
+        elsif rising_edge(clk) then
+            if ver_state = 3 and hor_state = 3 then
+                current_line <= to_unsigned(line_count,current_line'length);
+                data_pos <= to_unsigned(horizontal_counter, data_pos'length);
+                request_data <= '1';
+                VGA_R <= R;
+                VGA_G <= G;
+                VGA_B <= B;
+            else 
+                request_data <= '0';
+                current_line <= "0000000000";
+                data_pos <= "0000000000";
+            end if;
+        end if;
+    end process;
+
+    --David Was Here
 
 
 end architecture rtl; 

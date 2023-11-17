@@ -13,6 +13,7 @@ end debouncer;
 
 architecture rtl of debouncer is
     signal db_state : std_logic_vector(1 downto 0);
+    signal button_count : integer;
 begin
     process(clk, rst)
     begin
