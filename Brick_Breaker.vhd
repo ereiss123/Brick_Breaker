@@ -61,6 +61,16 @@ architecture Behavioral of Brick_Breaker is
         port(
 
         );
+    
+        component VGA_PLL
+            PORT
+            (
+                areset		: IN STD_LOGIC  := '0';
+                inclk0		: IN STD_LOGIC  := '0';
+                c0		: OUT STD_LOGIC ;
+                locked		: OUT STD_LOGIC 
+            );
+            end component;
 
 begin
     -- Structural coding (connections go here if needed)
@@ -68,4 +78,11 @@ begin
     VGA_controller_inst VGA_controller(
         -- Connections go here
     );
+    PLL_inst : VGA_PLL PORT MAP 
+(
+    areset	 => areset_sig,
+    inclk0	 => MAX10_CLK1_50,
+    c0	 => c0_sig,
+    locked	 => locked_sig
+);
 end architecture Behavioral;
