@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-package breaker_types is
+package types is
     -- Boundaries
     type brick is array(15 downto 0, 6 downto 0) of std_logic;
     type half_brick is array(7 downto 0, 6 downto 0) of std_logic;
