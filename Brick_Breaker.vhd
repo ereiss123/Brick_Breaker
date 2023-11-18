@@ -126,6 +126,10 @@ architecture Behavioral of Brick_Breaker is
     signal paddle_pos : coorid := (0,0);
     signal brick_y_idx : integer := 0; -- indicate which row of bricks (0 - 29)
     signal brick_x_idx : integer := 0; -- indicate which column of bricks (0 - 40)
+    signal x_print_idx : integer := 0;
+    signal nx_print_idx : integer := 0;
+    signal y_print_idx : integer := 0;
+    signal ny_print_idx : integer := 0;
     signal half_brick_x_idx : integer := 0; -- indicate which column of bricks (0 - 40)
     signal full_brick_x_idx : integer := 0; -- indicate which column of bricks (0 - 40)
     signal full_brick_x : hhalf_brick_corrid := (0,16,32,48,64,80,96,112,128,144,160,
@@ -216,10 +220,14 @@ begin
             B <= (others => '0');
             ball_pos <= (0,0);
             paddle_pos <= (0,0);
+            x_print_idx <= 0;
+            y_print_idx <= 0;
         elsif rising_edge(c0_sig) then
             R <= nR;
             G <= nG;
             B <= nB;
+            x_print_idx <= nx_print_idx;
+            y_print_idx <= ny_print_idx;
         end if;
     end process;
 
@@ -236,28 +244,54 @@ begin
                 brick_y_idx <= to_integer(shift_right(current_line, 3)); -- divide current line by 8 
                 brick_x_idx <= to_integer(shift_right(data_pos, 4)); -- divide data_pos by 16, need to figure out half bricks
                 if brick_tracker(brick_y_idx,brick_x_idx) = '1' then
-                    if ( current_line & "0000000111") <= 7 then -- draw horizontal mortar line
+                    ny_print_idx <= y_print_idx + 1;
+                    if current_line =( brick_y(y_print_idx)+7) then -- draw horizontal mortar line
+                        nx_print_idx <= 0;
                         nR <= yellow(0);
                         nG <= yellow(1);
                         nB <= yellow(2);
-                    else 
-                        -- TODO: differentiate between half and full brick lines
-                        -- I believe this will work for a full brick line
-                        if (data_pos & "0000001111") <= 15 then -- draw brick part of brick
-                            nR <= red(0);
-                            nG <= red(1);
-                            nB <= red(2);
-                        else
+                    elsif current_line & "0000000001" <= 1 then -- Odd lines (half-brick)
+                        if (data_pos = half_brick_x(x_print_idx)+7) and ((x_print_idx = 0) or (x_print_idx = 40)) then
                             nR <= yellow(0); -- draw vertical mortar line
                             nG <= yellow(1);
                             nB <= yellow(2);
+                        elsif data_pos = (half_brick_x(x_print_idx)+15) then
+                            nR <= yellow(0); -- draw vertical mortar line
+                            nG <= yellow(1);
+                            nB <= yellow(2);
+                        else
+                            nR <= red(0); -- draw brick part of brick
+                            nG <= red(1);
+                            nB <= red(2);
                         end if;
+                        nx_print_idx <= x_print_idx + 1;
+                    else -- Even lines (full-brick)
+                        if data_pos = (full_brick_x(x_print_idx)+15) then -- draw brick part of brick
+                            nR <= yellow(0); -- draw vertical mortar line
+                            nG <= yellow(1);
+                            nB <= yellow(2);
+                        else
+                            nR <= red(0); -- draw brick part of brick
+                            nG <= red(1);
+                            nB <= red(2);
+                        end if;
+                        nx_print_idx <= x_print_idx + 1;
                     end if;
                 else
                     nR <= black(0);
                     nG <= black(1);
                     nB <= black(2);
+                    nx_print_idx <= x_print_idx;
+                    ny_print_idx <= y_print_idx;
                 end if;
+            else -- placeholder else to prevent latches
+                nR <= black(0);
+                nG <= black(1);
+                nB <= black(2);
+                nx_print_idx <= x_print_idx;
+                ny_print_idx <= y_print_idx;
+                brick_y_idx <= 0;
+                brick_x_idx <= 0;
             end if;
 
             --TODO: Draw Paddle
@@ -267,6 +301,10 @@ begin
             nR <= black(0);
             nG <= black(1);
             nB <= black(2);
+            nx_print_idx <= x_print_idx;
+            ny_print_idx <= y_print_idx;
+            brick_y_idx <= 0;
+            brick_x_idx <= 0;
         end if;
     end process;
 
