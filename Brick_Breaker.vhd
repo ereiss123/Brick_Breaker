@@ -145,9 +145,9 @@ begin
             B <= (others => '0');
         elsif rising_edge(c0_sig) then
             if request_data = '1' then
-                R <= x"F";
-                G <= x"0";
-                B <= x"0";
+                R <= red(0);
+                G <= red(1);
+                B <= red(2);
 
             end if;
         end if;
