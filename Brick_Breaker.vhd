@@ -125,6 +125,7 @@ architecture Behavioral of Brick_Breaker is
     signal ball_pos : coorid := (0,0);
     signal paddle_pos : coorid := (0,0);
     signal brick_y_idx : integer := 0; -- indicate which row of bricks (0 - 29)
+    signal brick_x_idx : integer := 0; -- indicate which column of bricks (0 - 40)
     signal half_brick_x_idx : integer := 0; -- indicate which column of bricks (0 - 40)
     signal full_brick_x_idx : integer := 0; -- indicate which column of bricks (0 - 40)
     signal full_brick_x : hhalf_brick_corrid := (0,16,32,48,64,80,96,112,128,144,160,
@@ -215,7 +216,6 @@ begin
             B <= (others => '0');
             ball_pos <= (0,0);
             paddle_pos <= (0,0);
-            brick_y_idx <= 0;
         elsif rising_edge(c0_sig) then
             R <= nR;
             G <= nG;
@@ -228,25 +228,27 @@ begin
     begin
         -- We need to draw bricks, ball, and paddle 
         if request_data = '1' then
-            -- Draw ball
+            -- TODO: Draw ball
 
             -- Draw bricks
             if current_line >= 0 and current_line < 240 then
                 -- calculate brick_y_idx
-                brick_y_idx <= to_integer(current_line >> 3); -- divide current line by 8 
-                brick_x_idx <= to_integer(data_pos >> 4); -- divide data_pos by 16, need to figure out half bricks
-                if brick_tracker(brick_y_idx)(brick_x_idx) = '1' then
-                    if ( current_line & "00000_00111") <= 7 then
+                brick_y_idx <= to_integer(shift_right(current_line, 3)); -- divide current line by 8 
+                brick_x_idx <= to_integer(shift_right(data_pos, 4)); -- divide data_pos by 16, need to figure out half bricks
+                if brick_tracker(brick_y_idx,brick_x_idx) = '1' then
+                    if ( current_line & "0000000111") <= 7 then -- draw horizontal mortar line
                         nR <= yellow(0);
                         nG <= yellow(1);
                         nB <= yellow(2);
                     else 
-                        if (data_pos & "0000001111") <= 15 then
+                        -- TODO: differentiate between half and full brick lines
+                        -- I believe this will work for a full brick line
+                        if (data_pos & "0000001111") <= 15 then -- draw brick part of brick
                             nR <= red(0);
                             nG <= red(1);
                             nB <= red(2);
                         else
-                            nR <= yellow(0);
+                            nR <= yellow(0); -- draw vertical mortar line
                             nG <= yellow(1);
                             nB <= yellow(2);
                         end if;
@@ -258,9 +260,9 @@ begin
                 end if;
             end if;
 
-            -- Draw Paddle
+            --TODO: Draw Paddle
 
-            
+
         else
             nR <= black(0);
             nG <= black(1);
