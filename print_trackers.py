@@ -3,7 +3,8 @@ Print the tracker arrays to a file
 """
 
 # Print brick_tracker
-with open("brick_tracker.txt", "w") as f:
+with open("brick_tracker.vhd", "w") as f:
+    f.write("signal brick_tracker :tracker := (\n")
     for i in range(30):
         for j in range(41):
             if i % 2 == 0: # even rows
@@ -20,18 +21,17 @@ with open("brick_tracker.txt", "w") as f:
                     f.write("'1'),\n")
                 else:
                     f.write("'1',")
+    f.write(");\n\n")
 
 # Print brick corner x corridinates
-with open("brick_coorids.txt", "w") as f:
+with open("brick_coorids.vhd", "w") as f:
     # print full brick coorids first
     f.write("signal full_brick_x : hhalf_brick_corrid := (")
-    for i in range(42):
-        if i == 0:
-            f.write("-1,")
-        elif i == 41:
+    for i in range(41):
+        if i == 40:
             f.write("-1);\n\n")
         else:
-            f.write(f"{(i-1)*16},")
+            f.write(f"{(i)*16},")
     
     # print half brick row corrids
     f.write("signal half_brick_x : hhalf_brick_corrid := (")

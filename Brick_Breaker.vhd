@@ -226,7 +226,7 @@ begin
     -- Interface with VGA controller
     process(R,G,B,request_data,current_line,data_pos)
     begin
-
+        -- We need to draw bricks, ball, and paddle 
     end process;
 
 end architecture Behavioral;
