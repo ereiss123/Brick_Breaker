@@ -63,8 +63,10 @@ begin
     begin
         case hor_state is
         when 0 => -- front porch
+            VGA_HS <= '1';
             if hor_count < 15 then
                 hor_count_nxt <= hor_count + 1;
+                hor_state_nxt <= hor_state;
             else
                 hor_count_nxt <= 0;
                 hor_state_nxt <= 1;
@@ -73,27 +75,34 @@ begin
             if hor_count < 95 then
                 VGA_HS <= '0';
                 hor_count_nxt <= hor_count + 1;
+                hor_state_nxt <= hor_state;
             else
                 VGA_HS <= '1';
                 hor_count_nxt <= 0;
                 hor_state_nxt <= 2;
             end if;
         when 2 => -- back porch
+            VGA_HS <= '1';
             if hor_count < 47 then
                 hor_count_nxt <= hor_count + 1;
+                hor_state_nxt <= hor_state;
             else
                 hor_count_nxt <= 0;
                 hor_state_nxt <= 3;
             end if;
         when 3 =>
+            VGA_HS <= '1';
             if hor_count < 639 then
                 hor_count_nxt <= hor_count + 1;
+                hor_state_nxt <= hor_state;
             else
                 hor_count_nxt <= 0;
                 hor_state_nxt <= 0;
             end if;
         when others =>
             hor_state_nxt <= 0;
+            hor_count_nxt <= 0;
+            VGA_HS <= '1';
         end case;
     end process;
 
@@ -102,15 +111,20 @@ begin
     begin
         case ver_state is
         when 0 => -- front porch
+            VGA_VS <= '1';
+            line_count_nxt <= line_count;
             if ver_count < 7999 then
+                ver_state_nxt <= ver_state;
                 ver_count_nxt <= ver_count + 1;
             else
                 ver_count_nxt <= 0;
                 ver_state_nxt <= 1;
             end if;
         when 1 => -- sync pulse
+            line_count_nxt <= line_count;
             if ver_count < 1599 then
                 VGA_VS <= '0';
+                ver_state_nxt <= ver_state;
                 ver_count_nxt <= ver_count + 1;
             else
                 VGA_VS <= '1';
@@ -118,28 +132,38 @@ begin
                 ver_state_nxt <= 2;
             end if;
         when 2 => -- back porch
+            VGA_VS <= '1';
             if ver_count < 26399 then
+                line_count_nxt <= line_count;
                 ver_count_nxt <= ver_count + 1;
+                ver_state_nxt <= ver_state;
             else
                 ver_count_nxt <= 0;
                 ver_state_nxt <= 3;
                 line_count_nxt <= 0;
             end if;
         when 3 => -- data
+            VGA_VS <= '1';
             if ver_count >= 799 and line_count >= 478 then
                 ver_state_nxt <= 0;
                 ver_count_nxt <= 0;
+                line_count_nxt <= 0;
             else
+                ver_state_nxt <= ver_state;
                 if ver_count >= 799
                 then
                     line_count_nxt <= line_count + 1;
                     ver_count_nxt <= 0;
                 else
+                    line_count_nxt <= line_count;
                     ver_count_nxt <= ver_count + 1;
                 end if;
             end if;
         when others =>
+            VGA_VS <= '1';
             ver_state_nxt <= 0;
+            line_count_nxt <= 0;
+            ver_count_nxt <= 0;
         end case;
     end process;
 

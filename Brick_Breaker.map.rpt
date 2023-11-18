@@ -1,5 +1,5 @@
 Analysis & Synthesis report for Brick_Breaker
-Fri Nov 17 18:37:35 2023
+Fri Nov 17 18:49:12 2023
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -50,13 +50,13 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Fri Nov 17 18:37:35 2023       ;
+; Analysis & Synthesis Status        ; Successful - Fri Nov 17 18:49:12 2023       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; Brick_Breaker                               ;
 ; Top-level Entity Name              ; Brick_Breaker                               ;
 ; Family                             ; MAX 10                                      ;
-; Total logic elements               ; 237                                         ;
-;     Total combinational functions  ; 237                                         ;
+; Total logic elements               ; 170                                         ;
+;     Total combinational functions  ; 170                                         ;
 ;     Dedicated logic registers      ; 101                                         ;
 ; Total registers                    ; 101                                         ;
 ; Total pins                         ; 135                                         ;
@@ -195,16 +195,16 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+-----------------------------------------------------------------------------------------+
 ; Resource                                    ; Usage                                                                                   ;
 +---------------------------------------------+-----------------------------------------------------------------------------------------+
-; Estimated Total logic elements              ; 237                                                                                     ;
+; Estimated Total logic elements              ; 170                                                                                     ;
 ;                                             ;                                                                                         ;
-; Total combinational functions               ; 237                                                                                     ;
+; Total combinational functions               ; 170                                                                                     ;
 ; Logic element usage by number of LUT inputs ;                                                                                         ;
-;     -- 4 input functions                    ; 50                                                                                      ;
-;     -- 3 input functions                    ; 86                                                                                      ;
-;     -- <=2 input functions                  ; 101                                                                                     ;
+;     -- 4 input functions                    ; 51                                                                                      ;
+;     -- 3 input functions                    ; 16                                                                                      ;
+;     -- <=2 input functions                  ; 103                                                                                     ;
 ;                                             ;                                                                                         ;
 ; Logic elements by mode                      ;                                                                                         ;
-;     -- normal mode                          ; 144                                                                                     ;
+;     -- normal mode                          ; 77                                                                                      ;
 ;     -- arithmetic mode                      ; 93                                                                                      ;
 ;                                             ;                                                                                         ;
 ; Total registers                             ; 101                                                                                     ;
@@ -220,8 +220,8 @@ refer to the applicable agreement for further details.
 ;                                             ;                                                                                         ;
 ; Maximum fan-out node                        ; VGA_PLL:PLL_inst|altpll:altpll_component|VGA_PLL_altpll:auto_generated|wire_pll1_clk[0] ;
 ; Maximum fan-out                             ; 102                                                                                     ;
-; Total fan-out                               ; 1207                                                                                    ;
-; Average fan-out                             ; 1.87                                                                                    ;
+; Total fan-out                               ; 1069                                                                                    ;
+; Average fan-out                             ; 1.85                                                                                    ;
 +---------------------------------------------+-----------------------------------------------------------------------------------------+
 
 
@@ -230,11 +230,11 @@ refer to the applicable agreement for further details.
 +------------------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------------------------------------------------------------------------+----------------+--------------+
 ; Compilation Hierarchy Node               ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name                                                                   ; Entity Name    ; Library Name ;
 +------------------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------------------------------------------------------------------------+----------------+--------------+
-; |Brick_Breaker                           ; 237 (1)             ; 101 (1)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 135  ; 0            ; 0          ; |Brick_Breaker                                                                        ; Brick_Breaker  ; work         ;
+; |Brick_Breaker                           ; 170 (1)             ; 101 (1)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 135  ; 0            ; 0          ; |Brick_Breaker                                                                        ; Brick_Breaker  ; work         ;
 ;    |VGA_PLL:PLL_inst|                    ; 0 (0)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Brick_Breaker|VGA_PLL:PLL_inst                                                       ; VGA_PLL        ; work         ;
 ;       |altpll:altpll_component|          ; 0 (0)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Brick_Breaker|VGA_PLL:PLL_inst|altpll:altpll_component                               ; altpll         ; work         ;
 ;          |VGA_PLL_altpll:auto_generated| ; 0 (0)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Brick_Breaker|VGA_PLL:PLL_inst|altpll:altpll_component|VGA_PLL_altpll:auto_generated ; VGA_PLL_altpll ; work         ;
-;    |VGA_controller:VGA_controller_inst|  ; 236 (236)           ; 100 (100)                 ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Brick_Breaker|VGA_controller:VGA_controller_inst                                     ; VGA_controller ; work         ;
+;    |VGA_controller:VGA_controller_inst|  ; 169 (169)           ; 100 (100)                 ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Brick_Breaker|VGA_controller:VGA_controller_inst                                     ; VGA_controller ; work         ;
 +------------------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------------------------------------------------------------------------+----------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -248,51 +248,15 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------+--------------+---------+--------------+--------------+---------------------------------+-----------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------+
-; User-Specified and Inferred Latches                                                                                            ;
-+-------------------------------------------------------+-----------------------------------------------+------------------------+
-; Latch Name                                            ; Latch Enable Signal                           ; Free of Timing Hazards ;
-+-------------------------------------------------------+-----------------------------------------------+------------------------+
-; VGA_controller:VGA_controller_inst|VGA_HS             ; VGA_controller:VGA_controller_inst|Equal1     ; yes                    ;
-; VGA_controller:VGA_controller_inst|VGA_VS             ; VGA_controller:VGA_controller_inst|Equal5     ; yes                    ;
-; VGA_controller:VGA_controller_inst|ver_state_nxt[1]   ; VGA_controller:VGA_controller_inst|Selector36 ; yes                    ;
-; VGA_controller:VGA_controller_inst|ver_state_nxt[0]   ; VGA_controller:VGA_controller_inst|Selector36 ; yes                    ;
-; VGA_controller:VGA_controller_inst|hor_state_nxt[1]   ; VGA_controller:VGA_controller_inst|Selector71 ; yes                    ;
-; VGA_controller:VGA_controller_inst|hor_state_nxt[0]   ; VGA_controller:VGA_controller_inst|Selector71 ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[31] ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[30] ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[29] ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[28] ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[27] ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[26] ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[25] ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[24] ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[23] ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[22] ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[21] ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[20] ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[19] ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[18] ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[17] ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[16] ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[15] ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[14] ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[13] ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[12] ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[11] ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[10] ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[9]  ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[8]  ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[7]  ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[6]  ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[5]  ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[4]  ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[3]  ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[2]  ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[1]  ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; VGA_controller:VGA_controller_inst|line_count_nxt[0]  ; VGA_controller:VGA_controller_inst|Selector1  ; yes                    ;
-; Number of user-specified and inferred latches = 38    ;                                               ;                        ;
-+-------------------------------------------------------+-----------------------------------------------+------------------------+
++-------------------------------------------------------------------------------------------------------------------------+
+; User-Specified and Inferred Latches                                                                                     ;
++----------------------------------------------------+-------------------------------------------+------------------------+
+; Latch Name                                         ; Latch Enable Signal                       ; Free of Timing Hazards ;
++----------------------------------------------------+-------------------------------------------+------------------------+
+; VGA_controller:VGA_controller_inst|VGA_HS          ; VGA_controller:VGA_controller_inst|Equal1 ; yes                    ;
+; VGA_controller:VGA_controller_inst|VGA_VS          ; VGA_controller:VGA_controller_inst|Equal5 ; yes                    ;
+; Number of user-specified and inferred latches = 2  ;                                           ;                        ;
++----------------------------------------------------+-------------------------------------------+------------------------+
 Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
 
 
@@ -323,23 +287,24 @@ Note: All latches listed above may not be present at the end of synthesis due to
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
 ; Total registers                              ; 101   ;
-; Number of registers using Synchronous Clear  ; 64    ;
+; Number of registers using Synchronous Clear  ; 96    ;
 ; Number of registers using Synchronous Load   ; 0     ;
 ; Number of registers using Asynchronous Clear ; 101   ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Clock Enable       ; 32    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                              ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                    ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------+
-; 8:1                ; 32 bits   ; 160 LEs       ; 32 LEs               ; 128 LEs                ; No         ; |Brick_Breaker|VGA_controller:VGA_controller_inst|Selector102 ;
-; 9:1                ; 32 bits   ; 192 LEs       ; 32 LEs               ; 160 LEs                ; No         ; |Brick_Breaker|VGA_controller:VGA_controller_inst|Selector67  ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                 ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                       ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------+
+; 7:1                ; 32 bits   ; 128 LEs       ; 32 LEs               ; 96 LEs                 ; Yes        ; |Brick_Breaker|VGA_controller:VGA_controller_inst|line_count[17] ;
+; 8:1                ; 32 bits   ; 160 LEs       ; 32 LEs               ; 128 LEs                ; Yes        ; |Brick_Breaker|VGA_controller:VGA_controller_inst|hor_count[14]  ;
+; 9:1                ; 32 bits   ; 192 LEs       ; 32 LEs               ; 160 LEs                ; Yes        ; |Brick_Breaker|VGA_controller:VGA_controller_inst|ver_count[24]  ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------+
 
 
 +---------------------------------------------------------------------------------------+
@@ -759,22 +724,23 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; boundary_port         ; 135                         ;
 ; cycloneiii_ff         ; 101                         ;
-;     CLR               ; 37                          ;
+;     CLR               ; 5                           ;
 ;     CLR SCLR          ; 64                          ;
+;     ENA CLR SCLR      ; 32                          ;
 ; cycloneiii_io_obuf    ; 35                          ;
-; cycloneiii_lcell_comb ; 238                         ;
+; cycloneiii_lcell_comb ; 171                         ;
 ;     arith             ; 93                          ;
 ;         2 data inputs ; 93                          ;
-;     normal            ; 145                         ;
+;     normal            ; 78                          ;
 ;         0 data inputs ; 1                           ;
 ;         1 data inputs ; 3                           ;
-;         2 data inputs ; 5                           ;
-;         3 data inputs ; 86                          ;
-;         4 data inputs ; 50                          ;
+;         2 data inputs ; 7                           ;
+;         3 data inputs ; 16                          ;
+;         4 data inputs ; 51                          ;
 ; cycloneiii_pll        ; 1                           ;
 ;                       ;                             ;
-; Max LUT depth         ; 9.00                        ;
-; Average LUT depth     ; 4.52                        ;
+; Max LUT depth         ; 8.00                        ;
+; Average LUT depth     ; 4.12                        ;
 +-----------------------+-----------------------------+
 
 
@@ -793,7 +759,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Fri Nov 17 18:37:24 2023
+    Info: Processing started: Fri Nov 17 18:49:01 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Brick_Breaker -c Brick_Breaker
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
@@ -839,178 +805,13 @@ Warning (10036): Verilog HDL or VHDL warning at Brick_Breaker.vhd(100): object "
 Warning (10036): Verilog HDL or VHDL warning at Brick_Breaker.vhd(102): object "locked_sig" assigned a value but never read File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 102
 Warning (10540): VHDL Signal Declaration warning at Brick_Breaker.vhd(107): used explicit default value for signal "red" because signal was never assigned a value File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 107
 Info (12128): Elaborating entity "VGA_controller" for hierarchy "VGA_controller:VGA_controller_inst" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 115
-Warning (10631): VHDL Process Statement warning at VGA_controller.vhd(62): inferring latch(es) for signal or variable "horizontal_counter_nxt", which holds its previous value in one or more paths through the process File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (10631): VHDL Process Statement warning at VGA_controller.vhd(62): inferring latch(es) for signal or variable "hor_state_nxt", which holds its previous value in one or more paths through the process File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
 Warning (10631): VHDL Process Statement warning at VGA_controller.vhd(62): inferring latch(es) for signal or variable "VGA_HS", which holds its previous value in one or more paths through the process File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (10631): VHDL Process Statement warning at VGA_controller.vhd(101): inferring latch(es) for signal or variable "vertical_counter_nxt", which holds its previous value in one or more paths through the process File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (10631): VHDL Process Statement warning at VGA_controller.vhd(101): inferring latch(es) for signal or variable "ver_state_nxt", which holds its previous value in one or more paths through the process File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (10631): VHDL Process Statement warning at VGA_controller.vhd(101): inferring latch(es) for signal or variable "VGA_VS", which holds its previous value in one or more paths through the process File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (10631): VHDL Process Statement warning at VGA_controller.vhd(101): inferring latch(es) for signal or variable "line_count_nxt", which holds its previous value in one or more paths through the process File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (10492): VHDL Process Statement warning at VGA_controller.vhd(152): signal "R" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 152
-Warning (10492): VHDL Process Statement warning at VGA_controller.vhd(153): signal "G" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 153
-Warning (10492): VHDL Process Statement warning at VGA_controller.vhd(154): signal "B" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 154
-Info (10041): Inferred latch for "line_count_nxt[0]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[1]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[2]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[3]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[4]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[5]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[6]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[7]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[8]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[9]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[10]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[11]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[12]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[13]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[14]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[15]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[16]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[17]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[18]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[19]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[20]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[21]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[22]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[23]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[24]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[25]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[26]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[27]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[28]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[29]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[30]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "line_count_nxt[31]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "VGA_VS" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[0]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[1]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[2]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[3]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[4]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[5]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[6]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[7]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[8]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[9]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[10]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[11]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[12]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[13]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[14]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[15]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[16]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[17]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[18]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[19]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[20]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[21]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[22]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[23]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[24]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[25]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[26]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[27]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[28]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[29]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[30]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "ver_state_nxt[31]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[0]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[1]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[2]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[3]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[4]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[5]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[6]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[7]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[8]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[9]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[10]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[11]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[12]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[13]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[14]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[15]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[16]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[17]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[18]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[19]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[20]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[21]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[22]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[23]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[24]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[25]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[26]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[27]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[28]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[29]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[30]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Info (10041): Inferred latch for "vertical_counter_nxt[31]" at VGA_controller.vhd(101) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
+Warning (10631): VHDL Process Statement warning at VGA_controller.vhd(106): inferring latch(es) for signal or variable "VGA_VS", which holds its previous value in one or more paths through the process File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 106
+Warning (10492): VHDL Process Statement warning at VGA_controller.vhd(168): signal "R" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 168
+Warning (10492): VHDL Process Statement warning at VGA_controller.vhd(169): signal "G" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 169
+Warning (10492): VHDL Process Statement warning at VGA_controller.vhd(170): signal "B" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 170
+Info (10041): Inferred latch for "VGA_VS" at VGA_controller.vhd(106) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 106
 Info (10041): Inferred latch for "VGA_HS" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[0]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[1]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[2]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[3]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[4]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[5]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[6]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[7]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[8]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[9]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[10]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[11]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[12]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[13]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[14]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[15]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[16]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[17]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[18]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[19]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[20]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[21]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[22]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[23]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[24]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[25]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[26]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[27]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[28]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[29]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[30]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "hor_state_nxt[31]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[0]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[1]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[2]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[3]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[4]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[5]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[6]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[7]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[8]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[9]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[10]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[11]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[12]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[13]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[14]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[15]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[16]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[17]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[18]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[19]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[20]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[21]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[22]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[23]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[24]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[25]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[26]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[27]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[28]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[29]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[30]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Info (10041): Inferred latch for "horizontal_counter_nxt[31]" at VGA_controller.vhd(62) File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
 Info (12128): Elaborating entity "VGA_PLL" for hierarchy "VGA_PLL:PLL_inst" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 132
 Info (12128): Elaborating entity "altpll" for hierarchy "VGA_PLL:PLL_inst|altpll:altpll_component" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_PLL.vhd Line: 140
 Info (12130): Elaborated megafunction instantiation "VGA_PLL:PLL_inst|altpll:altpll_component" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_PLL.vhd Line: 140
@@ -1073,70 +874,6 @@ Info (12133): Instantiated megafunction "VGA_PLL:PLL_inst|altpll:altpll_componen
 Info (12021): Found 1 design units, including 1 entities, in source file db/vga_pll_altpll.v
     Info (12023): Found entity 1: VGA_PLL_altpll File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/db/vga_pll_altpll.v Line: 30
 Info (12128): Elaborating entity "VGA_PLL_altpll" for hierarchy "VGA_PLL:PLL_inst|altpll:altpll_component|VGA_PLL_altpll:auto_generated" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altpll.tdf Line: 897
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[31]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[30]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[29]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[28]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[27]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[26]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[25]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[24]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[23]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[22]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[21]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[20]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[19]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[18]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[17]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[16]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[15]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[14]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[13]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[12]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[11]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[10]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[9]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[8]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[7]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[6]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[5]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[4]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[3]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[2]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[1]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|horizontal_counter_nxt[0]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[31]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[30]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[29]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[28]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[27]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[26]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[25]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[24]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[23]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[22]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[21]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[20]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[19]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[18]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[17]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[16]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[15]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[14]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[13]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[12]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[11]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[10]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[9]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[8]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[7]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[6]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[5]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[4]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[3]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[2]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[1]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-Warning (14026): LATCH primitive "VGA_controller:VGA_controller_inst|vertical_counter_nxt[0]" is permanently enabled File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
 Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "DRAM_DQ[0]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 21
     Warning (13040): bidirectional pin "DRAM_DQ[1]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 21
@@ -1173,78 +910,6 @@ Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "ARDUINO_IO[14]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 54
     Warning (13040): bidirectional pin "ARDUINO_IO[15]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 54
     Warning (13040): bidirectional pin "ARDUINO_RESET_N" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 55
-Warning (13012): Latch VGA_controller:VGA_controller_inst|ver_state_nxt[1] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|ver_state_nxt[0] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[0] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|hor_state_nxt[1] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|hor_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|hor_state_nxt[0] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 62
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|hor_state[0] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[31] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[30] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[29] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[28] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[27] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[26] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[25] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[24] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[23] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[22] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[21] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[20] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[19] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[18] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[17] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[16] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[15] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[14] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[13] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[12] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[11] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[10] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[9] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[8] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[7] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[6] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[5] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[4] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[3] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[2] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[1] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
-Warning (13012): Latch VGA_controller:VGA_controller_inst|line_count_nxt[0] has unsafe behavior File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 101
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal VGA_controller:VGA_controller_inst|ver_state[1] File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 47
 Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "DRAM_ADDR[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 15
     Warning (13410): Pin "DRAM_ADDR[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 15
@@ -1338,16 +1003,16 @@ Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 1 node(s), including 0 DDIO, 1 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 1 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "KEY[1]" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 31
-Info (21057): Implemented 409 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 306 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 3 input pins
     Info (21059): Implemented 97 output pins
     Info (21060): Implemented 35 bidirectional pins
-    Info (21061): Implemented 273 logic cells
+    Info (21061): Implemented 170 logic cells
     Info (21065): Implemented 1 PLLs
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 296 warnings
-    Info: Peak virtual memory: 4870 megabytes
-    Info: Processing ended: Fri Nov 17 18:37:35 2023
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 155 warnings
+    Info: Peak virtual memory: 4869 megabytes
+    Info: Processing ended: Fri Nov 17 18:49:12 2023
     Info: Elapsed time: 00:00:11
-    Info: Total CPU time (on all processors): 00:00:08
+    Info: Total CPU time (on all processors): 00:00:06
 
 
