@@ -227,6 +227,45 @@ begin
     process(R,G,B,request_data,current_line,data_pos)
     begin
         -- We need to draw bricks, ball, and paddle 
+        if request_data = '1' then
+            -- Draw ball
+
+            -- Draw bricks
+            if current_line >= 0 and current_line < 240 then
+                -- calculate brick_y_idx
+                brick_y_idx <= to_integer(current_line >> 3); -- divide current line by 8 
+                brick_x_idx <= to_integer(data_pos >> 4); -- divide data_pos by 16, need to figure out half bricks
+                if brick_tracker(brick_y_idx)(brick_x_idx) = '1' then
+                    if ( current_line & "00000_00111") <= 7 then
+                        nR <= yellow(0);
+                        nG <= yellow(1);
+                        nB <= yellow(2);
+                    else 
+                        if (data_pos & "0000001111") <= 15 then
+                            nR <= red(0);
+                            nG <= red(1);
+                            nB <= red(2);
+                        else
+                            nR <= yellow(0);
+                            nG <= yellow(1);
+                            nB <= yellow(2);
+                        end if;
+                    end if;
+                else
+                    nR <= black(0);
+                    nG <= black(1);
+                    nB <= black(2);
+                end if;
+            end if;
+
+            -- Draw Paddle
+
+            
+        else
+            nR <= black(0);
+            nG <= black(1);
+            nB <= black(2);
+        end if;
     end process;
 
 end architecture Behavioral;
