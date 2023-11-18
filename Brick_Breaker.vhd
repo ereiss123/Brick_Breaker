@@ -1,16 +1,15 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.STD_LOGIC_ARITH.ALL;
-use IEEE.STD_LOGIC_UNSIGNED.ALL;
+use ieee.numeric_std.all;
 library work;
 use work.types.all;
 
 entity Brick_Breaker is
     port (
         -- CLOCK
-        ADC_CLK_10       : in std_logic;
+        -- ADC_CLK_10       : in std_logic;
         MAX10_CLK1_50    : in std_logic;
-        MAX10_CLK2_50    : in std_logic;
+        -- MAX10_CLK2_50    : in std_logic;
 
         -- SDRAM
         DRAM_ADDR        : out std_logic_vector(12 downto 0);
@@ -35,7 +34,7 @@ entity Brick_Breaker is
         LEDR             : out std_logic_vector(9 downto 0);
 
         -- SW
-        SW               : in std_logic_vector(9 downto 0);
+        -- SW               : in std_logic_vector(9 downto 0);
 
         -- VGA
         VGA_B            : out std_logic_vector(3 downto 0);
@@ -46,7 +45,7 @@ entity Brick_Breaker is
 
         -- Accelerometer
         GSENSOR_CS_N     : out std_logic;
-        GSENSOR_INT      : in std_logic_vector(2 downto 1);
+        -- GSENSOR_INT      : in std_logic_vector(2 downto 1);
         GSENSOR_SCLK     : out std_logic;
         GSENSOR_SDI      : inout std_logic;
         GSENSOR_SDO      : inout std_logic;
@@ -120,7 +119,9 @@ begin
         data_pos => data_pos,
         VGA_B => VGA_B,
         VGA_G => VGA_G,
-        VGA_R => VGA_R
+        VGA_R => VGA_R,
+        VGA_HS => VGA_HS,
+        VGA_VS => VGA_VS
     );
     PLL_inst : VGA_PLL 
     port map(
@@ -141,6 +142,7 @@ begin
                 R <= x"F";
                 G <= x"0";
                 B <= x"0";
+
             end if;
         end if;
     end process;

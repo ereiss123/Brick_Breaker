@@ -25,17 +25,9 @@ entity VGA_controller is
 end entity VGA_controller;
 
 architecture rtl of VGA_controller is
-    -- signal areset_sig : std_logic;
-    -- signal inclk0_sig : std_logic;
-    -- signal locked_sig : std_logic;
 
     signal horizontal_counter : integer := 0;
     signal vertical_counter : integer := 0;
-    -- signal rst_l : std_logic := '0';
-    -- signal db_state : std_logic_vector(1 downto 0) := "00";
-    -- signal button_count : integer := 0;
-
-    -- signal flag_state : integer := 0;
     
     signal hor_state : integer := 0;
     signal ver_state : integer := 0;
@@ -156,6 +148,9 @@ begin
                 VGA_G <= G;
                 VGA_B <= B;
             else 
+                VGA_R <= X"0";
+                VGA_G <= X"0";
+                VGA_B <= X"0";
                 request_data <= '0';
                 current_line <= "0000000000";
                 data_pos <= "0000000000";
