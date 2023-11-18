@@ -52,3 +52,6 @@ DE10-Lite_v.2.0.2_SystemCD*
 *.qui*
 db/
 incremental_db/
+Brick_Breaker_nativelink*
+Brick_Breaker.eda*
+*rpt

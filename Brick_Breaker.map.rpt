@@ -1,5 +1,5 @@
 Analysis & Synthesis report for Brick_Breaker
-Fri Nov 17 14:20:05 2023
+Fri Nov 17 17:20:49 2023
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -50,7 +50,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Fri Nov 17 14:20:05 2023       ;
+; Analysis & Synthesis Status        ; Successful - Fri Nov 17 17:20:49 2023       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; Brick_Breaker                               ;
 ; Top-level Entity Name              ; Brick_Breaker                               ;
@@ -59,7 +59,7 @@ refer to the applicable agreement for further details.
 ;     Total combinational functions  ; 166                                         ;
 ;     Dedicated logic registers      ; 106                                         ;
 ; Total registers                    ; 106                                         ;
-; Total pins                         ; 149                                         ;
+; Total pins                         ; 135                                         ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 0                                           ;
 ; Embedded Multiplier 9-bit elements ; 0                                           ;
@@ -211,7 +211,7 @@ refer to the applicable agreement for further details.
 ;     -- Dedicated logic registers            ; 106                                                                                     ;
 ;     -- I/O registers                        ; 0                                                                                       ;
 ;                                             ;                                                                                         ;
-; I/O pins                                    ; 149                                                                                     ;
+; I/O pins                                    ; 135                                                                                     ;
 ;                                             ;                                                                                         ;
 ; Embedded Multiplier 9-bit elements          ; 0                                                                                       ;
 ;                                             ;                                                                                         ;
@@ -220,8 +220,8 @@ refer to the applicable agreement for further details.
 ;                                             ;                                                                                         ;
 ; Maximum fan-out node                        ; VGA_PLL:PLL_inst|altpll:altpll_component|VGA_PLL_altpll:auto_generated|wire_pll1_clk[0] ;
 ; Maximum fan-out                             ; 107                                                                                     ;
-; Total fan-out                               ; 1087                                                                                    ;
-; Average fan-out                             ; 1.79                                                                                    ;
+; Total fan-out                               ; 1073                                                                                    ;
+; Average fan-out                             ; 1.86                                                                                    ;
 +---------------------------------------------+-----------------------------------------------------------------------------------------+
 
 
@@ -230,7 +230,7 @@ refer to the applicable agreement for further details.
 +------------------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------------------------------------------------------------------------+----------------+--------------+
 ; Compilation Hierarchy Node               ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name                                                                   ; Entity Name    ; Library Name ;
 +------------------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------------------------------------------------------------------------+----------------+--------------+
-; |Brick_Breaker                           ; 166 (1)             ; 106 (1)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 149  ; 0            ; 0          ; |Brick_Breaker                                                                        ; Brick_Breaker  ; work         ;
+; |Brick_Breaker                           ; 166 (1)             ; 106 (1)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 135  ; 0            ; 0          ; |Brick_Breaker                                                                        ; Brick_Breaker  ; work         ;
 ;    |VGA_PLL:PLL_inst|                    ; 0 (0)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Brick_Breaker|VGA_PLL:PLL_inst                                                       ; VGA_PLL        ; work         ;
 ;       |altpll:altpll_component|          ; 0 (0)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Brick_Breaker|VGA_PLL:PLL_inst|altpll:altpll_component                               ; altpll         ; work         ;
 ;          |VGA_PLL_altpll:auto_generated| ; 0 (0)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Brick_Breaker|VGA_PLL:PLL_inst|altpll:altpll_component|VGA_PLL_altpll:auto_generated ; VGA_PLL_altpll ; work         ;
@@ -739,7 +739,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; boundary_port         ; 149                         ;
+; boundary_port         ; 135                         ;
 ; cycloneiii_ff         ; 106                         ;
 ;     CLR               ; 5                           ;
 ;     CLR SCLR          ; 64                          ;
@@ -777,13 +777,16 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Fri Nov 17 14:19:54 2023
+    Info: Processing started: Fri Nov 17 17:20:38 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Brick_Breaker -c Brick_Breaker
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
+Info (12021): Found 2 design units, including 1 entities, in source file brick_breaker_tb.vhd
+    Info (12022): Found design unit 1: Brick_Breaker_TB-test File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker_TB.vhd Line: 8
+    Info (12023): Found entity 1: Brick_Breaker_TB File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker_TB.vhd Line: 5
 Info (12021): Found 2 design units, including 1 entities, in source file brick_breaker.vhd
-    Info (12022): Found design unit 1: Brick_Breaker-Behavioral File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 60
-    Info (12023): Found entity 1: Brick_Breaker File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 8
+    Info (12022): Found design unit 1: Brick_Breaker-Behavioral File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 59
+    Info (12023): Found entity 1: Brick_Breaker File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 7
 Info (12021): Found 2 design units, including 1 entities, in source file vga_controller.vhd
     Info (12022): Found design unit 1: VGA_controller-rtl File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 27
     Info (12023): Found entity 1: VGA_controller File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_controller.vhd Line: 6
@@ -797,32 +800,32 @@ Info (12021): Found 2 design units, including 1 entities, in source file vga_pll
     Info (12023): Found entity 1: VGA_PLL File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_PLL.vhd Line: 42
 Info (12127): Elaborating entity "Brick_Breaker" for the top level hierarchy
 Warning (10445): VHDL Subtype or Type Declaration warning at types.vhd(7): subtype or type has null range File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/types.vhd Line: 7
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(16): used implicit default value for signal "DRAM_ADDR" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 16
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(17): used implicit default value for signal "DRAM_BA" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 17
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(18): used implicit default value for signal "DRAM_CAS_N" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 18
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(19): used implicit default value for signal "DRAM_CKE" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 19
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(20): used implicit default value for signal "DRAM_CLK" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 20
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(21): used implicit default value for signal "DRAM_CS_N" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 21
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(23): used implicit default value for signal "DRAM_LDQM" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 23
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(24): used implicit default value for signal "DRAM_RAS_N" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 24
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(25): used implicit default value for signal "DRAM_UDQM" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 25
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(26): used implicit default value for signal "DRAM_WE_N" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 26
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(29): used implicit default value for signal "HEX0" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(29): used implicit default value for signal "HEX1" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(29): used implicit default value for signal "HEX2" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(29): used implicit default value for signal "HEX3" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(29): used implicit default value for signal "HEX4" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(29): used implicit default value for signal "HEX5" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(35): used implicit default value for signal "LEDR" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 35
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(43): used implicit default value for signal "VGA_HS" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 43
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(45): used implicit default value for signal "VGA_VS" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 45
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(48): used implicit default value for signal "GSENSOR_CS_N" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 48
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(50): used implicit default value for signal "GSENSOR_SCLK" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 50
-Warning (10036): Verilog HDL or VHDL warning at Brick_Breaker.vhd(100): object "current_line" assigned a value but never read File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 100
-Warning (10036): Verilog HDL or VHDL warning at Brick_Breaker.vhd(101): object "data_pos" assigned a value but never read File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 101
-Warning (10036): Verilog HDL or VHDL warning at Brick_Breaker.vhd(103): object "locked_sig" assigned a value but never read File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 103
-Info (12128): Elaborating entity "VGA_controller" for hierarchy "VGA_controller:VGA_controller_inst" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 110
-Info (12128): Elaborating entity "VGA_PLL" for hierarchy "VGA_PLL:PLL_inst" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 125
+Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(15): used implicit default value for signal "DRAM_ADDR" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 15
+Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(16): used implicit default value for signal "DRAM_BA" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 16
+Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(17): used implicit default value for signal "DRAM_CAS_N" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 17
+Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(18): used implicit default value for signal "DRAM_CKE" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 18
+Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(19): used implicit default value for signal "DRAM_CLK" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 19
+Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(20): used implicit default value for signal "DRAM_CS_N" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 20
+Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(22): used implicit default value for signal "DRAM_LDQM" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 22
+Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(23): used implicit default value for signal "DRAM_RAS_N" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 23
+Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(24): used implicit default value for signal "DRAM_UDQM" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 24
+Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(25): used implicit default value for signal "DRAM_WE_N" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 25
+Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(28): used implicit default value for signal "HEX0" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(28): used implicit default value for signal "HEX1" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(28): used implicit default value for signal "HEX2" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(28): used implicit default value for signal "HEX3" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(28): used implicit default value for signal "HEX4" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(28): used implicit default value for signal "HEX5" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(34): used implicit default value for signal "LEDR" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 34
+Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(42): used implicit default value for signal "VGA_HS" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 42
+Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(44): used implicit default value for signal "VGA_VS" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 44
+Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(47): used implicit default value for signal "GSENSOR_CS_N" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 47
+Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(49): used implicit default value for signal "GSENSOR_SCLK" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 49
+Warning (10036): Verilog HDL or VHDL warning at Brick_Breaker.vhd(99): object "current_line" assigned a value but never read File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 99
+Warning (10036): Verilog HDL or VHDL warning at Brick_Breaker.vhd(100): object "data_pos" assigned a value but never read File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 100
+Warning (10036): Verilog HDL or VHDL warning at Brick_Breaker.vhd(102): object "locked_sig" assigned a value but never read File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 102
+Info (12128): Elaborating entity "VGA_controller" for hierarchy "VGA_controller:VGA_controller_inst" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 109
+Info (12128): Elaborating entity "VGA_PLL" for hierarchy "VGA_PLL:PLL_inst" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 124
 Info (12128): Elaborating entity "altpll" for hierarchy "VGA_PLL:PLL_inst|altpll:altpll_component" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_PLL.vhd Line: 140
 Info (12130): Elaborated megafunction instantiation "VGA_PLL:PLL_inst|altpll:altpll_component" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_PLL.vhd Line: 140
 Info (12133): Instantiated megafunction "VGA_PLL:PLL_inst|altpll:altpll_component" with the following parameter: File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_PLL.vhd Line: 140
@@ -885,164 +888,150 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/vga_
     Info (12023): Found entity 1: VGA_PLL_altpll File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/db/vga_pll_altpll.v Line: 30
 Info (12128): Elaborating entity "VGA_PLL_altpll" for hierarchy "VGA_PLL:PLL_inst|altpll:altpll_component|VGA_PLL_altpll:auto_generated" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altpll.tdf Line: 897
 Warning (13039): The following bidirectional pins have no drivers
-    Warning (13040): bidirectional pin "DRAM_DQ[0]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 22
-    Warning (13040): bidirectional pin "DRAM_DQ[1]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 22
-    Warning (13040): bidirectional pin "DRAM_DQ[2]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 22
-    Warning (13040): bidirectional pin "DRAM_DQ[3]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 22
-    Warning (13040): bidirectional pin "DRAM_DQ[4]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 22
-    Warning (13040): bidirectional pin "DRAM_DQ[5]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 22
-    Warning (13040): bidirectional pin "DRAM_DQ[6]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 22
-    Warning (13040): bidirectional pin "DRAM_DQ[7]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 22
-    Warning (13040): bidirectional pin "DRAM_DQ[8]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 22
-    Warning (13040): bidirectional pin "DRAM_DQ[9]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 22
-    Warning (13040): bidirectional pin "DRAM_DQ[10]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 22
-    Warning (13040): bidirectional pin "DRAM_DQ[11]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 22
-    Warning (13040): bidirectional pin "DRAM_DQ[12]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 22
-    Warning (13040): bidirectional pin "DRAM_DQ[13]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 22
-    Warning (13040): bidirectional pin "DRAM_DQ[14]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 22
-    Warning (13040): bidirectional pin "DRAM_DQ[15]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 22
-    Warning (13040): bidirectional pin "GSENSOR_SDI" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 51
-    Warning (13040): bidirectional pin "GSENSOR_SDO" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 52
-    Warning (13040): bidirectional pin "ARDUINO_IO[0]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 55
-    Warning (13040): bidirectional pin "ARDUINO_IO[1]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 55
-    Warning (13040): bidirectional pin "ARDUINO_IO[2]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 55
-    Warning (13040): bidirectional pin "ARDUINO_IO[3]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 55
-    Warning (13040): bidirectional pin "ARDUINO_IO[4]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 55
-    Warning (13040): bidirectional pin "ARDUINO_IO[5]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 55
-    Warning (13040): bidirectional pin "ARDUINO_IO[6]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 55
-    Warning (13040): bidirectional pin "ARDUINO_IO[7]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 55
-    Warning (13040): bidirectional pin "ARDUINO_IO[8]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 55
-    Warning (13040): bidirectional pin "ARDUINO_IO[9]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 55
-    Warning (13040): bidirectional pin "ARDUINO_IO[10]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 55
-    Warning (13040): bidirectional pin "ARDUINO_IO[11]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 55
-    Warning (13040): bidirectional pin "ARDUINO_IO[12]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 55
-    Warning (13040): bidirectional pin "ARDUINO_IO[13]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 55
-    Warning (13040): bidirectional pin "ARDUINO_IO[14]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 55
-    Warning (13040): bidirectional pin "ARDUINO_IO[15]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 55
-    Warning (13040): bidirectional pin "ARDUINO_RESET_N" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 56
+    Warning (13040): bidirectional pin "DRAM_DQ[0]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 21
+    Warning (13040): bidirectional pin "DRAM_DQ[1]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 21
+    Warning (13040): bidirectional pin "DRAM_DQ[2]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 21
+    Warning (13040): bidirectional pin "DRAM_DQ[3]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 21
+    Warning (13040): bidirectional pin "DRAM_DQ[4]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 21
+    Warning (13040): bidirectional pin "DRAM_DQ[5]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 21
+    Warning (13040): bidirectional pin "DRAM_DQ[6]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 21
+    Warning (13040): bidirectional pin "DRAM_DQ[7]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 21
+    Warning (13040): bidirectional pin "DRAM_DQ[8]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 21
+    Warning (13040): bidirectional pin "DRAM_DQ[9]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 21
+    Warning (13040): bidirectional pin "DRAM_DQ[10]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 21
+    Warning (13040): bidirectional pin "DRAM_DQ[11]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 21
+    Warning (13040): bidirectional pin "DRAM_DQ[12]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 21
+    Warning (13040): bidirectional pin "DRAM_DQ[13]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 21
+    Warning (13040): bidirectional pin "DRAM_DQ[14]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 21
+    Warning (13040): bidirectional pin "DRAM_DQ[15]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 21
+    Warning (13040): bidirectional pin "GSENSOR_SDI" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 50
+    Warning (13040): bidirectional pin "GSENSOR_SDO" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 51
+    Warning (13040): bidirectional pin "ARDUINO_IO[0]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 54
+    Warning (13040): bidirectional pin "ARDUINO_IO[1]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 54
+    Warning (13040): bidirectional pin "ARDUINO_IO[2]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 54
+    Warning (13040): bidirectional pin "ARDUINO_IO[3]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 54
+    Warning (13040): bidirectional pin "ARDUINO_IO[4]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 54
+    Warning (13040): bidirectional pin "ARDUINO_IO[5]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 54
+    Warning (13040): bidirectional pin "ARDUINO_IO[6]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 54
+    Warning (13040): bidirectional pin "ARDUINO_IO[7]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 54
+    Warning (13040): bidirectional pin "ARDUINO_IO[8]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 54
+    Warning (13040): bidirectional pin "ARDUINO_IO[9]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 54
+    Warning (13040): bidirectional pin "ARDUINO_IO[10]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 54
+    Warning (13040): bidirectional pin "ARDUINO_IO[11]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 54
+    Warning (13040): bidirectional pin "ARDUINO_IO[12]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 54
+    Warning (13040): bidirectional pin "ARDUINO_IO[13]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 54
+    Warning (13040): bidirectional pin "ARDUINO_IO[14]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 54
+    Warning (13040): bidirectional pin "ARDUINO_IO[15]" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 54
+    Warning (13040): bidirectional pin "ARDUINO_RESET_N" has no driver File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 55
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "DRAM_ADDR[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 16
-    Warning (13410): Pin "DRAM_ADDR[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 16
-    Warning (13410): Pin "DRAM_ADDR[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 16
-    Warning (13410): Pin "DRAM_ADDR[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 16
-    Warning (13410): Pin "DRAM_ADDR[4]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 16
-    Warning (13410): Pin "DRAM_ADDR[5]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 16
-    Warning (13410): Pin "DRAM_ADDR[6]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 16
-    Warning (13410): Pin "DRAM_ADDR[7]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 16
-    Warning (13410): Pin "DRAM_ADDR[8]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 16
-    Warning (13410): Pin "DRAM_ADDR[9]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 16
-    Warning (13410): Pin "DRAM_ADDR[10]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 16
-    Warning (13410): Pin "DRAM_ADDR[11]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 16
-    Warning (13410): Pin "DRAM_ADDR[12]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 16
-    Warning (13410): Pin "DRAM_BA[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 17
-    Warning (13410): Pin "DRAM_BA[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 17
-    Warning (13410): Pin "DRAM_CAS_N" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 18
-    Warning (13410): Pin "DRAM_CKE" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 19
-    Warning (13410): Pin "DRAM_CLK" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 20
-    Warning (13410): Pin "DRAM_CS_N" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 21
-    Warning (13410): Pin "DRAM_LDQM" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 23
-    Warning (13410): Pin "DRAM_RAS_N" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 24
-    Warning (13410): Pin "DRAM_UDQM" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 25
-    Warning (13410): Pin "DRAM_WE_N" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 26
-    Warning (13410): Pin "HEX0[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX0[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX0[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX0[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX0[4]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX0[5]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX0[6]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX0[7]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX1[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX1[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX1[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX1[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX1[4]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX1[5]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX1[6]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX1[7]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX2[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX2[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX2[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX2[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX2[4]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX2[5]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX2[6]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX2[7]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX3[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX3[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX3[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX3[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX3[4]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX3[5]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX3[6]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX3[7]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX4[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX4[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX4[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX4[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX4[4]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX4[5]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX4[6]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX4[7]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX5[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX5[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX5[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX5[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX5[4]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX5[5]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX5[6]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "HEX5[7]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 29
-    Warning (13410): Pin "LEDR[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 35
-    Warning (13410): Pin "LEDR[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 35
-    Warning (13410): Pin "LEDR[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 35
-    Warning (13410): Pin "LEDR[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 35
-    Warning (13410): Pin "LEDR[4]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 35
-    Warning (13410): Pin "LEDR[5]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 35
-    Warning (13410): Pin "LEDR[6]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 35
-    Warning (13410): Pin "LEDR[7]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 35
-    Warning (13410): Pin "LEDR[8]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 35
-    Warning (13410): Pin "LEDR[9]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 35
-    Warning (13410): Pin "VGA_B[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 41
-    Warning (13410): Pin "VGA_B[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 41
-    Warning (13410): Pin "VGA_B[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 41
-    Warning (13410): Pin "VGA_B[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 41
-    Warning (13410): Pin "VGA_G[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 42
-    Warning (13410): Pin "VGA_G[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 42
-    Warning (13410): Pin "VGA_G[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 42
-    Warning (13410): Pin "VGA_G[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 42
-    Warning (13410): Pin "VGA_HS" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 43
-    Warning (13410): Pin "VGA_VS" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 45
-    Warning (13410): Pin "GSENSOR_CS_N" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 48
-    Warning (13410): Pin "GSENSOR_SCLK" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 50
+    Warning (13410): Pin "DRAM_ADDR[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 15
+    Warning (13410): Pin "DRAM_ADDR[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 15
+    Warning (13410): Pin "DRAM_ADDR[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 15
+    Warning (13410): Pin "DRAM_ADDR[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 15
+    Warning (13410): Pin "DRAM_ADDR[4]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 15
+    Warning (13410): Pin "DRAM_ADDR[5]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 15
+    Warning (13410): Pin "DRAM_ADDR[6]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 15
+    Warning (13410): Pin "DRAM_ADDR[7]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 15
+    Warning (13410): Pin "DRAM_ADDR[8]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 15
+    Warning (13410): Pin "DRAM_ADDR[9]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 15
+    Warning (13410): Pin "DRAM_ADDR[10]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 15
+    Warning (13410): Pin "DRAM_ADDR[11]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 15
+    Warning (13410): Pin "DRAM_ADDR[12]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 15
+    Warning (13410): Pin "DRAM_BA[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 16
+    Warning (13410): Pin "DRAM_BA[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 16
+    Warning (13410): Pin "DRAM_CAS_N" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 17
+    Warning (13410): Pin "DRAM_CKE" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 18
+    Warning (13410): Pin "DRAM_CLK" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 19
+    Warning (13410): Pin "DRAM_CS_N" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 20
+    Warning (13410): Pin "DRAM_LDQM" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 22
+    Warning (13410): Pin "DRAM_RAS_N" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 23
+    Warning (13410): Pin "DRAM_UDQM" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 24
+    Warning (13410): Pin "DRAM_WE_N" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 25
+    Warning (13410): Pin "HEX0[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX0[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX0[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX0[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX0[4]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX0[5]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX0[6]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX0[7]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX1[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX1[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX1[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX1[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX1[4]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX1[5]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX1[6]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX1[7]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX2[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX2[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX2[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX2[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX2[4]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX2[5]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX2[6]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX2[7]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX3[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX3[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX3[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX3[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX3[4]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX3[5]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX3[6]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX3[7]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX4[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX4[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX4[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX4[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX4[4]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX4[5]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX4[6]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX4[7]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX5[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX5[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX5[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX5[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX5[4]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX5[5]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX5[6]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "HEX5[7]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
+    Warning (13410): Pin "LEDR[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 34
+    Warning (13410): Pin "LEDR[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 34
+    Warning (13410): Pin "LEDR[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 34
+    Warning (13410): Pin "LEDR[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 34
+    Warning (13410): Pin "LEDR[4]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 34
+    Warning (13410): Pin "LEDR[5]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 34
+    Warning (13410): Pin "LEDR[6]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 34
+    Warning (13410): Pin "LEDR[7]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 34
+    Warning (13410): Pin "LEDR[8]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 34
+    Warning (13410): Pin "LEDR[9]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 34
+    Warning (13410): Pin "VGA_B[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 40
+    Warning (13410): Pin "VGA_B[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 40
+    Warning (13410): Pin "VGA_B[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 40
+    Warning (13410): Pin "VGA_B[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 40
+    Warning (13410): Pin "VGA_G[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 41
+    Warning (13410): Pin "VGA_G[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 41
+    Warning (13410): Pin "VGA_G[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 41
+    Warning (13410): Pin "VGA_G[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 41
+    Warning (13410): Pin "VGA_HS" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 42
+    Warning (13410): Pin "VGA_VS" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 44
+    Warning (13410): Pin "GSENSOR_CS_N" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 47
+    Warning (13410): Pin "GSENSOR_SCLK" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 49
 Info (286030): Timing-Driven Synthesis is running
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 1 node(s), including 0 DDIO, 1 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 15 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "ADC_CLK_10" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 11
-    Warning (15610): No output dependent on input pin "MAX10_CLK2_50" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 13
-    Warning (15610): No output dependent on input pin "KEY[1]" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 32
-    Warning (15610): No output dependent on input pin "SW[0]" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 38
-    Warning (15610): No output dependent on input pin "SW[1]" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 38
-    Warning (15610): No output dependent on input pin "SW[2]" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 38
-    Warning (15610): No output dependent on input pin "SW[3]" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 38
-    Warning (15610): No output dependent on input pin "SW[4]" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 38
-    Warning (15610): No output dependent on input pin "SW[5]" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 38
-    Warning (15610): No output dependent on input pin "SW[6]" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 38
-    Warning (15610): No output dependent on input pin "SW[7]" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 38
-    Warning (15610): No output dependent on input pin "SW[8]" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 38
-    Warning (15610): No output dependent on input pin "SW[9]" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 38
-    Warning (15610): No output dependent on input pin "GSENSOR_INT[1]" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 49
-    Warning (15610): No output dependent on input pin "GSENSOR_INT[2]" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 49
-Info (21057): Implemented 320 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 17 input pins
+Warning (21074): Design contains 1 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "KEY[1]" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 31
+Info (21057): Implemented 306 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 3 input pins
     Info (21059): Implemented 97 output pins
     Info (21060): Implemented 35 bidirectional pins
     Info (21061): Implemented 170 logic cells
     Info (21065): Implemented 1 PLLs
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 172 warnings
-    Info: Peak virtual memory: 4876 megabytes
-    Info: Processing ended: Fri Nov 17 14:20:05 2023
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 158 warnings
+    Info: Peak virtual memory: 4871 megabytes
+    Info: Processing ended: Fri Nov 17 17:20:49 2023
     Info: Elapsed time: 00:00:11
-    Info: Total CPU time (on all processors): 00:00:07
+    Info: Total CPU time (on all processors): 00:00:08
 
 
