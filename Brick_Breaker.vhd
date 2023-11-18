@@ -89,6 +89,15 @@ architecture Behavioral of Brick_Breaker is
         );
     end component;
 
+    component debouncer
+        port(
+            clk : in std_logic;
+            rst : in std_logic;
+            button : in std_logic;
+            button_debounced : out std_logic
+        );
+    end component;
+
     -- Signal declaration
     signal rst : std_logic;
     signal rst_l : std_logic;
@@ -100,6 +109,8 @@ architecture Behavioral of Brick_Breaker is
     signal data_pos : unsigned(9 downto 0);
     signal c0_sig : std_logic;
     signal locked_sig : std_logic;
+
+    signal next_ball : std_logic;
 
     -- Colors
     signal white : color := (x"F",x"F",x"F");
@@ -135,6 +146,14 @@ begin
         inclk0	 => MAX10_CLK1_50,
         c0	 => c0_sig,
         locked	 => locked_sig
+    );
+
+    db_inst : debouncer
+    port map(
+        clk => c0_sig,
+        rst => rst_l,
+        button => KEY(1),
+        button_debounced => next_ball
     );
 
     process(c0_sig,rst_l) 
