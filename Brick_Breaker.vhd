@@ -101,6 +101,12 @@ architecture Behavioral of Brick_Breaker is
     signal c0_sig : std_logic;
     signal locked_sig : std_logic;
 
+    -- Colors
+    signal white : color := (x"F",x"F",x"F");
+    signal black : color := (x"0",x"0",x"0");
+    signal red : color := (x"C",x"F",x"3");
+    signal yellow : color := (x"B",x"5",x"9");
+
 
 begin
     rst_l <= KEY(0);

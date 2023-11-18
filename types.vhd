@@ -12,8 +12,9 @@ package types is
     type ball is array(9 downto 0, 9 downto 0) of std_logic;
    
     -- Colors
-    type white is array(2 downto 0) of std_logic_vector(3 downto 0);
-    type black is array(2 downto 0) of std_logic_vector(3 downto 0);-- := ("0x0","0x0","0x0");
-    type brick_color is array(2 downto 0) of std_logic_vector(3 downto 0);-- := ("0xC","0xF","0x3") ; -- orange-ish
-    type mortar_color is array(2 downto 0) of std_logic_vector(3 downto 0);-- := ("0xB","0x5","0x9") ; -- yellow-ish
+    type color is array(2 downto 0) of std_logic_vector(3 downto 0);
+    -- e white is array(2 downto 0) of std_logic_vector(3 downto 0);
+    -- type black is array(2 downto 0) of std_logic_vector(3 downto 0);-- := ("0x0","0x0","0x0");
+    -- type brick_color is array(2 downto 0) of std_logic_vector(3 downto 0);-- := ("0xC","0xF","0x3") ; -- orange-ish
+    -- type mortar_color is array(2 downto 0) of std_logic_vector(3 downto 0);-- := ("0xB","0x5","0x9") ; -- yellow-ish
 end package types;
