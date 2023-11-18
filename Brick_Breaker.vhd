@@ -236,10 +236,19 @@ begin
     begin
         -- We need to draw bricks, ball, and paddle 
         if request_data = '1' then
-            -- TODO: Draw ball
-
+            -- Draw ball
+            if current_line >= ball_pos(1) and current_line < (ball_pos(1)+10) then
+                if data_pos >= ball_pos(0) and data_pos < (ball_pos(0)+10) then
+                    nR <= white(0);
+                    nG <= white(1);
+                    nB <= white(2);
+                else
+                    nR <= black(0);
+                    nG <= black(1);
+                    nB <= black(2);
+                end if;
             -- Draw bricks
-            if current_line >= 0 and current_line < 240 then
+            elsif current_line >= 0 and current_line < 240 then
                 -- calculate brick_y_idx
                 brick_y_idx <= to_integer(shift_right(current_line, 3)); -- divide current line by 8 
                 brick_x_idx <= to_integer(shift_right(data_pos, 4)); -- divide data_pos by 16, need to figure out half bricks
