@@ -82,7 +82,7 @@ begin
             if horizontal_counter < 47 then
                 horizontal_counter_n <= horizontal_counter + 1;
             else
-                horizontal_counter <= 0;
+                horizontal_counter_n <= 0;
                 hor_state_n <= 3;
             end if;
         when 3 =>
