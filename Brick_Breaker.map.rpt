@@ -1,5 +1,5 @@
 Analysis & Synthesis report for Brick_Breaker
-Fri Nov 17 17:20:49 2023
+Fri Nov 17 18:06:33 2023
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -50,15 +50,15 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Fri Nov 17 17:20:49 2023       ;
+; Analysis & Synthesis Status        ; Successful - Fri Nov 17 18:06:33 2023       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; Brick_Breaker                               ;
 ; Top-level Entity Name              ; Brick_Breaker                               ;
 ; Family                             ; MAX 10                                      ;
-; Total logic elements               ; 170                                         ;
-;     Total combinational functions  ; 166                                         ;
-;     Dedicated logic registers      ; 106                                         ;
-; Total registers                    ; 106                                         ;
+; Total logic elements               ; 176                                         ;
+;     Total combinational functions  ; 169                                         ;
+;     Dedicated logic registers      ; 112                                         ;
+; Total registers                    ; 112                                         ;
 ; Total pins                         ; 135                                         ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 0                                           ;
@@ -195,20 +195,20 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+-----------------------------------------------------------------------------------------+
 ; Resource                                    ; Usage                                                                                   ;
 +---------------------------------------------+-----------------------------------------------------------------------------------------+
-; Estimated Total logic elements              ; 170                                                                                     ;
+; Estimated Total logic elements              ; 176                                                                                     ;
 ;                                             ;                                                                                         ;
-; Total combinational functions               ; 166                                                                                     ;
+; Total combinational functions               ; 169                                                                                     ;
 ; Logic element usage by number of LUT inputs ;                                                                                         ;
-;     -- 4 input functions                    ; 54                                                                                      ;
-;     -- 3 input functions                    ; 13                                                                                      ;
+;     -- 4 input functions                    ; 56                                                                                      ;
+;     -- 3 input functions                    ; 14                                                                                      ;
 ;     -- <=2 input functions                  ; 99                                                                                      ;
 ;                                             ;                                                                                         ;
 ; Logic elements by mode                      ;                                                                                         ;
-;     -- normal mode                          ; 73                                                                                      ;
+;     -- normal mode                          ; 76                                                                                      ;
 ;     -- arithmetic mode                      ; 93                                                                                      ;
 ;                                             ;                                                                                         ;
-; Total registers                             ; 106                                                                                     ;
-;     -- Dedicated logic registers            ; 106                                                                                     ;
+; Total registers                             ; 112                                                                                     ;
+;     -- Dedicated logic registers            ; 112                                                                                     ;
 ;     -- I/O registers                        ; 0                                                                                       ;
 ;                                             ;                                                                                         ;
 ; I/O pins                                    ; 135                                                                                     ;
@@ -219,9 +219,9 @@ refer to the applicable agreement for further details.
 ;     -- PLLs                                 ; 1                                                                                       ;
 ;                                             ;                                                                                         ;
 ; Maximum fan-out node                        ; VGA_PLL:PLL_inst|altpll:altpll_component|VGA_PLL_altpll:auto_generated|wire_pll1_clk[0] ;
-; Maximum fan-out                             ; 107                                                                                     ;
-; Total fan-out                               ; 1073                                                                                    ;
-; Average fan-out                             ; 1.86                                                                                    ;
+; Maximum fan-out                             ; 113                                                                                     ;
+; Total fan-out                               ; 1108                                                                                    ;
+; Average fan-out                             ; 1.89                                                                                    ;
 +---------------------------------------------+-----------------------------------------------------------------------------------------+
 
 
@@ -230,11 +230,11 @@ refer to the applicable agreement for further details.
 +------------------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------------------------------------------------------------------------+----------------+--------------+
 ; Compilation Hierarchy Node               ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name                                                                   ; Entity Name    ; Library Name ;
 +------------------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------------------------------------------------------------------------+----------------+--------------+
-; |Brick_Breaker                           ; 166 (1)             ; 106 (1)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 135  ; 0            ; 0          ; |Brick_Breaker                                                                        ; Brick_Breaker  ; work         ;
+; |Brick_Breaker                           ; 169 (1)             ; 112 (1)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 135  ; 0            ; 0          ; |Brick_Breaker                                                                        ; Brick_Breaker  ; work         ;
 ;    |VGA_PLL:PLL_inst|                    ; 0 (0)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Brick_Breaker|VGA_PLL:PLL_inst                                                       ; VGA_PLL        ; work         ;
 ;       |altpll:altpll_component|          ; 0 (0)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Brick_Breaker|VGA_PLL:PLL_inst|altpll:altpll_component                               ; altpll         ; work         ;
 ;          |VGA_PLL_altpll:auto_generated| ; 0 (0)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Brick_Breaker|VGA_PLL:PLL_inst|altpll:altpll_component|VGA_PLL_altpll:auto_generated ; VGA_PLL_altpll ; work         ;
-;    |VGA_controller:VGA_controller_inst|  ; 165 (165)           ; 105 (105)                 ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Brick_Breaker|VGA_controller:VGA_controller_inst                                     ; VGA_controller ; work         ;
+;    |VGA_controller:VGA_controller_inst|  ; 168 (168)           ; 111 (111)                 ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Brick_Breaker|VGA_controller:VGA_controller_inst                                     ; VGA_controller ; work         ;
 +------------------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------------------------------------------------------------------------+----------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -254,19 +254,22 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Register name                                             ; Reason for Removal                                           ;
 +-----------------------------------------------------------+--------------------------------------------------------------+
 ; B[0]                                                      ; Stuck at GND due to stuck port data_in                       ;
-; G[0..3]                                                   ; Stuck at GND due to stuck port data_in                       ;
-; B[1..3]                                                   ; Stuck at GND due to stuck port data_in                       ;
-; VGA_controller:VGA_controller_inst|VGA_B[0]               ; Stuck at GND due to stuck port data_in                       ;
-; VGA_controller:VGA_controller_inst|VGA_G[0..3]            ; Stuck at GND due to stuck port data_in                       ;
-; VGA_controller:VGA_controller_inst|VGA_B[1..3]            ; Stuck at GND due to stuck port data_in                       ;
+; R[2,3]                                                    ; Stuck at GND due to stuck port data_in                       ;
+; B[1]                                                      ; Stuck at GND due to stuck port data_in                       ;
+; VGA_controller:VGA_controller_inst|VGA_R[2,3]             ; Stuck at GND due to stuck port data_in                       ;
+; VGA_controller:VGA_controller_inst|VGA_B[0,1]             ; Stuck at GND due to stuck port data_in                       ;
+; B[2]                                                      ; Merged with B[3]                                             ;
+; B[3]                                                      ; Merged with G[0]                                             ;
+; G[0]                                                      ; Merged with G[1]                                             ;
+; G[1]                                                      ; Merged with G[2]                                             ;
+; G[2]                                                      ; Merged with G[3]                                             ;
+; G[3]                                                      ; Merged with R[0]                                             ;
 ; R[0]                                                      ; Merged with R[1]                                             ;
-; R[1]                                                      ; Merged with R[2]                                             ;
-; R[2]                                                      ; Merged with R[3]                                             ;
 ; VGA_controller:VGA_controller_inst|ver_state[2..9,11..31] ; Merged with VGA_controller:VGA_controller_inst|ver_state[10] ;
 ; VGA_controller:VGA_controller_inst|hor_state[2..9,11..31] ; Merged with VGA_controller:VGA_controller_inst|hor_state[10] ;
 ; VGA_controller:VGA_controller_inst|hor_state[10]          ; Stuck at GND due to stuck port data_in                       ;
 ; VGA_controller:VGA_controller_inst|ver_state[10]          ; Stuck at GND due to stuck port data_in                       ;
-; Total Number of Removed Registers = 79                    ;                                                              ;
+; Total Number of Removed Registers = 75                    ;                                                              ;
 +-----------------------------------------------------------+--------------------------------------------------------------+
 
 
@@ -277,17 +280,9 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +---------------+---------------------------+---------------------------------------------+
 ; B[0]          ; Stuck at GND              ; VGA_controller:VGA_controller_inst|VGA_B[0] ;
 ;               ; due to stuck port data_in ;                                             ;
-; G[3]          ; Stuck at GND              ; VGA_controller:VGA_controller_inst|VGA_G[3] ;
+; R[3]          ; Stuck at GND              ; VGA_controller:VGA_controller_inst|VGA_R[3] ;
 ;               ; due to stuck port data_in ;                                             ;
-; G[2]          ; Stuck at GND              ; VGA_controller:VGA_controller_inst|VGA_G[2] ;
-;               ; due to stuck port data_in ;                                             ;
-; G[1]          ; Stuck at GND              ; VGA_controller:VGA_controller_inst|VGA_G[1] ;
-;               ; due to stuck port data_in ;                                             ;
-; G[0]          ; Stuck at GND              ; VGA_controller:VGA_controller_inst|VGA_G[0] ;
-;               ; due to stuck port data_in ;                                             ;
-; B[3]          ; Stuck at GND              ; VGA_controller:VGA_controller_inst|VGA_B[3] ;
-;               ; due to stuck port data_in ;                                             ;
-; B[2]          ; Stuck at GND              ; VGA_controller:VGA_controller_inst|VGA_B[2] ;
+; R[2]          ; Stuck at GND              ; VGA_controller:VGA_controller_inst|VGA_R[2] ;
 ;               ; due to stuck port data_in ;                                             ;
 ; B[1]          ; Stuck at GND              ; VGA_controller:VGA_controller_inst|VGA_B[1] ;
 ;               ; due to stuck port data_in ;                                             ;
@@ -299,12 +294,12 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 106   ;
+; Total registers                              ; 112   ;
 ; Number of registers using Synchronous Clear  ; 96    ;
 ; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 101   ;
+; Number of registers using Asynchronous Clear ; 103   ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 37    ;
+; Number of registers using Clock Enable       ; 41    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -314,11 +309,11 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                               ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------------------------+
-; 5:1                ; 32 bits   ; 96 LEs        ; 32 LEs               ; 64 LEs                 ; Yes        ; |Brick_Breaker|VGA_controller:VGA_controller_inst|line_count[24]         ;
-; 12:1               ; 3 bits    ; 24 LEs        ; 9 LEs                ; 15 LEs                 ; Yes        ; |Brick_Breaker|VGA_controller:VGA_controller_inst|hor_state[1]           ;
-; 12:1               ; 32 bits   ; 256 LEs       ; 32 LEs               ; 224 LEs                ; Yes        ; |Brick_Breaker|VGA_controller:VGA_controller_inst|horizontal_counter[15] ;
+; 5:1                ; 32 bits   ; 96 LEs        ; 32 LEs               ; 64 LEs                 ; Yes        ; |Brick_Breaker|VGA_controller:VGA_controller_inst|line_count[26]         ;
+; 12:1               ; 3 bits    ; 24 LEs        ; 9 LEs                ; 15 LEs                 ; Yes        ; |Brick_Breaker|VGA_controller:VGA_controller_inst|hor_state[10]          ;
+; 12:1               ; 32 bits   ; 256 LEs       ; 32 LEs               ; 224 LEs                ; Yes        ; |Brick_Breaker|VGA_controller:VGA_controller_inst|horizontal_counter[16] ;
 ; 12:1               ; 3 bits    ; 24 LEs        ; 9 LEs                ; 15 LEs                 ; Yes        ; |Brick_Breaker|VGA_controller:VGA_controller_inst|ver_state[1]           ;
-; 13:1               ; 32 bits   ; 256 LEs       ; 32 LEs               ; 224 LEs                ; Yes        ; |Brick_Breaker|VGA_controller:VGA_controller_inst|vertical_counter[0]    ;
+; 13:1               ; 32 bits   ; 256 LEs       ; 32 LEs               ; 224 LEs                ; Yes        ; |Brick_Breaker|VGA_controller:VGA_controller_inst|vertical_counter[2]    ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------------------------+
 
 
@@ -729,8 +724,6 @@ Note: In order to hide this table in the UI and the text report file, please set
 +--------------+--------+----------+-------------------------------------------------------------------------------------+
 ; current_line ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
 ; data_pos     ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-; vga_hs       ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-; vga_vs       ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
 +--------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
@@ -740,25 +733,25 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 135                         ;
-; cycloneiii_ff         ; 106                         ;
-;     CLR               ; 5                           ;
+; cycloneiii_ff         ; 112                         ;
+;     CLR               ; 7                           ;
 ;     CLR SCLR          ; 64                          ;
-;     ENA               ; 5                           ;
+;     ENA               ; 9                           ;
 ;     ENA CLR SCLR      ; 32                          ;
 ; cycloneiii_io_obuf    ; 35                          ;
-; cycloneiii_lcell_comb ; 167                         ;
+; cycloneiii_lcell_comb ; 170                         ;
 ;     arith             ; 93                          ;
 ;         2 data inputs ; 93                          ;
-;     normal            ; 74                          ;
+;     normal            ; 77                          ;
 ;         0 data inputs ; 1                           ;
 ;         1 data inputs ; 3                           ;
 ;         2 data inputs ; 3                           ;
-;         3 data inputs ; 13                          ;
-;         4 data inputs ; 54                          ;
+;         3 data inputs ; 14                          ;
+;         4 data inputs ; 56                          ;
 ; cycloneiii_pll        ; 1                           ;
 ;                       ;                             ;
 ; Max LUT depth         ; 8.00                        ;
-; Average LUT depth     ; 4.23                        ;
+; Average LUT depth     ; 4.17                        ;
 +-----------------------+-----------------------------+
 
 
@@ -777,7 +770,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Fri Nov 17 17:20:38 2023
+    Info: Processing started: Fri Nov 17 18:06:21 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Brick_Breaker -c Brick_Breaker
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
@@ -817,15 +810,14 @@ Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(28): used 
 Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(28): used implicit default value for signal "HEX4" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
 Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(28): used implicit default value for signal "HEX5" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 28
 Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(34): used implicit default value for signal "LEDR" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 34
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(42): used implicit default value for signal "VGA_HS" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 42
-Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(44): used implicit default value for signal "VGA_VS" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 44
 Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(47): used implicit default value for signal "GSENSOR_CS_N" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 47
 Warning (10541): VHDL Signal Declaration warning at Brick_Breaker.vhd(49): used implicit default value for signal "GSENSOR_SCLK" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 49
 Warning (10036): Verilog HDL or VHDL warning at Brick_Breaker.vhd(99): object "current_line" assigned a value but never read File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 99
 Warning (10036): Verilog HDL or VHDL warning at Brick_Breaker.vhd(100): object "data_pos" assigned a value but never read File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 100
 Warning (10036): Verilog HDL or VHDL warning at Brick_Breaker.vhd(102): object "locked_sig" assigned a value but never read File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 102
-Info (12128): Elaborating entity "VGA_controller" for hierarchy "VGA_controller:VGA_controller_inst" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 109
-Info (12128): Elaborating entity "VGA_PLL" for hierarchy "VGA_PLL:PLL_inst" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 124
+Warning (10540): VHDL Signal Declaration warning at Brick_Breaker.vhd(107): used explicit default value for signal "red" because signal was never assigned a value File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 107
+Info (12128): Elaborating entity "VGA_controller" for hierarchy "VGA_controller:VGA_controller_inst" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 115
+Info (12128): Elaborating entity "VGA_PLL" for hierarchy "VGA_PLL:PLL_inst" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 132
 Info (12128): Elaborating entity "altpll" for hierarchy "VGA_PLL:PLL_inst|altpll:altpll_component" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_PLL.vhd Line: 140
 Info (12130): Elaborated megafunction instantiation "VGA_PLL:PLL_inst|altpll:altpll_component" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_PLL.vhd Line: 140
 Info (12133): Instantiated megafunction "VGA_PLL:PLL_inst|altpll:altpll_component" with the following parameter: File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/VGA_PLL.vhd Line: 140
@@ -1007,14 +999,8 @@ Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "LEDR[9]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 34
     Warning (13410): Pin "VGA_B[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 40
     Warning (13410): Pin "VGA_B[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 40
-    Warning (13410): Pin "VGA_B[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 40
-    Warning (13410): Pin "VGA_B[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 40
-    Warning (13410): Pin "VGA_G[0]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 41
-    Warning (13410): Pin "VGA_G[1]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 41
-    Warning (13410): Pin "VGA_G[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 41
-    Warning (13410): Pin "VGA_G[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 41
-    Warning (13410): Pin "VGA_HS" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 42
-    Warning (13410): Pin "VGA_VS" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 44
+    Warning (13410): Pin "VGA_R[2]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 43
+    Warning (13410): Pin "VGA_R[3]" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 43
     Warning (13410): Pin "GSENSOR_CS_N" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 47
     Warning (13410): Pin "GSENSOR_SCLK" is stuck at GND File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 49
 Info (286030): Timing-Driven Synthesis is running
@@ -1022,16 +1008,16 @@ Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 1 node(s), including 0 DDIO, 1 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 1 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "KEY[1]" File: C:/Users/reiss/OneDrive/Documents/git-clones/Brick_Breaker/Brick_Breaker.vhd Line: 31
-Info (21057): Implemented 306 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 313 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 3 input pins
     Info (21059): Implemented 97 output pins
     Info (21060): Implemented 35 bidirectional pins
-    Info (21061): Implemented 170 logic cells
+    Info (21061): Implemented 177 logic cells
     Info (21065): Implemented 1 PLLs
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 158 warnings
-    Info: Peak virtual memory: 4871 megabytes
-    Info: Processing ended: Fri Nov 17 17:20:49 2023
-    Info: Elapsed time: 00:00:11
-    Info: Total CPU time (on all processors): 00:00:08
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 151 warnings
+    Info: Peak virtual memory: 4875 megabytes
+    Info: Processing ended: Fri Nov 17 18:06:33 2023
+    Info: Elapsed time: 00:00:12
+    Info: Total CPU time (on all processors): 00:00:07
 
 

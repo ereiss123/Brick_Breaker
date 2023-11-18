@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 package types is
     -- Boundaries
-    type coorid is array(1 downto 0) of integer range 640 to 0;
+    type coorid is array(1 downto 0) of unsigned(9 downto 0);
     type brick is array(15 downto 0, 7 downto 0) of std_logic;
     type half_brick is array(7 downto 0, 7 downto 0) of std_logic;
     type half_line_h is array(7 downto 0) of std_logic;
