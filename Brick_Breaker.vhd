@@ -120,6 +120,7 @@ architecture Behavioral of Brick_Breaker is
     signal black    : color    := (x"0",x"0",x"0");
     signal red      : color    := (x"C",x"F",x"3");
     signal yellow   : color    := (x"B",x"5",x"9");
+    signal brown    : color    := (x"6",x"b",x"4");
 
     -- Trackers
     signal ball_pos : coorid := (0,0);
@@ -237,16 +238,19 @@ begin
         -- We need to draw bricks, ball, and paddle 
         if request_data = '1' then
             -- Draw ball
-            if current_line >= ball_pos(1) and current_line < (ball_pos(1)+10) then
-                if data_pos >= ball_pos(0) and data_pos < (ball_pos(0)+10) then
-                    nR <= white(0);
-                    nG <= white(1);
-                    nB <= white(2);
-                else
-                    nR <= black(0);
-                    nG <= black(1);
-                    nB <= black(2);
-                end if;
+            if current_line >= ball_pos(1) and current_line < (ball_pos(1)+10) and 
+            data_pos >= ball_pos(0) and data_pos < (ball_pos(0)+10)
+            then
+                nR <= white(0);
+                nG <= white(1);
+                nB <= white(2);
+            -- Draw paddle
+            elsif current_line >= paddle_pos(1) and current_line < (paddle_pos(1)+5)and
+            data_pos >= paddle_pos(0) and data_pos < (paddle_pos(0)+40) 
+            then
+                nR <= brown(0);
+                nG <= brown(1);
+                nB <= brown(2);
             -- Draw bricks
             elsif current_line >= 0 and current_line < 240 then
                 -- calculate brick_y_idx
@@ -293,7 +297,7 @@ begin
                     nx_print_idx <= x_print_idx;
                     ny_print_idx <= y_print_idx;
                 end if;
-            else -- placeholder else to prevent latches
+            else 
                 nR <= black(0);
                 nG <= black(1);
                 nB <= black(2);
@@ -302,10 +306,6 @@ begin
                 brick_y_idx <= 0;
                 brick_x_idx <= 0;
             end if;
-
-            --TODO: Draw Paddle
-
-
         else
             nR <= black(0);
             nG <= black(1);
