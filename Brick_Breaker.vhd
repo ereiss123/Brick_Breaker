@@ -123,8 +123,8 @@ architecture Behavioral of Brick_Breaker is
     signal brown    : color    := (x"6",x"b",x"4");
 
     -- Trackers
-    signal ball_pos : coorid := (0,0);
-    signal paddle_pos : coorid := (0,0);
+    signal ball_pos : coorid := (320,241);
+    signal paddle_pos : coorid := (304,474);
     signal brick_y_idx : integer := 0; -- indicate which row of bricks (0 - 29)
     signal brick_x_idx : integer := 0; -- indicate which column of bricks (0 - 40)
     signal x_print_idx : integer := 0;
