@@ -22,9 +22,10 @@ begin
         if rst = '1' then 
             db_state <= "00";
             button_count <= 0;
-        else
+        elsif rising_edge(clk)then 
             db_state <= ndb_state;
             nbutton_count <= button_count;
+        end if;
     end process;
 
     process(db_state, button_count, button)
