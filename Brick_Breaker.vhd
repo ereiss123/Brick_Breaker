@@ -151,7 +151,7 @@ begin
     db_inst : debouncer
     port map(
         clk => c0_sig,
-        rst => rst_l,
+        rst => rst,
         button => KEY(1),
         button_debounced => next_ball
     );
