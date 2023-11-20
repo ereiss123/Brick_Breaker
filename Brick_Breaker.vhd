@@ -118,7 +118,6 @@ architecture rtl of Brick_Breaker is
     signal white    : color    := (x"F",x"F",x"F");
     signal black    : color    := (x"0",x"0",x"0");
     signal red      : color    := (x"F",x"0",x"0");
-    signal yellow   : color    := (x"F",x"F",x"F");
     signal brown    : color    := (x"7",x"4",x"3");
 
     -- Trackers
@@ -140,7 +139,7 @@ architecture rtl of Brick_Breaker is
     128,136,144,152,160,168,176,184,192,200,208,216,224,232);
     signal brick_tracker :tracker := (
         ('1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','0'),
-        ('1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'),
+        ('1','1','1','1','0','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'),
         ('1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','0'),
         ('1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'),
         ('1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','0'),
@@ -168,7 +167,7 @@ architecture rtl of Brick_Breaker is
         ('1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','0'),
         ('1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'),
         ('1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','0'),
-        ('1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1')
+        ('1','1','1','1','1','1','1','1','0','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1')
         );
 
 
@@ -233,7 +232,7 @@ begin
 
     -- Interface with VGA controller
     process(R,G,B,request_data,current_line,data_pos,brick_y_idx,brick_x_idx, 
-        ball_pos, paddle_pos, next_ball, brick_tracker,red, yellow, brown, 
+        ball_pos, paddle_pos, next_ball, brick_tracker,red, white, brown, 
         black, white, half_brick_x, full_brick_x)
     begin
         -- We need to draw bricks, ball, and paddle 
@@ -271,30 +270,30 @@ begin
                     nbrick_x_idx <= to_integer(shift_right(data_pos, 4)); -- divide data_pos by 16
                 end if;
                 
-                if brick_tracker(brick_x_idx,brick_y_idx) = '1' then
+                if brick_tracker(brick_y_idx,brick_x_idx) = '1' then
                     if current_line =( brick_y(brick_y_idx)+7) then -- draw horizontal mortar line
-                        nR <= yellow(0);
-                        nG <= yellow(1);
-                        nB <= yellow(2);
+                        nR <= white(0);
+                        nG <= white(1);
+                        nB <= white(2);
                     elsif current_line(9) = '1' then -- Odd lines (half-brick)
-                        if (data_pos = half_brick_x(brick_x_idx)+7) and ((brick_x_idx = 0) or (brick_x_idx = 40)) then
-                            nR <= yellow(0); -- draw vertical mortar line for half-brick
-                            nG <= yellow(1);
-                            nB <= yellow(2);
-                        elsif data_pos = (half_brick_x(brick_x_idx)+15) then
-                            nR <= yellow(0); -- draw vertical mortar line for full bricks
-                            nG <= yellow(1);
-                            nB <= yellow(2);
+                        if (data_pos = half_brick_x(brick_x_idx)+8) and ((brick_x_idx = 0) or (brick_x_idx = 40)) then
+                            nR <= white(0); -- draw vertical mortar line for half-brick
+                            nG <= white(1);
+                            nB <= white(2);
+                        elsif data_pos = (half_brick_x(brick_x_idx)+16) then
+                            nR <= white(0); -- draw vertical mortar line for full bricks
+                            nG <= white(1);
+                            nB <= white(2);
                         else
                             nR <= red(0); -- draw brick part of brick
                             nG <= red(1);
                             nB <= red(2);
                         end if;
                     else -- Even lines (full-brick)
-                        if data_pos = (full_brick_x(brick_x_idx)+15) then 
-                            nR <= yellow(0); -- draw vertical mortar line
-                            nG <= yellow(1);
-                            nB <= yellow(2);
+                        if data_pos = (full_brick_x(brick_x_idx)+16) then 
+                            nR <= white(0); -- draw vertical mortar line
+                            nG <= white(1);
+                            nB <= white(2);
                         else
                             nR <= red(0); -- draw brick part of brick
                             nG <= red(1);
