@@ -117,9 +117,9 @@ architecture rtl of Brick_Breaker is
     -- Colors                        R    G    B
     signal white    : color    := (x"F",x"F",x"F");
     signal black    : color    := (x"0",x"0",x"0");
-    signal red      : color    := (x"C",x"F",x"3");
-    signal yellow   : color    := (x"B",x"5",x"9");
-    signal brown    : color    := (x"6",x"b",x"4");
+    signal red      : color    := (x"F",x"0",x"0");
+    signal yellow   : color    := (x"F",x"F",x"F");
+    signal brown    : color    := (x"7",x"4",x"3");
 
     -- Trackers
     signal ball_pos : coorid := (320,241);
