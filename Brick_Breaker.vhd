@@ -56,7 +56,7 @@ entity Brick_Breaker is
     );
 end entity Brick_Breaker;
 
-architecture Behavioral of Brick_Breaker is
+architecture rtl of Brick_Breaker is
     -- Component declaration
     component VGA_controller 
         port(
@@ -112,7 +112,6 @@ architecture Behavioral of Brick_Breaker is
     signal data_pos : unsigned(9 downto 0);
     signal c0_sig : std_logic;
     signal locked_sig : std_logic;
-
     signal next_ball : std_logic;
 
     -- Colors                        R    G    B
@@ -125,14 +124,10 @@ architecture Behavioral of Brick_Breaker is
     -- Trackers
     signal ball_pos : coorid := (320,241);
     signal paddle_pos : coorid := (304,474);
-    signal brick_y_idx : integer := 0; -- indicate which row of bricks (0 - 29)
     signal brick_x_idx : integer := 0; -- indicate which column of bricks (0 - 40)
-    signal x_print_idx : integer := 0;
-    signal nx_print_idx : integer := 0;
-    signal y_print_idx : integer := 0;
-    signal ny_print_idx : integer := 0;
-    signal half_brick_x_idx : integer := 0; -- indicate which column of bricks (0 - 40)
-    signal full_brick_x_idx : integer := 0; -- indicate which column of bricks (0 - 40)
+    signal nbrick_x_idx : integer := 0;
+    signal brick_y_idx : integer := 0;
+    signal nbrick_y_idx : integer := 0;
     signal full_brick_x : hhalf_brick_corrid := (0,16,32,48,64,80,96,112,128,144,160,
     176,192,208,224,240,256,272,288,304,320,336,352,368,384,400,416,432,448,464,480,496,
     512,528,544,560,576,592,608,624,-1);
@@ -221,19 +216,19 @@ begin
             B <= (others => '0');
             ball_pos <= (0,0);
             paddle_pos <= (0,0);
-            x_print_idx <= 0;
-            y_print_idx <= 0;
+            brick_x_idx <= 0;
+            brick_y_idx <= 0;
         elsif rising_edge(c0_sig) then
             R <= nR;
             G <= nG;
             B <= nB;
-            x_print_idx <= nx_print_idx;
-            y_print_idx <= ny_print_idx;
+            brick_x_idx <= nbrick_x_idx;
+            brick_y_idx <= nbrick_y_idx;
         end if;
     end process;
 
     -- Interface with VGA controller
-    process(R,G,B,request_data,current_line,data_pos)
+    process(R,G,B,request_data,current_line,data_pos,brick_x_idx,brick_y_idx,brick_y_idx,brick_x_idx)
     begin
         -- We need to draw bricks, ball, and paddle 
         if request_data = '1' then
@@ -253,23 +248,31 @@ begin
                 nB <= brown(2);
             -- Draw bricks
             elsif current_line >= 0 and current_line < 240 then
-                -- calculate brick_y_idx
-                brick_y_idx <= to_integer(shift_right(current_line, 3)); -- divide current line by 8 
-                brick_x_idx <= to_integer(shift_right(data_pos, 4)); -- divide data_pos by 16, need to figure out half bricks
-                if brick_tracker(brick_y_idx,brick_x_idx) = '1' then
-                    ny_print_idx <= y_print_idx + 1;
-                    if current_line =( brick_y(y_print_idx)+7) then -- draw horizontal mortar line
-                        nx_print_idx <= 0;
+                nbrick_y_idx <= to_integer(shift_right(current_line, 3)); -- divide current line by 8 
+                if current_line(9) = '1' then -- Odd line (half-brick line)
+                    if data_pos < 8 then
+                        nbrick_x_idx <= 0; -- Deal with first half brick
+                    else
+                        nbrick_x_idx <= to_integer(shift_right(data_pos+8, 4)); -- compensate rest 
+
+                    end if;
+                else -- Even (Full brick line)
+                    nbrick_x_idx = to_integer(shift_right(data_pos, 4)); -- divide data_pos by 16
+                end if;
+                
+                if brick_tracker(brick_x_idx,brick_y_idx) = '1' then
+                    if current_line =( brick_y(brick_y_idx)+7) then -- draw horizontal mortar line
+                        nbrick_x_idx <= 0;
                         nR <= yellow(0);
                         nG <= yellow(1);
                         nB <= yellow(2);
-                    elsif current_line & "0000000001" <= 1 then -- Odd lines (half-brick)
-                        if (data_pos = half_brick_x(x_print_idx)+7) and ((x_print_idx = 0) or (x_print_idx = 40)) then
-                            nR <= yellow(0); -- draw vertical mortar line
+                    elsif current_line(9) = '1' then -- Odd lines (half-brick)
+                        if (data_pos = half_brick_x(brick_x_idx)+7) and ((brick_x_idx = 0) or (brick_x_idx = 40)) then
+                            nR <= yellow(0); -- draw vertical mortar line for half-brick
                             nG <= yellow(1);
                             nB <= yellow(2);
-                        elsif data_pos = (half_brick_x(x_print_idx)+15) then
-                            nR <= yellow(0); -- draw vertical mortar line
+                        elsif data_pos = (half_brick_x(brick_x_idx)+15) then
+                            nR <= yellow(0); -- draw vertical mortar line for full bricks
                             nG <= yellow(1);
                             nB <= yellow(2);
                         else
@@ -277,9 +280,8 @@ begin
                             nG <= red(1);
                             nB <= red(2);
                         end if;
-                        nx_print_idx <= x_print_idx + 1;
                     else -- Even lines (full-brick)
-                        if data_pos = (full_brick_x(x_print_idx)+15) then -- draw brick part of brick
+                        if data_pos = (full_brick_x(brick_x_idx)+15) then 
                             nR <= yellow(0); -- draw vertical mortar line
                             nG <= yellow(1);
                             nB <= yellow(2);
@@ -288,21 +290,21 @@ begin
                             nG <= red(1);
                             nB <= red(2);
                         end if;
-                        nx_print_idx <= x_print_idx + 1;
+                        nbrick_x_idx <= brick_x_idx + 1;
                     end if;
                 else
                     nR <= black(0);
                     nG <= black(1);
                     nB <= black(2);
-                    nx_print_idx <= x_print_idx;
-                    ny_print_idx <= y_print_idx;
+                    nbrick_x_idx <= brick_x_idx;
+                    nbrick_y_idx <= brick_y_idx;
                 end if;
             else 
                 nR <= black(0);
                 nG <= black(1);
                 nB <= black(2);
-                nx_print_idx <= x_print_idx;
-                ny_print_idx <= y_print_idx;
+                nbrick_x_idx <= brick_x_idx;
+                nbrick_y_idx <= brick_y_idx;
                 brick_y_idx <= 0;
                 brick_x_idx <= 0;
             end if;
@@ -310,11 +312,11 @@ begin
             nR <= black(0);
             nG <= black(1);
             nB <= black(2);
-            nx_print_idx <= x_print_idx;
-            ny_print_idx <= y_print_idx;
+            nbrick_x_idx <= brick_x_idx;
+            nbrick_y_idx <= brick_y_idx;
             brick_y_idx <= 0;
             brick_x_idx <= 0;
         end if;
     end process;
 
-end architecture Behavioral;
+end architecture rtl;
