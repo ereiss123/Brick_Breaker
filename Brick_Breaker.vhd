@@ -123,7 +123,9 @@ architecture rtl of Brick_Breaker is
 
     -- Trackers
     signal ball_pos : coorid := (320,241);
+    signal nball_pos : coorid := (320,241);
     signal paddle_pos : coorid := (304,474);
+    signal npaddle_pos : coorid := (304,474);
     signal brick_x_idx : integer := 0; -- indicate which column of bricks (0 - 40)
     signal nbrick_x_idx : integer := 0;
     signal brick_y_idx : integer := 0;
@@ -224,11 +226,15 @@ begin
             B <= nB;
             brick_x_idx <= nbrick_x_idx;
             brick_y_idx <= nbrick_y_idx;
+            paddle_pos <= npaddle_pos;
+            ball_pos <= nball_pos;
         end if;
     end process;
 
     -- Interface with VGA controller
-    process(R,G,B,request_data,current_line,data_pos,brick_x_idx,brick_y_idx,brick_y_idx,brick_x_idx)
+    process(R,G,B,request_data,current_line,data_pos,brick_y_idx,brick_x_idx, 
+        ball_pos, paddle_pos, next_ball, brick_tracker,red, yellow, brown, 
+        black, white, half_brick_x, full_brick_x)
     begin
         -- We need to draw bricks, ball, and paddle 
         if request_data = '1' then
@@ -239,6 +245,9 @@ begin
                 nR <= white(0);
                 nG <= white(1);
                 nB <= white(2);
+                -- Necessary to prevent latches
+                nbrick_x_idx <= 0;
+                nbrick_y_idx <= 0;
             -- Draw paddle
             elsif current_line >= paddle_pos(1) and current_line < (paddle_pos(1)+5)and
             data_pos >= paddle_pos(0) and data_pos < (paddle_pos(0)+40) 
@@ -246,6 +255,9 @@ begin
                 nR <= brown(0);
                 nG <= brown(1);
                 nB <= brown(2);
+                -- Necessary to prevent latches
+                nbrick_x_idx <= 0;
+                nbrick_y_idx <= 0;
             -- Draw bricks
             elsif current_line >= 0 and current_line < 240 then
                 nbrick_y_idx <= to_integer(shift_right(current_line, 3)); -- divide current line by 8 
@@ -254,15 +266,13 @@ begin
                         nbrick_x_idx <= 0; -- Deal with first half brick
                     else
                         nbrick_x_idx <= to_integer(shift_right(data_pos+8, 4)); -- compensate rest 
-
                     end if;
                 else -- Even (Full brick line)
-                    nbrick_x_idx = to_integer(shift_right(data_pos, 4)); -- divide data_pos by 16
+                    nbrick_x_idx <= to_integer(shift_right(data_pos, 4)); -- divide data_pos by 16
                 end if;
                 
                 if brick_tracker(brick_x_idx,brick_y_idx) = '1' then
                     if current_line =( brick_y(brick_y_idx)+7) then -- draw horizontal mortar line
-                        nbrick_x_idx <= 0;
                         nR <= yellow(0);
                         nG <= yellow(1);
                         nB <= yellow(2);
@@ -290,32 +300,25 @@ begin
                             nG <= red(1);
                             nB <= red(2);
                         end if;
-                        nbrick_x_idx <= brick_x_idx + 1;
                     end if;
                 else
                     nR <= black(0);
                     nG <= black(1);
                     nB <= black(2);
-                    nbrick_x_idx <= brick_x_idx;
-                    nbrick_y_idx <= brick_y_idx;
                 end if;
             else 
                 nR <= black(0);
                 nG <= black(1);
                 nB <= black(2);
-                nbrick_x_idx <= brick_x_idx;
-                nbrick_y_idx <= brick_y_idx;
-                brick_y_idx <= 0;
-                brick_x_idx <= 0;
+                nbrick_x_idx <= 0;
+                nbrick_y_idx <= 0;
             end if;
         else
             nR <= black(0);
             nG <= black(1);
             nB <= black(2);
-            nbrick_x_idx <= brick_x_idx;
-            nbrick_y_idx <= brick_y_idx;
-            brick_y_idx <= 0;
-            brick_x_idx <= 0;
+            nbrick_x_idx <= 0;
+            nbrick_y_idx <= 0;
         end if;
     end process;
 
