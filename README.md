@@ -1,6 +1,10 @@
 # Brick_Breaker
+
 This game is the final project in Reconfigurable Computing (ECE 5730) at Utah State University. 
 
+## Authors
+- David Rowbotham ([DrowBo990](https://github.com/DRowbo990))
+- Eric Reiss ([ereiss123](https://github.com/ereiss123))
 ## Requirements
 1. The digital design must be done in VHDL.
 2. The game image shall be 640 pixels wide by 480 pixels tall.
@@ -34,4 +38,15 @@ bricks out of the wall before all 5 balls have been lost.
 11. Produce 4 unique sounds using the FPGA and an external speaker. One when the ball hits the
 paddle, one when the ball hits the top or side of the screen, one when the ball breaks a brick,
 and one when the ball dies.
+
+## Usage
+To run this game as is, you will need a Terasic DE10-Lite development board, a potentiometer, hookup wires, a VGA-capable monitor, and the Quartus development software. The project was developped using Quartus Lite 18.1 on Windows, which is available for free from the Quartus website. 
+- Clone this repository
+- Install Quartus Lite
+- Install drivers as necessary for your machine
+- Open Brick_Breaker.qpf
+- Compile the project
+- Program DE10-Lite board
+- Connect VGA monitor to onboard VGA port
+- Connect potientometer to pins **Placeholder**
 

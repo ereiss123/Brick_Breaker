@@ -105,6 +105,7 @@ architecture rtl of Brick_Breaker is
     signal rst : STD_LOGIC;
     signal rst_l : STD_LOGIC;
     signal R : STD_LOGIC_VECTOR(3 downto 0);
+
     signal nR : STD_LOGIC_VECTOR(3 downto 0);
     signal G : STD_LOGIC_VECTOR(3 downto 0);
     signal nG : STD_LOGIC_VECTOR(3 downto 0);
@@ -175,6 +176,7 @@ architecture rtl of Brick_Breaker is
         ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1')
     ); -- 32x40 array of bricks. Active bits indicate brick is still there
 begin -- RTL
+
     rst_l <= KEY(0);
     rst <= not KEY(0) when KEY(0) = '0' else
         '0';
@@ -211,7 +213,7 @@ begin -- RTL
     port
     map(
     clk => c0_sig,
-    rst => rst_l,
+    rst => rst,
     button => KEY(1),
     button_debounced => next_ball
     );
@@ -335,5 +337,5 @@ begin -- RTL
             nline_parity <= '0';
         end if;
     end process;
-
 end architecture rtl;
+
