@@ -125,6 +125,8 @@ architecture rtl of Brick_Breaker is
     signal brown : color := (x"7", x"4", x"3");
 
     -- Trackers
+          signal rand : unsigned(7 downto 0)
+
     signal ball_pos : coorid := (320, 241);
     signal nball_pos : coorid := (320, 241);
     signal paddle_pos : coorid := (304, 474);
@@ -217,6 +219,26 @@ begin -- RTL
     button => KEY(1),
     button_debounced => next_ball
     );
+      
+    psuedorandom_gen_inst : psuedorandom_gen
+        port
+        map
+        (
+        MAX10_CLK1_50 => MAX10_CLK1_50,
+        rst_l => rst_l,
+        gen_button => next_ball,
+        rand => rand
+        );
+      component psuedorandom_gen is
+        generic
+            (seed : unsigned(15 downto 0))
+        port
+        (
+            MAX10_CLK1_50 : in STD_LOGIC;
+            rst_l         : in STD_LOGIC
+            gen_button    : in STD_LOGIC;
+            rand          : out unsigned(7 downto 0)
+        )
 
     -- Future becomes the present
     process (c0_sig, rst_l)
@@ -338,4 +360,3 @@ begin -- RTL
         end if;
     end process;
 end architecture rtl;
-
