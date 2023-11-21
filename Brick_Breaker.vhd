@@ -255,13 +255,13 @@ begin -- RTL
             R <= (others => '0');
             G <= (others => '0');
             B <= (others => '0');
-            ball_pos <= (-1, -1);
+            ball_pos <= (-320, -421);
             paddle_pos <= (0, 0);
             brick_col_idx <= 0;
             brick_row_idx <= 0;
             line_parity <= '0';
             ball_counter <= 5;
-            -- nball_counter <= 5;
+            HEX0 <= seven_seg(ball_counter);
         elsif rising_edge(c0_sig) then
             R <= nR;
             G <= nG;
@@ -375,38 +375,23 @@ begin -- RTL
     -- ball movement state machine
     process (ball_counter, rand, next_ball, ball_pos)
     begin
-        if next_ball = '1' and ball_counter > 0 then
-            nball_pos <= (to_integer(rand), 241);
-            nball_counter <= ball_counter - 1;
+        if next_ball = '1' then
+            nball_counter <= ball_counter;
+            if ball_counter > 0 then
+                nball_pos <= (to_integer(rand), 241);
+                nball_counter <= ball_counter - 1;
+            else
+                nball_pos <= (-320, -241);
+                nball_counter <= ball_counter;
+            end if;
 
         else
-            nball_pos <= (ball_pos);
             nball_counter <= ball_counter;
-        end if;
+            nball_pos <= ball_pos;
 
-        -- if gen_button = '1' then
-        --     if ball_pos(1) = 470 then -- ball hits bottom of screen
-        --         nball_pos <= (320, 241);
-        --     elsif ball_pos(1) = 0 then -- ball hits top of screen
-        --         nball_pos <= (ball_pos(0), ball_pos(1) + 1);
-        --     elsif ball_pos(0) = 0 then -- ball hits left of screen
-        --         nball_pos <= (ball_pos(0) + 1, ball_pos(1));
-        --     elsif ball_pos(0) = 630 then -- ball hits right of screen
-        --         nball_pos <= (ball_pos(0) - 1, ball_pos(1));
-        --         --
-        --     elsif ball_pos(1) = 474 and ball_pos(0) >= paddle_pos(0) and ball_pos(0) < (paddle_pos(0) + 40) then -- ball hits paddle
-        --         nball_pos <= (ball_pos(0), ball_pos(1) - 1);
-        --     elsif ball_pos(1) = 474 and (ball_pos(0) < paddle_pos(0) or ball_pos(0) >= (paddle_pos(0) + 40)) then -- ball misses paddle
-        --         nball_pos <= (320, 241);
-        --     elsif brick_tracker(to_integer(shift_right(ball_pos(1), 3)), to_integer(shift_right(ball_pos(0), 4))) = '1' then -- ball hits brick
-        --         nball_pos <= (ball_pos(0), ball_pos(1) - 1);
-        --         brick_tracker(to_integer(shift_right(ball_pos(1), 3)), to_integer(shift_right(ball_pos(0), 4))) <= '0';
-        --     else -- ball hits nothing
-        --         nball_pos <= (ball_pos(0) + to_integer(rand(7)), ball_pos(1) + 1);
-        --     end if;
-        -- else
-        --     nball_pos <= ball_pos;
-        -- end if;
+            -- nball_pos(0) <= (ball_pos(0));
+            -- nball_pos(1) <= (ball_pos(1) + 2);
+        end if;
     end process;
     --     psuedorandom_gen_inst : psuedorandom_gen
     -- port
