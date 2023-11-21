@@ -272,7 +272,7 @@ begin -- RTL
                 -- Draw bricks
             elsif current_line >= 0 and current_line < 240 then
                 nbrick_row_idx <= to_integer(shift_right(current_line, 3)); -- divide current line by 8
-                nline_parity <= to_unsigned(brick_row_idx, 32)(0);
+                nline_parity <= to_unsigned(brick_row_idx, 32)(0); -- get parity of current line
                 if line_parity = '1' then -- Odd line (half-brick line)
                     if data_pos < 8 then
                         nbrick_col_idx <= 0; -- Deal with first half brick
@@ -283,8 +283,8 @@ begin -- RTL
                     nbrick_col_idx <= to_integer(shift_right(data_pos, 4)); -- divide data_pos by 16
                 end if;
 
-                if brick_tracker(brick_row_idx, brick_col_idx) = '1' then
-                    if current_line = (brick_y(brick_row_idx) + 7) then -- draw horizontal mortar line
+                if brick_tracker(brick_row_idx, brick_col_idx) = '1' then -- if brick is still there
+                    if current_line = (brick_y(brick_row_idx) + 7) then -- draw horizontal mortar line when +7 from top of brick column
                         nR <= white(0);
                         nG <= white(1);
                         nB <= white(2);
