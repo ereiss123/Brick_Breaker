@@ -1,164 +1,169 @@
 library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_1164.all;
 use ieee.numeric_std.all;
 library work;
 use work.types.all;
 
 entity Brick_Breaker is
-    port (
+    port
+    (
         -- CLOCK
         -- ADC_CLK_10       : in std_logic;
-        MAX10_CLK1_50    : in std_logic;
+        MAX10_CLK1_50 : in STD_LOGIC;
         -- MAX10_CLK2_50    : in std_logic;
 
         -- SDRAM
-        DRAM_ADDR        : out std_logic_vector(12 downto 0);
-        DRAM_BA          : out std_logic_vector(1 downto 0);
-        DRAM_CAS_N       : out std_logic;
-        DRAM_CKE         : out std_logic;
-        DRAM_CLK         : out std_logic;
-        DRAM_CS_N        : out std_logic;
-        DRAM_DQ          : inout std_logic_vector(15 downto 0);
-        DRAM_LDQM        : out std_logic;
-        DRAM_RAS_N       : out std_logic;
-        DRAM_UDQM        : out std_logic;
-        DRAM_WE_N        : out std_logic;
+        DRAM_ADDR  : out STD_LOGIC_VECTOR(12 downto 0);
+        DRAM_BA    : out STD_LOGIC_VECTOR(1 downto 0);
+        DRAM_CAS_N : out STD_LOGIC;
+        DRAM_CKE   : out STD_LOGIC;
+        DRAM_CLK   : out STD_LOGIC;
+        DRAM_CS_N  : out STD_LOGIC;
+        DRAM_DQ    : inout STD_LOGIC_VECTOR(15 downto 0);
+        DRAM_LDQM  : out STD_LOGIC;
+        DRAM_RAS_N : out STD_LOGIC;
+        DRAM_UDQM  : out STD_LOGIC;
+        DRAM_WE_N  : out STD_LOGIC;
 
         -- SEG7
-        HEX0, HEX1, HEX2, HEX3, HEX4, HEX5 : out std_logic_vector(7 downto 0);
+        HEX0, HEX1, HEX2, HEX3, HEX4, HEX5 : out STD_LOGIC_VECTOR(7 downto 0);
 
         -- KEY
-        KEY              : in std_logic_vector(1 downto 0);
+        KEY : in STD_LOGIC_VECTOR(1 downto 0);
 
         -- LED
-        LEDR             : out std_logic_vector(9 downto 0);
+        LEDR : out STD_LOGIC_VECTOR(9 downto 0);
 
         -- SW
         -- SW               : in std_logic_vector(9 downto 0);
 
         -- VGA
-        VGA_B            : out std_logic_vector(3 downto 0);
-        VGA_G            : out std_logic_vector(3 downto 0);
-        VGA_HS           : out std_logic;
-        VGA_R            : out std_logic_vector(3 downto 0);
-        VGA_VS           : out std_logic;
+        VGA_B  : out STD_LOGIC_VECTOR(3 downto 0);
+        VGA_G  : out STD_LOGIC_VECTOR(3 downto 0);
+        VGA_HS : out STD_LOGIC;
+        VGA_R  : out STD_LOGIC_VECTOR(3 downto 0);
+        VGA_VS : out STD_LOGIC;
 
         -- Accelerometer
-        GSENSOR_CS_N     : out std_logic;
+        GSENSOR_CS_N : out STD_LOGIC;
         -- GSENSOR_INT      : in std_logic_vector(2 downto 1);
-        GSENSOR_SCLK     : out std_logic;
-        GSENSOR_SDI      : inout std_logic;
-        GSENSOR_SDO      : inout std_logic;
+        GSENSOR_SCLK : out STD_LOGIC;
+        GSENSOR_SDI  : inout STD_LOGIC;
+        GSENSOR_SDO  : inout STD_LOGIC;
 
         -- Arduino
-        ARDUINO_IO       : inout std_logic_vector(15 downto 0);
-        ARDUINO_RESET_N  : inout std_logic
+        ARDUINO_IO      : inout STD_LOGIC_VECTOR(15 downto 0);
+        ARDUINO_RESET_N : inout STD_LOGIC
     );
 end entity Brick_Breaker;
 
 architecture Behavioral of Brick_Breaker is
     -- Component declaration
-    component VGA_controller 
-        port(
+    component VGA_controller
+        port
+        (
             -- FPGA side
-            clk : in std_logic;
-            rst_l : in std_logic; 
-            R : in std_logic_vector(3 downto 0);
-            G : in std_logic_vector(3 downto 0);
-            B : in std_logic_vector(3 downto 0);
-            request_data : out std_logic;
+            clk          : in STD_LOGIC;
+            rst_l        : in STD_LOGIC;
+            R            : in STD_LOGIC_VECTOR(3 downto 0);
+            G            : in STD_LOGIC_VECTOR(3 downto 0);
+            B            : in STD_LOGIC_VECTOR(3 downto 0);
+            request_data : out STD_LOGIC;
             current_line : out unsigned(9 downto 0);
-            data_pos : out unsigned(9 downto 0);
+            data_pos     : out unsigned(9 downto 0);
 
             -- Monitor side
-            VGA_B : out std_logic_vector(3 downto 0);
-            VGA_G : out std_logic_vector(3 downto 0);
-            VGA_R : out std_logic_vector(3 downto 0);
-            VGA_HS : out std_logic;
-            VGA_VS : out std_logic
+            VGA_B  : out STD_LOGIC_VECTOR(3 downto 0);
+            VGA_G  : out STD_LOGIC_VECTOR(3 downto 0);
+            VGA_R  : out STD_LOGIC_VECTOR(3 downto 0);
+            VGA_HS : out STD_LOGIC;
+            VGA_VS : out STD_LOGIC
         );
-        end component;
-    
+    end component;
+
     component VGA_PLL
-        PORT
+        port
         (
-            areset		: IN STD_LOGIC  := '0';
-            inclk0		: IN STD_LOGIC  := '0';
-            c0		: OUT STD_LOGIC ;
-            locked		: OUT STD_LOGIC 
+            areset : in STD_LOGIC := '0';
+            inclk0 : in STD_LOGIC := '0';
+            c0     : out STD_LOGIC;
+            locked : out STD_LOGIC
         );
     end component;
 
     component debouncer
-        port(
-            clk : in std_logic;
-            rst : in std_logic;
-            button : in std_logic;
-            button_debounced : out std_logic
+        port
+        (
+            clk              : in STD_LOGIC;
+            rst              : in STD_LOGIC;
+            button           : in STD_LOGIC;
+            button_debounced : out STD_LOGIC
         );
     end component;
 
     -- Signal declaration
-    signal rst : std_logic;
-    signal rst_l : std_logic;
-    signal R : std_logic_vector(3 downto 0);
-    signal G : std_logic_vector(3 downto 0);
-    signal B : std_logic_vector(3 downto 0);
-    signal request_data : std_logic;
+    signal rst : STD_LOGIC;
+    signal rst_l : STD_LOGIC;
+    signal R : STD_LOGIC_VECTOR(3 downto 0);
+    signal G : STD_LOGIC_VECTOR(3 downto 0);
+    signal B : STD_LOGIC_VECTOR(3 downto 0);
+    signal request_data : STD_LOGIC;
     signal current_line : unsigned(9 downto 0);
     signal data_pos : unsigned(9 downto 0);
-    signal c0_sig : std_logic;
-    signal locked_sig : std_logic;
+    signal c0_sig : STD_LOGIC;
+    signal locked_sig : STD_LOGIC;
 
-    signal next_ball : std_logic;
+    signal next_ball : STD_LOGIC;
 
-    -- Colors                        R    G    B
-    signal white    : color    := (x"F",x"F",x"F");
-    signal black    : color    := (x"0",x"0",x"0");
-    signal red      : color    := (x"C",x"F",x"3");
-    signal yellow   : color    := (x"B",x"5",x"9");
-
-
+    -- Colors                  R    G    B
+    signal white : color := (x"F", x"F", x"F");
+    signal black : color := (x"0", x"0", x"0");
+    signal red : color := (x"C", x"F", x"3");
+    signal yellow : color := (x"B", x"5", x"9");
 begin
     rst_l <= KEY(0);
-    rst <= not KEY(0) when KEY(0) = '0' else '0';
-    
-    VGA_controller_inst : VGA_controller 
-    port map(
+    rst <= not KEY(0) when KEY(0) = '0' else
+        '0';
+
+    VGA_controller_inst : VGA_controller
+    port map
+    (
         -- Connections go here
-        clk => c0_sig,
-        rst_l => rst_l,
-        R => R,
-        G => G,
-        B => B,
+        clk          => c0_sig,
+        rst_l        => rst_l,
+        R            => R,
+        G            => G,
+        B            => B,
         request_data => request_data,
         current_line => current_line,
-        data_pos => data_pos,
-        VGA_B => VGA_B,
-        VGA_G => VGA_G,
-        VGA_R => VGA_R,
-        VGA_HS => VGA_HS,
-        VGA_VS => VGA_VS
+        data_pos     => data_pos,
+        VGA_B        => VGA_B,
+        VGA_G        => VGA_G,
+        VGA_R        => VGA_R,
+        VGA_HS       => VGA_HS,
+        VGA_VS       => VGA_VS
     );
-    PLL_inst : VGA_PLL 
-    port map(
-        areset	 => rst,
-        inclk0	 => MAX10_CLK1_50,
-        c0	 => c0_sig,
-        locked	 => locked_sig
+    PLL_inst : VGA_PLL
+    port
+    map(
+    areset => rst,
+    inclk0 => MAX10_CLK1_50,
+    c0 => c0_sig,
+    locked => locked_sig
     );
 
     db_inst : debouncer
-    port map(
-        clk => c0_sig,
-        rst => rst,
-        button => KEY(1),
-        button_debounced => next_ball
+    port
+    map(
+    clk => c0_sig,
+    rst => rst,
+    button => KEY(1),
+    button_debounced => next_ball
     );
 
-    process(c0_sig,rst_l) 
+    process (c0_sig, rst_l)
     begin
-        if(not rst_l = '1') then
+        if (not rst_l = '1') then
             R <= (others => '0');
             G <= (others => '0');
             B <= (others => '0');
