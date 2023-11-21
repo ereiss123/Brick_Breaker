@@ -101,6 +101,24 @@ architecture rtl of Brick_Breaker is
         );
     end component;
 
+    component psuedorandom_gen is
+        -- generic
+        --     (seed : unsigned(15 downto 0));
+        port
+        (
+            MAX10_CLK1_50 : in STD_LOGIC;
+            rst_l         : in STD_LOGIC;
+            gen_button    : in STD_LOGIC;
+            rand          : out unsigned(8 downto 0)
+        );
+    end component;
+
+    -- Create a look up table for the 7-segment display
+    type LUT is array(15 downto 0) of STD_LOGIC_VECTOR(7 downto 0);
+
+    -- 7-segment display look up table. Not to flip bits. 7 segment display is active low.
+    signal seven_seg : LUT := (not(X"71"), not(X"79"), not(X"5E"), not(X"58"), not(X"7C"), not(X"77"), X"90", X"80", X"F8", X"82", X"92", X"99", X"B0", X"A4", X"F9", X"C0");
+
     -- Signal declaration
     signal rst : STD_LOGIC;
     signal rst_l : STD_LOGIC;
@@ -117,7 +135,6 @@ architecture rtl of Brick_Breaker is
     signal c0_sig : STD_LOGIC;
     signal locked_sig : STD_LOGIC;
     signal next_ball : STD_LOGIC;
-
     -- Colors                        R    G    B
     signal white : color := (x"F", x"F", x"F");
     signal black : color := (x"0", x"0", x"0");
@@ -125,8 +142,9 @@ architecture rtl of Brick_Breaker is
     signal brown : color := (x"7", x"4", x"3");
 
     -- Trackers
-          signal rand : unsigned(7 downto 0)
-
+    signal rand : unsigned(8 downto 0);
+    signal ball_counter : INTEGER := 5;
+    signal nball_counter : INTEGER;
     signal ball_pos : coorid := (320, 241);
     signal nball_pos : coorid := (320, 241);
     signal paddle_pos : coorid := (304, 474);
@@ -219,26 +237,16 @@ begin -- RTL
     button => KEY(1),
     button_debounced => next_ball
     );
-      
+
     psuedorandom_gen_inst : psuedorandom_gen
-        port
-        map
-        (
-        MAX10_CLK1_50 => MAX10_CLK1_50,
-        rst_l => rst_l,
-        gen_button => next_ball,
-        rand => rand
-        );
-      component psuedorandom_gen is
-        generic
-            (seed : unsigned(15 downto 0))
-        port
-        (
-            MAX10_CLK1_50 : in STD_LOGIC;
-            rst_l         : in STD_LOGIC
-            gen_button    : in STD_LOGIC;
-            rand          : out unsigned(7 downto 0)
-        )
+    port
+    map
+    (
+    MAX10_CLK1_50 => c0_sig,
+    rst_l => rst_l,
+    gen_button => next_ball,
+    rand => rand
+    );
 
     -- Future becomes the present
     process (c0_sig, rst_l)
@@ -247,20 +255,24 @@ begin -- RTL
             R <= (others => '0');
             G <= (others => '0');
             B <= (others => '0');
-            ball_pos <= (0, 0);
+            ball_pos <= (-1, -1);
             paddle_pos <= (0, 0);
             brick_col_idx <= 0;
             brick_row_idx <= 0;
             line_parity <= '0';
+            ball_counter <= 5;
+            -- nball_counter <= 5;
         elsif rising_edge(c0_sig) then
             R <= nR;
             G <= nG;
             B <= nB;
+            HEX0 <= seven_seg(ball_counter);
             brick_col_idx <= nbrick_col_idx;
             brick_row_idx <= nbrick_row_idx;
             paddle_pos <= npaddle_pos;
             ball_pos <= nball_pos;
             line_parity <= nline_parity;
+            ball_counter <= nball_counter;
         end if;
     end process;
 
@@ -359,4 +371,50 @@ begin -- RTL
             nline_parity <= '0';
         end if;
     end process;
+
+    -- ball movement state machine
+    process (ball_counter, rand, next_ball, ball_pos)
+    begin
+        if next_ball = '1' and ball_counter > 0 then
+            nball_pos <= (to_integer(rand), 241);
+            nball_counter <= ball_counter - 1;
+
+        else
+            nball_pos <= (ball_pos);
+            nball_counter <= ball_counter;
+        end if;
+
+        -- if gen_button = '1' then
+        --     if ball_pos(1) = 470 then -- ball hits bottom of screen
+        --         nball_pos <= (320, 241);
+        --     elsif ball_pos(1) = 0 then -- ball hits top of screen
+        --         nball_pos <= (ball_pos(0), ball_pos(1) + 1);
+        --     elsif ball_pos(0) = 0 then -- ball hits left of screen
+        --         nball_pos <= (ball_pos(0) + 1, ball_pos(1));
+        --     elsif ball_pos(0) = 630 then -- ball hits right of screen
+        --         nball_pos <= (ball_pos(0) - 1, ball_pos(1));
+        --         --
+        --     elsif ball_pos(1) = 474 and ball_pos(0) >= paddle_pos(0) and ball_pos(0) < (paddle_pos(0) + 40) then -- ball hits paddle
+        --         nball_pos <= (ball_pos(0), ball_pos(1) - 1);
+        --     elsif ball_pos(1) = 474 and (ball_pos(0) < paddle_pos(0) or ball_pos(0) >= (paddle_pos(0) + 40)) then -- ball misses paddle
+        --         nball_pos <= (320, 241);
+        --     elsif brick_tracker(to_integer(shift_right(ball_pos(1), 3)), to_integer(shift_right(ball_pos(0), 4))) = '1' then -- ball hits brick
+        --         nball_pos <= (ball_pos(0), ball_pos(1) - 1);
+        --         brick_tracker(to_integer(shift_right(ball_pos(1), 3)), to_integer(shift_right(ball_pos(0), 4))) <= '0';
+        --     else -- ball hits nothing
+        --         nball_pos <= (ball_pos(0) + to_integer(rand(7)), ball_pos(1) + 1);
+        --     end if;
+        -- else
+        --     nball_pos <= ball_pos;
+        -- end if;
+    end process;
+    --     psuedorandom_gen_inst : psuedorandom_gen
+    -- port
+    -- map
+    -- (
+    -- MAX10_CLK1_50 => c0_sig,
+    -- rst_l => rst_l,
+    -- gen_button => next_ball,
+    -- rand => rand
+    -- );
 end architecture rtl;
