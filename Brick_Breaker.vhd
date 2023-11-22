@@ -123,6 +123,7 @@ architecture rtl of Brick_Breaker is
     signal rst : STD_LOGIC;
     signal rst_l : STD_LOGIC;
     signal R : STD_LOGIC_VECTOR(3 downto 0);
+    signal state : INTEGER := 5;
 
     signal nR : STD_LOGIC_VECTOR(3 downto 0);
     signal G : STD_LOGIC_VECTOR(3 downto 0);
@@ -244,7 +245,7 @@ begin -- RTL
     (
     MAX10_CLK1_50 => c0_sig,
     rst_l => rst_l,
-    gen_button => KEY(1),
+    gen_button => next_ball,
     rand => rand
     );
 
@@ -256,12 +257,10 @@ begin -- RTL
             R <= (others => '0');
             G <= (others => '0');
             B <= (others => '0');
-            -- ball_pos <= (-320, -421);
             paddle_pos <= (0, 0);
             brick_col_idx <= 0;
             brick_row_idx <= 0;
             line_parity <= '0';
-            -- ball_counter <= 5;
         elsif rising_edge(c0_sig) then
             R <= nR;
             G <= nG;
@@ -373,30 +372,93 @@ begin -- RTL
     end process;
 
     -- ball movement state machine
-    process (c0_sig, rst_l)
+    process (c0_sig, rst_l, state)
     begin
         if rst_l = '0' then
             ball_counter <= 5;
             ball_pos <= (-320, -241);
+            state <= 0;
         elsif rising_edge(c0_sig) then
-            if KEY(1) = '0' then
-                if ball_counter > 0 then
-                    ball_pos <= (to_integer(rand), 241);
-                    ball_counter <= ball_counter - 1;
-                else
+            case (state) is
+                when 0 =>
+                    if next_ball = '1' then
+                        ball_counter <= 5;
+                        ball_pos <= (-320, -241);
+                        state <= 1;
+                    else
+                        ball_counter <= ball_counter;
+                        ball_pos <= ball_pos;
+                        state <= 0;
+                    end if;
+                when 1 =>
+                    if next_ball = '1' then
+                        ball_counter <= 4;
+                        ball_pos <= (to_integer(rand), 241);
+                        state <= 2;
+                    else
+                        ball_counter <= ball_counter;
+                        ball_pos <= ball_pos;
+                        state <= 1;
+                    end if;
+                when 2 =>
+                    if next_ball = '1' then
+                        ball_counter <= 3;
+                        ball_pos <= (to_integer(rand), 241);
+                        state <= 3;
+                    else
+                        ball_counter <= ball_counter;
+                        ball_pos <= ball_pos;
+                        state <= 2;
+                    end if;
+                when 3 =>
+                    if next_ball = '1' then
+                        ball_counter <= 2;
+                        ball_pos <= (to_integer(rand), 241);
+                        state <= 4;
+                    else
+                        ball_counter <= ball_counter;
+                        ball_pos <= ball_pos;
+                        state <= 3;
+                    end if;
+                when 4 =>
+                    if next_ball = '1' then
+                        ball_counter <= 1;
+                        ball_pos <= (to_integer(rand), 241);
+                        state <= 5;
+                    else
+                        ball_counter <= ball_counter;
+                        ball_pos <= ball_pos;
+                        state <= 4;
+                    end if;
+                when 5 =>
+                    if next_ball = '1' then
+                        ball_counter <= 0;
+                        ball_pos <= (to_integer(rand), 241);
+                        state <= 6;
+                    else
+                        ball_counter <= ball_counter;
+                        ball_pos <= ball_pos;
+                        state <= 5;
+                    end if;
+                when 6 =>
+                    if next_ball = '1' then
+                        ball_counter <= 0;
+                        ball_pos <= (to_integer(rand), 241);
+                        state <= 7;
+                    else
+                        ball_counter <= ball_counter;
+                        ball_pos <= ball_pos;
+                        state <= 6;
+                    end if;
+                when 7 =>
+                    state <= 7;
                     ball_pos <= (-320, -241);
-                    -- ball_counter <= ball_counter;
-                end if;
-            end if;
+
+                when others =>
+                    ball_counter <= ball_counter;
+                    ball_pos <= ball_pos;
+                    state <= 0;
+            end case;
         end if;
     end process;
-    --     psuedorandom_gen_inst : psuedorandom_gen
-    -- port
-    -- map
-    -- (
-    -- MAX10_CLK1_50 => c0_sig,
-    -- rst_l => rst_l,
-    -- gen_button => next_ball,
-    -- rand => rand
-    -- );
 end architecture rtl;
