@@ -244,10 +244,11 @@ begin -- RTL
     (
     MAX10_CLK1_50 => c0_sig,
     rst_l => rst_l,
-    gen_button => next_ball,
+    gen_button => KEY(1),
     rand => rand
     );
 
+    HEX0 <= seven_seg(ball_counter);
     -- Future becomes the present
     process (c0_sig, rst_l)
     begin
@@ -255,30 +256,29 @@ begin -- RTL
             R <= (others => '0');
             G <= (others => '0');
             B <= (others => '0');
-            ball_pos <= (-320, -421);
+            -- ball_pos <= (-320, -421);
             paddle_pos <= (0, 0);
             brick_col_idx <= 0;
             brick_row_idx <= 0;
             line_parity <= '0';
-            ball_counter <= 5;
-            HEX0 <= seven_seg(ball_counter);
+            -- ball_counter <= 5;
         elsif rising_edge(c0_sig) then
             R <= nR;
             G <= nG;
             B <= nB;
-            HEX0 <= seven_seg(ball_counter);
+            -- HEX0 <= seven_seg(ball_counter);
             brick_col_idx <= nbrick_col_idx;
             brick_row_idx <= nbrick_row_idx;
             paddle_pos <= npaddle_pos;
-            ball_pos <= nball_pos;
+            -- ball_pos <= nball_pos;
             line_parity <= nline_parity;
-            ball_counter <= nball_counter;
+            -- ball_counter <= nball_counter;
         end if;
     end process;
 
     -- Interface with VGA controller
     process (R, G, B, request_data, current_line, data_pos, brick_row_idx, brick_col_idx,
-        ball_pos, paddle_pos, next_ball, brick_tracker, red, white, brown,
+        ball_pos, paddle_pos, brick_tracker, red, white, brown,
         black, white, half_brick_x, full_brick_x) -- bit to stop quartus from complaining
     begin
         -- We need to draw bricks, ball, and paddle 
@@ -373,24 +373,21 @@ begin -- RTL
     end process;
 
     -- ball movement state machine
-    process (ball_counter, rand, next_ball, ball_pos)
+    process (c0_sig, rst_l)
     begin
-        if next_ball = '1' then
-            nball_counter <= ball_counter;
-            if ball_counter > 0 then
-                nball_pos <= (to_integer(rand), 241);
-                nball_counter <= ball_counter - 1;
-            else
-                nball_pos <= (-320, -241);
-                nball_counter <= ball_counter;
+        if rst_l = '0' then
+            ball_counter <= 5;
+            ball_pos <= (-320, -241);
+        elsif rising_edge(c0_sig) then
+            if KEY(1) = '0' then
+                if ball_counter > 0 then
+                    ball_pos <= (to_integer(rand), 241);
+                    ball_counter <= ball_counter - 1;
+                else
+                    ball_pos <= (-320, -241);
+                    -- ball_counter <= ball_counter;
+                end if;
             end if;
-
-        else
-            nball_counter <= ball_counter;
-            nball_pos <= ball_pos;
-
-            -- nball_pos(0) <= (ball_pos(0));
-            -- nball_pos(1) <= (ball_pos(1) + 2);
         end if;
     end process;
     --     psuedorandom_gen_inst : psuedorandom_gen
