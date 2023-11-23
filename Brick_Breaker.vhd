@@ -143,6 +143,7 @@ architecture rtl of Brick_Breaker is
     signal brown : color := (x"7", x"4", x"3");
 
     -- Trackers
+    signal test_move : integer := 0;
     signal rand : unsigned(8 downto 0);
     signal ball_counter : INTEGER := 5;
     signal nball_counter : INTEGER;
@@ -380,6 +381,7 @@ HEX0 <= seven_seg(ball_counter);
             ball_counter <= 5;
             ball_pos <= (700, 700);
             state <= 1;
+            test_move <= 0;
         elsif rising_edge(c0_sig) then
             if next_ball = '1' then
                 if ball_counter > 0 then
@@ -388,7 +390,12 @@ HEX0 <= seven_seg(ball_counter);
                 end if;
             else
                 -- FSM for ball movement
-                
+                if test_move < 500000 then -- Update ball position every 500_000 cycles
+                    test_move <= test_move + 1;
+                else
+                    ball_pos <= (ball_pos(0), ball_pos(1) + 1);
+                    test_move <= 0;
+                end if;
             end if;
             -- case (state) is
             --     when 0 =>
