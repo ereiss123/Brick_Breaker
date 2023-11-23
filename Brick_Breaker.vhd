@@ -378,17 +378,17 @@ HEX0 <= seven_seg(ball_counter);
     begin
         if rst_l = '0' then
             ball_counter <= 5;
-            ball_pos <= (-320, -241);
+            ball_pos <= (700, 700);
             state <= 1;
         elsif rising_edge(c0_sig) then
             if next_ball = '1' then
                 if ball_counter > 0 then
                     ball_counter <= ball_counter - 1;
                     ball_pos <= (to_integer(rand), 241);
-                else
-                    ball_counter <= 0;
-                    ball_pos <= (ball_pos(0), ball_pos(1) - 1);
                 end if;
+            else
+                -- FSM for ball movement
+                
             end if;
             -- case (state) is
             --     when 0 =>
