@@ -12,47 +12,47 @@ entity debouncer is
 end debouncer;
 
 architecture rtl of debouncer is
-    signal db_state : std_logic_vector(1 downto 0);
-    signal ndb_state : std_logic_vector(1 downto 0);
-    -- signal button_count : integer;
-    -- signal nbutton_count : integer;
+    signal db_state : integer range 0 to 4;
+    signal bounce_count : integer;
 begin
     process(clk, rst) 
     begin
         if rst = '1' then 
-            db_state <= "00";
-            -- button_count <= 0;
+            db_state <= 0;
+            bounce_count <= 0;
         elsif rising_edge(clk)then 
-            db_state <= ndb_state;
-            -- nbutton_count <= button_count;
+            case db_state is
+                when 0 => -- Wait
+                    if button = '0' then
+                        db_state <= 1;
+                    end if;
+                when 1 => -- debounce
+                    bounce_count <= bounce_count + 1;
+                    if bounce_count >= 50000 then
+                        db_state <= 2;
+                    end if;
+                when 2 => -- send
+                    button_debounced <= '1';
+                    db_state <= 3;
+                when 3 => -- wait for release
+                    button_debounced <= '0';
+                    bounce_count <= 0;
+                    if button = '1' then
+                        db_state <= 4;
+                    end if;
+                when 4 => -- buffer
+                    bounce_count <= bounce_count + 1;
+                    if bounce_count >= 50000 then
+                        db_state <= 0;
+                    end if;
+                when others =>
+                    db_state <= 0;
+
+            end case;
         end if;
     end process;
 
-    process(db_state, button)
-    begin
-        case (db_state) is
-            when "00" =>  -- idle
-                if(button = '0') then
-                    ndb_state <= "01";
-                    -- nbutton_count <= 0;
-                else 
-                    ndb_state <= "00";
-                end if;
-            when "01" => -- button pressed
-                -- check if button is still pressed
-                if button = '1' then
-                    ndb_state <= "10";
-                    button_debounced <= '1'; -- set button high
-                else
-                    ndb_state <= "01";
-                end if;
-            when "10" =>
-                button_debounced <= '0'; -- set button low
-                ndb_state <= "00";
-            when others =>
-                ndb_state <= "00";
-        end case;
-    end process;
+   
     
     
 end architecture rtl;

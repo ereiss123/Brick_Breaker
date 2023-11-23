@@ -31,11 +31,11 @@ with open("brick_coorids.vhd", "w") as f:
         if i == 40:
             f.write("-1);\n\n")
         else:
-            f.write(f"{(i)*16},")
+            f.write(f"{((i)*16)+1},")
     
     # print half brick row corrids
     f.write("signal half_brick_x : hhalf_brick_corrid := (")
-    coorid = 0
+    coorid = 1
     for i in range(42):
         f.write(f"{coorid},")
         if i == 0:
