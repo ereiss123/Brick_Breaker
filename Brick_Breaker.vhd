@@ -379,88 +379,97 @@ HEX0 <= seven_seg(ball_counter);
         if rst_l = '0' then
             ball_counter <= 5;
             ball_pos <= (-320, -241);
-            state <= 0;
+            state <= 1;
         elsif rising_edge(c0_sig) then
-            case (state) is
-                when 0 =>
-                    if next_ball = '1' then
-                        ball_counter <= 5;
-                        ball_pos <= (-320, -241);
-                        state <= 1;
-                    else
-                        ball_counter <= ball_counter;
-                        ball_pos <= ball_pos;
-                        state <= 0;
-                    end if;
-                when 1 =>
-                    if next_ball = '1' then
-                        ball_counter <= 4;
-                        ball_pos <= (to_integer(rand), 241);
-                        state <= 2;
-                    else
-                        ball_counter <= ball_counter;
-                        ball_pos <= ball_pos;
-                        state <= 1;
-                    end if;
-                when 2 =>
-                    if next_ball = '1' then
-                        ball_counter <= 3;
-                        ball_pos <= (to_integer(rand), 241);
-                        state <= 3;
-                    else
-                        ball_counter <= ball_counter;
-                        ball_pos <= ball_pos;
-                        state <= 2;
-                    end if;
-                when 3 =>
-                    if next_ball = '1' then
-                        ball_counter <= 2;
-                        ball_pos <= (to_integer(rand), 241);
-                        state <= 4;
-                    else
-                        ball_counter <= ball_counter;
-                        ball_pos <= ball_pos;
-                        state <= 3;
-                    end if;
-                when 4 =>
-                    if next_ball = '1' then
-                        ball_counter <= 1;
-                        ball_pos <= (to_integer(rand), 241);
-                        state <= 5;
-                    else
-                        ball_counter <= ball_counter;
-                        ball_pos <= ball_pos;
-                        state <= 4;
-                    end if;
-                when 5 =>
-                    if next_ball = '1' then
-                        ball_counter <= 0;
-                        ball_pos <= (to_integer(rand), 241);
-                        state <= 6;
-                    else
-                        ball_counter <= ball_counter;
-                        ball_pos <= ball_pos;
-                        state <= 5;
-                    end if;
-                when 6 =>
-                    if next_ball = '1' then
-                        ball_counter <= 0;
-                        ball_pos <= (to_integer(rand), 241);
-                        state <= 7;
-                    else
-                        ball_counter <= ball_counter;
-                        ball_pos <= ball_pos;
-                        state <= 6;
-                    end if;
-                when 7 =>
-                    state <= 7;
-                    ball_pos <= (-320, -241);
+            if next_ball = '1' then
+                if ball_counter > 0 then
+                    ball_counter <= ball_counter - 1;
+                    ball_pos <= (to_integer(rand), 241);
+                else
+                    ball_counter <= 0;
+                    ball_pos <= (ball_pos(0), ball_pos(1) - 1);
+                end if;
+            end if;
+            -- case (state) is
+            --     when 0 =>
+            --         if next_ball = '1' then
+            --             ball_counter <= 5;
+            --             ball_pos <= (-320, -241);
+            --             state <= 1;
+            --         else
+            --             ball_counter <= ball_counter;
+            --             ball_pos <= ball_pos;
+            --             state <= 0;
+            --         end if;
+            --     when 1 =>
+            --         if next_ball = '1' then
+            --             ball_counter <= 4;
+            --             ball_pos <= (to_integer(rand), 241);
+            --             state <= 2;
+            --         else
+            --             ball_counter <= ball_counter;
+            --             ball_pos <= ball_pos;
+            --             state <= 1;
+            --         end if;
+            --     when 2 =>
+            --         if next_ball = '1' then
+            --             ball_counter <= 3;
+            --             ball_pos <= (to_integer(rand), 241);
+            --             state <= 3;
+            --         else
+            --             ball_counter <= ball_counter;
+            --             ball_pos <= ball_pos;
+            --             state <= 2;
+            --         end if;
+            --     when 3 =>
+            --         if next_ball = '1' then
+            --             ball_counter <= 2;
+            --             ball_pos <= (to_integer(rand), 241);
+            --             state <= 4;
+            --         else
+            --             ball_counter <= ball_counter;
+            --             ball_pos <= ball_pos;
+            --             state <= 3;
+            --         end if;
+            --     when 4 =>
+            --         if next_ball = '1' then
+            --             ball_counter <= 1;
+            --             ball_pos <= (to_integer(rand), 241);
+            --             state <= 5;
+            --         else
+            --             ball_counter <= ball_counter;
+            --             ball_pos <= ball_pos;
+            --             state <= 4;
+            --         end if;
+            --     when 5 =>
+            --         if next_ball = '1' then
+            --             ball_counter <= 0;
+            --             ball_pos <= (to_integer(rand), 241);
+            --             state <= 6;
+            --         else
+            --             ball_counter <= ball_counter;
+            --             ball_pos <= ball_pos;
+            --             state <= 5;
+            --         end if;
+            --     when 6 =>
+            --         if next_ball = '1' then
+            --             ball_counter <= 0;
+            --             ball_pos <= (to_integer(rand), 241);
+            --             state <= 7;
+            --         else
+            --             ball_counter <= ball_counter;
+            --             ball_pos <= ball_pos;
+            --             state <= 6;
+            --         end if;
+            --     when 7 =>
+            --         state <= 7;
+            --         ball_pos <= (-320, -241);
 
-                when others =>
-                    ball_counter <= ball_counter;
-                    ball_pos <= ball_pos;
-                    state <= 0;
-            end case;
+            --     when others =>
+            --         ball_counter <= ball_counter;
+            --         ball_pos <= ball_pos;
+            --         state <= 0;
+            -- end case;
         end if;
     end process;
 end architecture rtl;
