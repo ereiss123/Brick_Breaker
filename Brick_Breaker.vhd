@@ -260,29 +260,9 @@ begin -- RTL
     process (c0_sig, rst_l)
     begin
         if (not rst_l = '1') then
-
-            -- R <= (others => '0');
-            -- G <= (others => '0');
-            -- B <= (others => '0');
-            -- ball_pos <= (-1, -1);
             paddle_pos <= (0, 0);
-            -- brick_col_idx <= 0;
-            -- brick_row_idx <= 0;
-            -- line_parity <= '0';
-            -- ball_counter <= 5;
-            -- nball_counter <= 5;
-
         elsif rising_edge(c0_sig) then
-            -- R <= R;
-            -- G <= G;
-            -- B <= B;
-            -- HEX0 <= seven_seg(ball_counter);
-            -- brick_col_idx <= brick_col_idx;
-            -- brick_row_idx <= brick_row_idx;
             paddle_pos <= npaddle_pos;
-            -- ball_pos <= nball_pos;
-            -- line_parity <= line_parity;
-            -- ball_counter <= nball_counter;
         end if;
     end process;
 
