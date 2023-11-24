@@ -7,17 +7,7 @@ entity ADC is
     (
         clk : in STD_LOGIC; -- clk
         rst : in STD_LOGIC; -- reset
-        data : out STD_LOGIC_VECTOR (11 downto 0);
-        -- ADC_CLK_10    : in STD_LOGIC; -- clk
-        -- HEX0          : out STD_LOGIC_VECTOR (7 downto 0);
-        -- HEX1          : out STD_LOGIC_VECTOR (7 downto 0);
-        -- HEX2          : out STD_LOGIC_VECTOR (7 downto 0);
-        -- HEX3          : out STD_LOGIC_VECTOR (7 downto 0);
-        -- HEX4          : out STD_LOGIC_VECTOR (7 downto 0);
-        -- HEX5          : out STD_LOGIC_VECTOR (7 downto 0);
-        -- KEY           : in STD_LOGIC_VECTOR (1 downto 0);
-        ARDUINO_IO    : in STD_LOGIC_VECTOR (15 downto 0);
-        ARDUINO_RESET : in STD_LOGIC
+        data : out STD_LOGIC_VECTOR (11 downto 0)
     );
 end entity ADC;
 
@@ -71,15 +61,6 @@ architecture rtl of ADC is
         );
     end component my_adc;
 
-    -- component pll
-    --     port
-    --     (
-    --         areset : in STD_LOGIC := '0';
-    --         inclk0 : in STD_LOGIC := '0';
-    --         c0     : out STD_LOGIC;
-    --         locked : out STD_LOGIC
-    --     );
-    -- end component;
 
 begin
     --//////////////port maps/////////////////////
@@ -101,27 +82,6 @@ begin
         response_endofpacket   => response_endofpacket    --     .endofpacket
     );
 
-    -- The pll should be hooked up correctly. 50Mhz/5=10Mhz which is the same as the adc clock
-    -- pll_inst : pll port
-    -- map
-    -- (
-    -- areset => areset_sig,
-    -- inclk0 => MAX10_CLK1_50,
-    -- c0 => clk,
-    -- locked => locked_sig
-    -- );
-
-    --reset
-    -- areset_sig <= not(KEY(0));
-
-    --//////////////7-segment display/////////////////////
-    -- HEX0 <= seven_seg(to_integer(unsigned(data(3 downto 0))));
-    -- HEX1 <= seven_seg(to_integer(unsigned(data(7 downto 4))));
-    -- HEX2 <= seven_seg(to_integer(unsigned(data(11 downto 8))));
-    -- HEX3 <= "11111111";
-    -- HEX4 <= "11111111";
-    -- HEX5 <= "11111111";
-
     --//////////////our stuff/////////////////////
     --take future and update it to current
     process (clk, rst)
@@ -131,36 +91,25 @@ begin
             state <= 0;
             data <= (others => '0');
         elsif rising_edge(clk) then
-            state <= nstate;
-            data <= ndata;
-            count <= ncount;
-        end if;
-    end process;
-
-    process (data, count, state)
-    begin
-        case(state) is
-            when 0 =>
-            ndata <= data;
-            if (count = 9999999) then -- Update at 1 Hz
-                ncount <= 0;
-                nstate <= 1;
-            else
-                nstate <= 0;
-                ncount <= count + 1;
-            end if;
-            when 1 =>
-            ncount <= 0;
-            if response_valid = '1' then
-                nstate <= 0;
-                ndata <= response_data;
-            else
-                nstate <= 1;
-                ndata <= data;
-            end if;
-            when others =>
-            ndata <= (others => '0');
-            nstate <= 0;
-        end case;
+            case(state) is
+                when 0 =>
+                    if (count = 999999) then -- Update at 1 Hz
+                        count <= 0;
+                        state <= 1;
+                    else
+                        state <= 0;
+                        count <= count + 1;
+                    end if;
+                when 1 =>
+                count <= 0;
+                    if response_valid = '1' then
+                        state <= 0;
+                        data <= response_data;
+                    end if;
+                when others =>
+                    data <= (others => '0');
+                    state <= 0;
+            end case;
+        end if; 
     end process;
 end architecture rtl;

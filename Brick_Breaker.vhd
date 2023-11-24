@@ -107,9 +107,7 @@ architecture rtl of Brick_Breaker is
             (
                 clk : in STD_LOGIC;
                 rst : in STD_LOGIC;
-                data : out STD_LOGIC_VECTOR(11 downto 0);
-                ARDUINO_IO    : in STD_LOGIC_VECTOR (15 downto 0);
-                ARDUINO_RESET : in STD_LOGIC
+                data : out STD_LOGIC_VECTOR(11 downto 0)
             );
     end component;
 
@@ -244,10 +242,8 @@ begin -- RTL
     ADC_inst : ADC
     port map(
         clk => c1_sig, -- 10 MHz clock
-        rst => rst_l,
-        data => adc_data,
-        ARDUINO_IO => ARDUINO_IO,
-        ARDUINO_RESET => ARDUINO_RESET_N
+        rst => rst,
+        data => adc_data
     );
 
     -- Future becomes the present

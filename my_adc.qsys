@@ -140,7 +140,7 @@
   <parameter name="enable_usr_sim" value="0" />
   <parameter name="external_vref" value="2.5" />
   <parameter name="int_vref_vr" value="3.0" />
-  <parameter name="ip_is_for_which_adc" value="2" />
+  <parameter name="ip_is_for_which_adc" value="1" />
   <parameter name="prescaler_ch16" value="false" />
   <parameter name="prescaler_ch8" value="false" />
   <parameter name="refsel" value="1" />

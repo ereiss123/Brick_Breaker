@@ -7,7 +7,7 @@
 
 `timescale 1 ps / 1 ps
 module my_adc_modular_adc_0 #(
-		parameter is_this_first_or_second_adc = 2
+		parameter is_this_first_or_second_adc = 1
 	) (
 		input  wire        clock_clk,              //          clock.clk
 		input  wire        reset_sink_reset_n,     //     reset_sink.reset_n
@@ -31,7 +31,7 @@ module my_adc_modular_adc_0 #(
 		// has been instantiated this module with a set of parameters different
 		// from those it was generated for.  This will usually result in a
 		// non-functioning system.
-		if (is_this_first_or_second_adc != 2)
+		if (is_this_first_or_second_adc != 1)
 		begin
 			initial begin
 				$display("Generated module instantiated with wrong parameters");
@@ -50,7 +50,7 @@ module my_adc_modular_adc_0 #(
 		.prescalar                       (0),
 		.refsel                          (1),
 		.device_partname_fivechar_prefix ("10M50"),
-		.is_this_first_or_second_adc     (2),
+		.is_this_first_or_second_adc     (1),
 		.analog_input_pin_mask           (65536),
 		.dual_adc_mode                   (0),
 		.enable_usr_sim                  (0),

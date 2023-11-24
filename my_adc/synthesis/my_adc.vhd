@@ -52,7 +52,7 @@ begin
 
 	modular_adc_0 : component my_adc_modular_adc_0
 		generic map (
-			is_this_first_or_second_adc => 2
+			is_this_first_or_second_adc => 1
 		)
 		port map (
 			clock_clk              => clock_clk,              --          clock.clk

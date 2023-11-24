@@ -2,7 +2,7 @@ set_global_assignment -entity "my_adc" -library "my_adc" -name IP_TOOL_NAME "Qsy
 set_global_assignment -entity "my_adc" -library "my_adc" -name IP_TOOL_VERSION "18.1"
 set_global_assignment -entity "my_adc" -library "my_adc" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "my_adc" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../my_adc.sopcinfo"]
-set_global_assignment -entity "my_adc" -library "my_adc" -name SLD_INFO "QSYS_NAME my_adc HAS_SOPCINFO 1 GENERATION_ID 1700853361"
+set_global_assignment -entity "my_adc" -library "my_adc" -name SLD_INFO "QSYS_NAME my_adc HAS_SOPCINFO 1 GENERATION_ID 1700855833"
 set_global_assignment -library "my_adc" -name MISC_FILE [file join $::quartus(qip_path) "../my_adc.cmp"]
 set_global_assignment -library "my_adc" -name SLD_FILE [file join $::quartus(qip_path) "my_adc.debuginfo"]
 set_global_assignment -entity "my_adc" -library "my_adc" -name IP_TARGETED_DEVICE_FAMILY "MAX 10"
@@ -15,7 +15,7 @@ set_global_assignment -entity "my_adc" -library "my_adc" -name IP_COMPONENT_DISP
 set_global_assignment -entity "my_adc" -library "my_adc" -name IP_COMPONENT_REPORT_HIERARCHY "On"
 set_global_assignment -entity "my_adc" -library "my_adc" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "my_adc" -library "my_adc" -name IP_COMPONENT_VERSION "MS4w"
-set_global_assignment -entity "my_adc" -library "my_adc" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTcwMDg1MzM2MQ==::QXV0byBHRU5FUkFUSU9OX0lE"
+set_global_assignment -entity "my_adc" -library "my_adc" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTcwMDg1NTgzMw==::QXV0byBHRU5FUkFUSU9OX0lE"
 set_global_assignment -entity "my_adc" -library "my_adc" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::TUFYIDEw::QXV0byBERVZJQ0VfRkFNSUxZ"
 set_global_assignment -entity "my_adc" -library "my_adc" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0U=::MTBNNTBEQUY0ODRDN0c=::QXV0byBERVZJQ0U="
 set_global_assignment -entity "my_adc" -library "my_adc" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfU1BFRURHUkFERQ==::Nw==::QXV0byBERVZJQ0VfU1BFRURHUkFERQ=="
@@ -43,8 +43,8 @@ set_global_assignment -entity "my_adc_modular_adc_0" -library "my_adc" -name IP_
 set_global_assignment -entity "my_adc_modular_adc_0" -library "my_adc" -name IP_COMPONENT_PARAMETER "bWF4X2FkY19jb3VudF9vbl9kaWU=::Mg==::TWF4IEFEQ3MgY291bnQgb24gc2lsaWNvbiBkaWU="
 set_global_assignment -entity "my_adc_modular_adc_0" -library "my_adc" -name IP_COMPONENT_PARAMETER "YWRjX2NvdW50X29uX2RldmljZQ==::Mg==::QURDcyBjb3VudCBvbiBkZXZpY2U="
 set_global_assignment -entity "my_adc_modular_adc_0" -library "my_adc" -name IP_COMPONENT_PARAMETER "ZGV2aWNlX3Bvd2VyX3N1cHBseV90eXBl::Mg==::SXMgdGhpcyBhIHNpbmdsZSBvciBkdWFsIHN1cHBseSB2b2x0YWdlIGRldmljZQ=="
-set_global_assignment -entity "my_adc_modular_adc_0" -library "my_adc" -name IP_COMPONENT_PARAMETER "aXBfaXNfZm9yX3doaWNoX2FkYw==::Mg==::R2VuZXJhdGUgSVAgZm9yIHdoaWNoIEFEQ3Mgb2YgdGhpcyBkZXZpY2U/"
-set_global_assignment -entity "my_adc_modular_adc_0" -library "my_adc" -name IP_COMPONENT_PARAMETER "aXNfdGhpc19maXJzdF9vcl9zZWNvbmRfYWRj::Mg==::VGhpcyBBREMgYXRvbSBwcmltaXRpdmUgKFdZU0lXWUcpIGlzIGZvciBmaXJzdCBvciBzZWNvbmQgQURDPw=="
+set_global_assignment -entity "my_adc_modular_adc_0" -library "my_adc" -name IP_COMPONENT_PARAMETER "aXBfaXNfZm9yX3doaWNoX2FkYw==::MQ==::R2VuZXJhdGUgSVAgZm9yIHdoaWNoIEFEQ3Mgb2YgdGhpcyBkZXZpY2U/"
+set_global_assignment -entity "my_adc_modular_adc_0" -library "my_adc" -name IP_COMPONENT_PARAMETER "aXNfdGhpc19maXJzdF9vcl9zZWNvbmRfYWRj::MQ==::VGhpcyBBREMgYXRvbSBwcmltaXRpdmUgKFdZU0lXWUcpIGlzIGZvciBmaXJzdCBvciBzZWNvbmQgQURDPw=="
 set_global_assignment -entity "my_adc_modular_adc_0" -library "my_adc" -name IP_COMPONENT_PARAMETER "YW5hbG9nX2lucHV0X3Bpbl9tYXNr::MA==::YW5hbG9nX2lucHV0X3Bpbl9tYXNr"
 set_global_assignment -entity "my_adc_modular_adc_0" -library "my_adc" -name IP_COMPONENT_PARAMETER "aGFyZF9wd2Q=::MA==::aGFyZF9wd2Q="
 set_global_assignment -entity "my_adc_modular_adc_0" -library "my_adc" -name IP_COMPONENT_PARAMETER "c2FtcGxlX3JhdGU=::MA==::QURDIFNhbXBsZSBSYXRl"
@@ -232,7 +232,7 @@ set_global_assignment -entity "altera_modular_adc_control" -library "my_adc" -na
 set_global_assignment -entity "altera_modular_adc_control" -library "my_adc" -name IP_COMPONENT_PARAMETER "cHJlc2NhbGFy::MA==::cHJlc2NhbGFy"
 set_global_assignment -entity "altera_modular_adc_control" -library "my_adc" -name IP_COMPONENT_PARAMETER "cmVmc2Vs::MQ==::cmVmc2Vs"
 set_global_assignment -entity "altera_modular_adc_control" -library "my_adc" -name IP_COMPONENT_PARAMETER "ZGV2aWNlX3BhcnRuYW1lX2ZpdmVjaGFyX3ByZWZpeA==::MTBNNTA=::ZGV2aWNlX3BhcnRuYW1lX2ZpdmVjaGFyX3ByZWZpeA=="
-set_global_assignment -entity "altera_modular_adc_control" -library "my_adc" -name IP_COMPONENT_PARAMETER "aXNfdGhpc19maXJzdF9vcl9zZWNvbmRfYWRj::Mg==::aXNfdGhpc19maXJzdF9vcl9zZWNvbmRfYWRj"
+set_global_assignment -entity "altera_modular_adc_control" -library "my_adc" -name IP_COMPONENT_PARAMETER "aXNfdGhpc19maXJzdF9vcl9zZWNvbmRfYWRj::MQ==::aXNfdGhpc19maXJzdF9vcl9zZWNvbmRfYWRj"
 set_global_assignment -entity "altera_modular_adc_control" -library "my_adc" -name IP_COMPONENT_PARAMETER "YW5hbG9nX2lucHV0X3Bpbl9tYXNr::NjU1MzY=::YW5hbG9nX2lucHV0X3Bpbl9tYXNr"
 set_global_assignment -entity "altera_modular_adc_control" -library "my_adc" -name IP_COMPONENT_PARAMETER "ZHVhbF9hZGNfbW9kZQ==::ZmFsc2U=::RW5hYmxlIER1YWwgQURDIE1vZGU="
 set_global_assignment -entity "altera_modular_adc_control" -library "my_adc" -name IP_COMPONENT_PARAMETER "ZW5hYmxlX3Vzcl9zaW0=::MA==::RW5hYmxlIHVzZXIgY3JlYXRlZCBleHBlY3RlZCBvdXRwdXQgZmlsZQ=="
