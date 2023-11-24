@@ -143,7 +143,7 @@ architecture rtl of Brick_Breaker is
     signal brown : color := (x"7", x"4", x"3");
 
     -- Trackers
-    signal test_move : integer := 0;
+    signal test_move : INTEGER := 0;
     signal rand : unsigned(8 downto 0);
     signal ball_counter : INTEGER := 5;
     signal nball_counter : INTEGER;
@@ -163,17 +163,13 @@ architecture rtl of Brick_Breaker is
     -- signal half_brick_x : hhalf_brick_corrid := (0, 8, 24, 40, 56, 72, 88, 104, 120, 136, 152, 168,
     -- 184, 200, 216, 232, 248, 264, 280, 296, 312, 328, 344, 360, 376, 392, 408, 424, 440, 456, 472, 488, 504,
     -- 520, 536, 552, 568, 584, 600, 616, 632); -- x coordinate top left corner of each brick in a half row
-    
-    signal full_brick_x : hhalf_brick_corrid := (1,17,33,49,65,81,97,113,129,145,161,177,193,209,225,241,257,273,289,305,321,337,353,369,385,401,417,433,449,465,481,497,513,529,545,561,577,593,609,625,-1);
 
-    signal half_brick_x : hhalf_brick_corrid := (1,9,25,41,57,73,89,105,121,137,153,169,185,201,217,233,249,265,281,297,313,329,345,361,377,393,409,425,441,457,473,489,505,521,537,553,569,585,601,617,633);
+    signal full_brick_x : hhalf_brick_corrid := (1, 17, 33, 49, 65, 81, 97, 113, 129, 145, 161, 177, 193, 209, 225, 241, 257, 273, 289, 305, 321, 337, 353, 369, 385, 401, 417, 433, 449, 465, 481, 497, 513, 529, 545, 561, 577, 593, 609, 625, -1);
+
+    signal half_brick_x : hhalf_brick_corrid := (1, 9, 25, 41, 57, 73, 89, 105, 121, 137, 153, 169, 185, 201, 217, 233, 249, 265, 281, 297, 313, 329, 345, 361, 377, 393, 409, 425, 441, 457, 473, 489, 505, 521, 537, 553, 569, 585, 601, 617, 633);
 
     signal brick_y : vbrick_corrid := (0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120,
     128, 136, 144, 152, 160, 168, 176, 184, 192, 200, 208, 216, 224, 232); -- y coordinate of top left corner of each brick
-    
-
-
-
     signal brick_tracker : tracker := (
     ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0', '0'),
         ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'),
@@ -209,7 +205,8 @@ architecture rtl of Brick_Breaker is
 begin -- RTL
 
     rst_l <= KEY(0);
-    rst <= not KEY(0) when KEY(0) = '0' else '0';
+    rst <= not KEY(0) when KEY(0) = '0' else
+        '0';
 
     VGA_controller_inst : VGA_controller
     port map
@@ -258,7 +255,7 @@ begin -- RTL
     rand => rand
     );
 
-HEX0 <= seven_seg(ball_counter);
+    HEX0 <= seven_seg(ball_counter);
     -- Future becomes the present
     process (c0_sig, rst_l)
     begin
@@ -290,7 +287,7 @@ HEX0 <= seven_seg(ball_counter);
     end process;
 
     -- Interface with VGA controller
-    process (c0_sig,rst_l) 
+    process (c0_sig, rst_l)
     begin
         if rst_l = '0' then
             R <= (others => '0');
@@ -299,13 +296,13 @@ HEX0 <= seven_seg(ball_counter);
             brick_col_idx <= 0;
             brick_row_idx <= 0;
             line_parity <= '0';
-        elsif rising_edge(c0_sig) then     
+        elsif rising_edge(c0_sig) then
             -- We need to draw bricks, ball, and paddle 
             if request_data = '1' then
                 -- Draw ball
                 if current_line >= ball_pos(1) and current_line < (ball_pos(1) + 10) and
-                data_pos >= ball_pos(0) and data_pos < (ball_pos(0) + 10) -- ball is 10x10. This keeps it from drawing outside of the ball
-                then
+                    data_pos >= ball_pos(0) and data_pos < (ball_pos(0) + 10) -- ball is 10x10. This keeps it from drawing outside of the ball
+                    then
                     R <= white(0);
                     G <= white(1);
                     B <= white(2);
@@ -397,86 +394,6 @@ HEX0 <= seven_seg(ball_counter);
                     test_move <= 0;
                 end if;
             end if;
-            -- case (state) is
-            --     when 0 =>
-            --         if next_ball = '1' then
-            --             ball_counter <= 5;
-            --             ball_pos <= (-320, -241);
-            --             state <= 1;
-            --         else
-            --             ball_counter <= ball_counter;
-            --             ball_pos <= ball_pos;
-            --             state <= 0;
-            --         end if;
-            --     when 1 =>
-            --         if next_ball = '1' then
-            --             ball_counter <= 4;
-            --             ball_pos <= (to_integer(rand), 241);
-            --             state <= 2;
-            --         else
-            --             ball_counter <= ball_counter;
-            --             ball_pos <= ball_pos;
-            --             state <= 1;
-            --         end if;
-            --     when 2 =>
-            --         if next_ball = '1' then
-            --             ball_counter <= 3;
-            --             ball_pos <= (to_integer(rand), 241);
-            --             state <= 3;
-            --         else
-            --             ball_counter <= ball_counter;
-            --             ball_pos <= ball_pos;
-            --             state <= 2;
-            --         end if;
-            --     when 3 =>
-            --         if next_ball = '1' then
-            --             ball_counter <= 2;
-            --             ball_pos <= (to_integer(rand), 241);
-            --             state <= 4;
-            --         else
-            --             ball_counter <= ball_counter;
-            --             ball_pos <= ball_pos;
-            --             state <= 3;
-            --         end if;
-            --     when 4 =>
-            --         if next_ball = '1' then
-            --             ball_counter <= 1;
-            --             ball_pos <= (to_integer(rand), 241);
-            --             state <= 5;
-            --         else
-            --             ball_counter <= ball_counter;
-            --             ball_pos <= ball_pos;
-            --             state <= 4;
-            --         end if;
-            --     when 5 =>
-            --         if next_ball = '1' then
-            --             ball_counter <= 0;
-            --             ball_pos <= (to_integer(rand), 241);
-            --             state <= 6;
-            --         else
-            --             ball_counter <= ball_counter;
-            --             ball_pos <= ball_pos;
-            --             state <= 5;
-            --         end if;
-            --     when 6 =>
-            --         if next_ball = '1' then
-            --             ball_counter <= 0;
-            --             ball_pos <= (to_integer(rand), 241);
-            --             state <= 7;
-            --         else
-            --             ball_counter <= ball_counter;
-            --             ball_pos <= ball_pos;
-            --             state <= 6;
-            --         end if;
-            --     when 7 =>
-            --         state <= 7;
-            --         ball_pos <= (-320, -241);
-
-            --     when others =>
-            --         ball_counter <= ball_counter;
-            --         ball_pos <= ball_pos;
-            --         state <= 0;
-            -- end case;
         end if;
     end process;
 end architecture rtl;
