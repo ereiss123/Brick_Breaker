@@ -87,6 +87,7 @@ architecture rtl of Brick_Breaker is
             areset : in STD_LOGIC := '0';
             inclk0 : in STD_LOGIC := '0';
             c0     : out STD_LOGIC;
+            c1     : out STD_LOGIC;
             locked : out STD_LOGIC
         );
     end component;
@@ -99,6 +100,15 @@ architecture rtl of Brick_Breaker is
             button           : in STD_LOGIC;
             button_debounced : out STD_LOGIC
         );
+    end component;
+
+    component ADC 
+        port 
+            (
+                clk : in STD_LOGIC;
+                rst : in STD_LOGIC;
+                data : out STD_LOGIC_VECTOR(11 downto 0)
+            );
     end component;
 
     -- Signal declaration
@@ -115,8 +125,10 @@ architecture rtl of Brick_Breaker is
     signal current_line : unsigned(9 downto 0);
     signal data_pos : unsigned(9 downto 0); --horizontal counter
     signal c0_sig : STD_LOGIC;
+    signal c1_sig : STD_LOGIC;
     signal locked_sig : STD_LOGIC;
     signal next_ball : STD_LOGIC;
+    signal adc_data : STD_LOGIC_VECTOR(11 downto 0);
 
     -- Colors                        R    G    B
     signal white : color := (x"F", x"F", x"F");
@@ -125,7 +137,7 @@ architecture rtl of Brick_Breaker is
     signal brown : color := (x"7", x"4", x"3");
 
     -- Trackers
-          signal rand : unsigned(7 downto 0)
+    signal rand : unsigned(7 downto 0);
 
     signal ball_pos : coorid := (320, 241);
     signal nball_pos : coorid := (320, 241);
@@ -137,6 +149,7 @@ architecture rtl of Brick_Breaker is
     signal nbrick_row_idx : INTEGER := 0;
     signal line_parity : STD_LOGIC := '0'; -- indicate whether current line is odd or even
     signal nline_parity : STD_LOGIC := '0'; -- indicate whether current line is odd or even
+    signal paddle_x : integer range 0 to 640 := 304; -- x coordinate of paddle
     signal full_brick_x : hhalf_brick_corrid := (0, 16, 32, 48, 64, 80, 96, 112, 128, 144, 160,
     176, 192, 208, 224, 240, 256, 272, 288, 304, 320, 336, 352, 368, 384, 400, 416, 432, 448, 464, 480, 496,
     512, 528, 544, 560, 576, 592, 608, 624, -1); -- top left corner of each brick in a full row. -1 is a dummy value to fill out the array
@@ -202,43 +215,29 @@ begin -- RTL
         VGA_VS       => VGA_VS
     );
     PLL_inst : VGA_PLL
-    port
-    map
+    port map
     (
-    areset => rst,
-    inclk0 => MAX10_CLK1_50,
-    c0 => c0_sig,
-    locked => locked_sig
+        areset => rst,
+        inclk0 => MAX10_CLK1_50,
+        c0 => c0_sig,
+        c1	 => c1_sig,
+        locked => locked_sig
     );
 
     db_inst : debouncer
-    port
-    map(
-    clk => c0_sig,
-    rst => rst,
-    button => KEY(1),
-    button_debounced => next_ball
+    port map(
+        clk => c0_sig,
+        rst => rst,
+        button => KEY(1),
+        button_debounced => next_ball
     );
-      
-    psuedorandom_gen_inst : psuedorandom_gen
-        port
-        map
-        (
-        MAX10_CLK1_50 => MAX10_CLK1_50,
-        rst_l => rst_l,
-        gen_button => next_ball,
-        rand => rand
-        );
-      component psuedorandom_gen is
-        generic
-            (seed : unsigned(15 downto 0))
-        port
-        (
-            MAX10_CLK1_50 : in STD_LOGIC;
-            rst_l         : in STD_LOGIC
-            gen_button    : in STD_LOGIC;
-            rand          : out unsigned(7 downto 0)
-        )
+
+    ADC_inst : ADC
+    port map(
+        clk => c1_sig, -- 10 MHz clock
+        rst => rst_l,
+        data => adc_data
+    );
 
     -- Future becomes the present
     process (c0_sig, rst_l)
@@ -248,7 +247,7 @@ begin -- RTL
             G <= (others => '0');
             B <= (others => '0');
             ball_pos <= (0, 0);
-            paddle_pos <= (0, 0);
+            -- paddle_pos <= (0, 0);
             brick_col_idx <= 0;
             brick_row_idx <= 0;
             line_parity <= '0';
@@ -258,7 +257,7 @@ begin -- RTL
             B <= nB;
             brick_col_idx <= nbrick_col_idx;
             brick_row_idx <= nbrick_row_idx;
-            paddle_pos <= npaddle_pos;
+            -- paddle_pos <= npaddle_pos;
             ball_pos <= nball_pos;
             line_parity <= nline_parity;
         end if;
@@ -359,4 +358,29 @@ begin -- RTL
             nline_parity <= '0';
         end if;
     end process;
+
+
+    HEX3 <= seven_seg(to_integer(unsigned(adc_data(3 downto 0))));
+    HEX4 <= seven_seg(to_integer(unsigned(adc_data(7 downto 4))));
+    HEX5 <= seven_seg(to_integer(unsigned(adc_data(11 downto 8))));
+    HEX0 <= "11111111";
+    HEX1 <= "11111111";
+    HEX2 <= "11111111";
+
+    -- ADC process
+    ADC_proc : process(c0_sig, rst_l)
+    begin
+        if rst_l = '0' then
+            paddle_x <= 304;
+            paddle_pos <= (304, 474);
+        elsif rising_edge(c0_sig) then
+            if unsigned(adc_data) > 600 then
+                paddle_x <= 600;
+            else
+                paddle_x <= to_integer(unsigned(adc_data));
+            end if;
+            paddle_pos <= (paddle_x, 474);
+        end if;
+    end process;
+
 end architecture rtl;
