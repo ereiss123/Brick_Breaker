@@ -27,18 +27,14 @@ end entity VGA_controller;
 architecture rtl of VGA_controller is
 
     signal hor_count : integer := 0;
-    signal hor_count_nxt : integer := 0;
     signal ver_count : integer := 0;
-    signal ver_count_nxt : integer := 0;
     
     signal hor_state : integer := 0;
-    signal hor_state_nxt : integer := 0;
     signal ver_state : integer := 0;
-    signal ver_state_nxt : integer := 0;
     signal line_count : integer := 0;
-    signal line_count_nxt : integer := 0;
     
-
+    signal h_flag : std_logic := '0';
+    signal v_flag : std_logic := '0';
 begin
 
     -- Take future and update to current
@@ -46,143 +42,136 @@ begin
     begin
         if rst_l = '0' then
             hor_count <= 0;
-            ver_count <= 0;
             hor_state <= 0;
-            ver_state <= 0;
-            line_count <= 0;
+            VGA_HS <= '1';
+            h_flag <= '0';
         elsif rising_edge(clk) then
-            hor_count <= hor_count_nxt;
-            ver_count <= ver_count_nxt;
-            hor_state <= hor_state_nxt;
-            ver_state <= ver_state_nxt;
-            line_count <= line_count_nxt;
-        end if;
-    end process;
-    -- Horizontal state machine
-    process(hor_state, hor_count)
-    begin
-        case hor_state is
-        when 0 => -- front porch
-            VGA_HS <= '1';
-            if hor_count < 15 then
-                hor_count_nxt <= hor_count + 1;
-                hor_state_nxt <= hor_state;
-            else
-                hor_count_nxt <= 0;
-                hor_state_nxt <= 1;
-            end if;
-        when 1 => -- sync pulse
-            if hor_count < 95 then
-                VGA_HS <= '0';
-                hor_count_nxt <= hor_count + 1;
-                hor_state_nxt <= hor_state;
-            else
+            
+            case hor_state is
+            when 0 => -- front porch
                 VGA_HS <= '1';
-                hor_count_nxt <= 0;
-                hor_state_nxt <= 2;
-            end if;
-        when 2 => -- back porch
-            VGA_HS <= '1';
-            if hor_count < 47 then
-                hor_count_nxt <= hor_count + 1;
-                hor_state_nxt <= hor_state;
-            else
-                hor_count_nxt <= 0;
-                hor_state_nxt <= 3;
-            end if;
-        when 3 =>
-            VGA_HS <= '1';
-            if hor_count < 639 then
-                hor_count_nxt <= hor_count + 1;
-                hor_state_nxt <= hor_state;
-            else
-                hor_count_nxt <= 0;
-                hor_state_nxt <= 0;
-            end if;
-        when others =>
-            hor_state_nxt <= 0;
-            hor_count_nxt <= 0;
-            VGA_HS <= '1';
-        end case;
+                h_flag <= '0';
+                if hor_count < 15 then
+                    hor_count <= hor_count + 1;
+                else
+                    hor_count <= 0;
+                    hor_state <= 1;
+                end if;
+            when 1 => -- sync pulse
+                if hor_count < 95 then
+                    VGA_HS <= '0';
+                    hor_count <= hor_count + 1;
+                else
+                    VGA_HS <= '1';
+                    hor_count <= 0;
+                    hor_state <= 2;
+                end if;
+            when 2 => -- back porch
+                VGA_HS <= '1';
+                if hor_count < 47 then
+                    hor_count <= hor_count + 1;
+                else
+                    hor_count <= 0;
+                    hor_state <= 3;
+                    h_flag <= '1';
+                end if;
+            when 3 =>
+                VGA_HS <= '1';
+                if hor_count < 639 then
+                    hor_count <= hor_count + 1;
+                else
+                    hor_count <= 0;
+                    hor_state <= 0;
+                end if;
+            when others =>
+                hor_state <= 0;
+                hor_count <= 0;
+                VGA_HS <= '1';
+            end case;
+        end if;
     end process;
 
     -- Vertical state machine
-    process(ver_state, ver_count, line_count)
+    process(clk, rst_l)
     begin
-        case ver_state is
-        when 0 => -- front porch
+        if rst_l = '0' then
+            ver_state <= 0;
+            ver_count <= 0;
+            line_count <= 0;
             VGA_VS <= '1';
-            line_count_nxt <= line_count;
-            if ver_count < 7999 then
-                ver_state_nxt <= ver_state;
-                ver_count_nxt <= ver_count + 1;
-            else
-                ver_count_nxt <= 0;
-                ver_state_nxt <= 1;
-            end if;
-        when 1 => -- sync pulse
-            line_count_nxt <= line_count;
-            if ver_count < 1599 then
-                VGA_VS <= '0';
-                ver_state_nxt <= ver_state;
-                ver_count_nxt <= ver_count + 1;
-            else
+        elsif rising_edge(clk) then 
+            case ver_state is
+            when 0 => -- front porch
                 VGA_VS <= '1';
-                ver_count_nxt <= 0;
-                ver_state_nxt <= 2;
-            end if;
-        when 2 => -- back porch
-            VGA_VS <= '1';
-            if ver_count < 26399 then
-                line_count_nxt <= line_count;
-                ver_count_nxt <= ver_count + 1;
-                ver_state_nxt <= ver_state;
-            else
-                ver_count_nxt <= 0;
-                ver_state_nxt <= 3;
-                line_count_nxt <= 0;
-            end if;
-        when 3 => -- data
-            VGA_VS <= '1';
-            if ver_count >= 799 and line_count >= 478 then
-                ver_state_nxt <= 0;
-                ver_count_nxt <= 0;
-                line_count_nxt <= 0;
-            else
-                ver_state_nxt <= ver_state;
-                if ver_count >= 799
-                then
-                    line_count_nxt <= line_count + 1;
-                    ver_count_nxt <= 0;
+                v_flag <= '0';
+                if ver_count < 7999 then
+                    ver_count <= ver_count + 1;
                 else
-                    line_count_nxt <= line_count;
-                    ver_count_nxt <= ver_count + 1;
+                    ver_count <= 0;
+                    ver_state <= 1;
                 end if;
-            end if;
-        when others =>
-            VGA_VS <= '1';
-            ver_state_nxt <= 0;
-            line_count_nxt <= 0;
-            ver_count_nxt <= 0;
-        end case;
+            when 1 => -- sync pulse
+                if ver_count < 1599 then
+                    VGA_VS <= '0';
+                    ver_count <= ver_count + 1;
+                else
+                    VGA_VS <= '1';
+                    ver_count <= 0;
+                    ver_state <= 2;
+                end if;
+            when 2 => -- back porch
+                VGA_VS <= '1';
+                if ver_count < 26399 then
+                    ver_count <= ver_count + 1;
+                else
+                    ver_count <= 0;
+                    ver_state <= 3;
+                    v_flag <= '1';
+                    line_count <= 0;
+                end if;
+            when 3 => -- data
+                VGA_VS <= '1';
+                if ver_count >= 799 and line_count >= 478 then
+                    ver_state <= 0;
+                    ver_count <= 0;
+                else
+                    if ver_count >= 799
+                    then
+                        line_count <= line_count + 1;
+                        ver_count <= 0;
+                    else
+                        ver_count <= ver_count + 1;
+                    end if;
+                end if;
+            when others =>
+                ver_state <= 0;
+            end case;
+        end if;
     end process;
 
-    process(hor_state, ver_state, line_count, hor_count)
+    process(clk, rst_l)
     begin
-        if ver_state = 3 and hor_state = 3 then
-            current_line <= to_unsigned(line_count,current_line'length);
-            data_pos <= to_unsigned(hor_count, data_pos'length);
-            request_data <= '1';
-            VGA_R <= R;
-            VGA_G <= G;
-            VGA_B <= B;
-        else 
+        if rst_l = '0' then
             VGA_R <= X"0";
             VGA_G <= X"0";
             VGA_B <= X"0";
             request_data <= '0';
             current_line <= "0000000000";
             data_pos <= "0000000000";
+        elsif rising_edge(clk) then
+            if v_flag = '1' and h_flag = '1' then
+                current_line <= to_unsigned(line_count,current_line'length);
+                data_pos <= to_unsigned(hor_count, data_pos'length);
+                request_data <= '1';
+                VGA_R <= R;
+                VGA_G <= G;
+                VGA_B <= B;
+            else 
+                request_data <= '0';
+                VGA_R <= X"0";
+                VGA_G <= X"0";
+                VGA_B <= X"0";
+            end if;
         end if;
     end process;
 
