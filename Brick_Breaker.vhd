@@ -377,8 +377,13 @@ begin -- RTL
                 if test_move < 500000 then -- Update ball position every 500_000 cycles
                     test_move <= test_move + 1;
                 else
-                    ball_pos <= (ball_pos(0), ball_pos(1) + 1);
-                    test_move <= 0;
+                    if (ball_pos(1) + 10) >= paddle_pos(1) and current_line < (paddle_pos(1) + 5) and data_pos >= paddle_pos(0) and data_pos < (paddle_pos(0) + 40) then -- ball hits paddle
+                        ball_pos <= (ball_pos(0), (ball_pos(1) - 10));
+                        test_move <= 0;
+                    else
+                        ball_pos <= (ball_pos(0), (ball_pos(1) + 1));
+                        test_move <= 0;
+                    end if;
                 end if;
             end if;
         end if;
