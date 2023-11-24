@@ -24,7 +24,6 @@ end entity ADC;
 architecture rtl of ADC is
     -- //////////////////////Signals/////////////////////////
     signal areset_sig : STD_LOGIC := '0';
-    signal clk : STD_LOGIC;
     signal locked_sig : STD_LOGIC;
     signal command_rdy : STD_LOGIC; -- flag to indicate that a command can be recieved
     signal command_valid : STD_LOGIC; -- indicate command is sent
@@ -127,7 +126,7 @@ begin
     --take future and update it to current
     process (clk, rst)
     begin
-        if (areset_sig = '1') then
+        if (rst = '1') then
             count <= 0;
             state <= 0;
             data <= (others => '0');

@@ -107,9 +107,18 @@ architecture rtl of Brick_Breaker is
             (
                 clk : in STD_LOGIC;
                 rst : in STD_LOGIC;
-                data : out STD_LOGIC_VECTOR(11 downto 0)
+                data : out STD_LOGIC_VECTOR(11 downto 0);
+                ARDUINO_IO    : in STD_LOGIC_VECTOR (15 downto 0);
+                ARDUINO_RESET : in STD_LOGIC
             );
     end component;
+
+    -- Create a look up table for the 7-segment display
+    type LUT is array(15 downto 0) of STD_LOGIC_VECTOR(7 downto 0);
+
+    -- 7-segment display look up table. Not to flip bits. 7 segment display is active low.
+    signal seven_seg : LUT := (not(X"71"), not(X"79"), not(X"5E"), not(X"58"), not(X"7C"), not(X"77"),
+     X"90", X"80", X"F8", X"82", X"92", X"99", X"B0", X"A4", X"F9", X"C0");
 
     -- Signal declaration
     signal rst : STD_LOGIC;
@@ -236,7 +245,9 @@ begin -- RTL
     port map(
         clk => c1_sig, -- 10 MHz clock
         rst => rst_l,
-        data => adc_data
+        data => adc_data,
+        ARDUINO_IO => ARDUINO_IO,
+        ARDUINO_RESET => ARDUINO_RESET_N
     );
 
     -- Future becomes the present
