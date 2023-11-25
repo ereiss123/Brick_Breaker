@@ -501,14 +501,7 @@ begin -- RTL
                         if brick_tracker(ball_row_idxT, ball_col_idxTR) = '1' then -- if brick is still there
                             brick_tracker(ball_row_idxT, ball_col_idxTR) <= '0';
                              -- Update ball velocity
-                             case y_accel is 
-                                when 1 =>
-                                    y_accel <= -1;
-                                when -1 =>
-                                    y_accel <= 1;
-                                when others =>
-                                    y_accel <= 0;
-                            end case;
+                             y_accel <= -1;
                             case x_accel is
                                 when 1 =>
                                     x_accel <= -1;
@@ -524,14 +517,7 @@ begin -- RTL
                         elsif brick_tracker(ball_row_idxT, ball_col_idxTL) = '1' then
                             brick_tracker(ball_row_idxT, ball_col_idxTL) <= '0';
                              -- Update ball velocity
-                             case y_accel is 
-                                when 1 =>
-                                    y_accel <= -1;
-                                when -1 =>
-                                    y_accel <= 1;
-                                when others =>
-                                    y_accel <= 0;
-                            end case;
+                             y_accel <= -1;
                             case x_accel is
                                 when 1 =>
                                     x_accel <= -1;
@@ -547,14 +533,7 @@ begin -- RTL
                         elsif brick_tracker(ball_row_idxB, ball_col_idxBL) = '1' and ball_pos(1) < 229 then
                             brick_tracker(ball_row_idxB, ball_col_idxBL) <= '0';
                              -- Update ball velocity
-                             case y_accel is 
-                                when 1 =>
-                                    y_accel <= -1;
-                                when -1 =>
-                                    y_accel <= 1;
-                                when others =>
-                                    y_accel <= 0;
-                            end case;
+                            y_accel <= 1;
                             case x_accel is
                                 when 1 =>
                                     x_accel <= -1;
@@ -570,14 +549,7 @@ begin -- RTL
                         elsif brick_tracker(ball_row_idxB, ball_col_idxBR) = '1' and ball_pos(1) < 229 then
                             brick_tracker(ball_row_idxB, ball_col_idxBR) <= '0';
                             -- Update ball velocity
-                            case y_accel is 
-                                when 1 =>
-                                    y_accel <= -1;
-                                when -1 =>
-                                    y_accel <= 1;
-                                when others =>
-                                    y_accel <= 0;
-                            end case;
+                            y_accel <= 1;
                             case x_accel is
                                 when 1 =>
                                     x_accel <= -1;
