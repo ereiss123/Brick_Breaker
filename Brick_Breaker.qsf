@@ -367,6 +367,7 @@ set_global_assignment -name EDA_TEST_BENCH_NAME Brick_Breaker_TB -section_id eda
 set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id Brick_Breaker_TB
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME Brick_Breaker_TB -section_id Brick_Breaker_TB
 set_global_assignment -name EDA_TEST_BENCH_FILE Brick_Breaker_TB.vhd -section_id Brick_Breaker_TB
+set_global_assignment -name QIP_FILE my_adc/synthesis/my_adc.qip
 set_global_assignment -name VHDL_FILE psuedoranom_gen.vhd
 set_global_assignment -name VHDL_FILE Brick_Breaker_TB.vhd
 set_global_assignment -name VHDL_FILE Brick_Breaker.vhd

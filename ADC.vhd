@@ -74,12 +74,12 @@ begin
         command_channel        => "00001",                --     .channel
         command_startofpacket  => '1',                    --     .startofpacket
         command_endofpacket    => '1',                    --     .endofpacket
-        command_ready          => command_rdy,            --     .ready
+        command_ready          => open,            --     .ready
         response_valid         => response_valid,         --     response.valid
-        response_channel       => response_channel,       --     .channel
-        response_data          => response_data,          --     .data
-        response_startofpacket => response_startofpacket, --     .startofpacket
-        response_endofpacket   => response_endofpacket    --     .endofpacket
+        response_channel       => open,       --     .channel
+        response_data          => open,          --     .data
+        response_startofpacket => open, --     .startofpacket
+        response_endofpacket   => open    --     .endofpacket
     );
 
     --//////////////our stuff/////////////////////
