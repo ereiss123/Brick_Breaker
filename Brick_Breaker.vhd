@@ -319,6 +319,7 @@ begin -- RTL
             brick_col_idx <= 0;
             brick_row_idx <= 0;
             line_parity <= '0';
+            
         elsif rising_edge(c0_sig) then
             -- We need to draw bricks, ball, and paddle 
             if request_data = '1' then
@@ -413,6 +414,7 @@ begin -- RTL
             ball_col_idxBL <= 0;
             ball_parity_bottom <= '0';
             ball_parity_top <= '0'; 
+            brick_tracker <= (others=>(others=>'1'));
         elsif rising_edge(c0_sig) then
             if next_ball = '1' and ball_active = '0' then
                 if ball_counter > 0 then
@@ -464,104 +466,111 @@ begin -- RTL
 
                     -- Bricks
                     elsif ball_pos(1) < 239 then 
-                        -- Ball line parities
-                        ball_parity_top <= to_unsigned(ball_pos(1),32)(0); -- get parity of current line
-                        ball_parity_bottom <= to_unsigned(ball_pos(1)+10,32)(0); -- get parity of current line
                         -- Row indicies
                         ball_row_idxT <= to_integer(shift_right(to_unsigned(ball_pos(1),32), 3)); -- divide current line by 8
                         ball_row_idxB <= to_integer(shift_right(to_unsigned(ball_pos(1)+10,32), 3)); -- divide current line by 8
-                       
+                        
+                        -- Ball line parities
+                        ball_parity_top <= to_unsigned(ball_row_idxT,32)(0); -- get parity of current line
+                        ball_parity_bottom <= to_unsigned(ball_row_idxB,32)(0); -- get parity of current line
                         -- Column indicies
                         if ball_parity_top = '1' then
-                            ball_col_idxTR <= to_integer(shift_right(to_unsigned(ball_pos(0)+18,32), 4)); -- Right side will never hit first half brick
-                            if ball_pos(0) < 8 then
+                            ball_col_idxTR <= to_integer(shift_right(to_unsigned(ball_pos(0)+13,32), 4)); -- Right side will never hit first half brick
+                            if ball_pos(0) < 13 then
                                 ball_col_idxTL <= 0; -- Deal with first half brick
                     
                             else
-                                ball_col_idxTL <= to_integer(shift_right(to_unsigned(ball_pos(0)+8,32), 4)); -- compensate for half-line
+                                ball_col_idxTL <= to_integer(shift_right(to_unsigned(ball_pos(0)+13,32), 4)); -- compensate for half-line
                             end if; 
                         else
-                            ball_col_idxTR <= to_integer(shift_right(to_unsigned(ball_pos(0)+18,32), 4)); -- Even lines (full-brick)
-                            ball_col_idxTL <= to_integer(shift_right(to_unsigned(ball_pos(0),32), 4)); -- divide data_pos by 16
+                            ball_col_idxTR <= to_integer(shift_right(to_unsigned(ball_pos(0)+13,32), 4)); -- Even lines (full-brick)
+                            ball_col_idxTL <= to_integer(shift_right(to_unsigned(ball_pos(0)+5,32), 4)); -- divide data_pos by 16
                         end if;
 
                         if ball_parity_bottom = '1' then
-                            ball_col_idxBR <= to_integer(shift_right(to_unsigned(ball_pos(0)+18,32), 4)); -- Right side will never hit first half brick
-                            if ball_pos(0) < 8 then
+                            ball_col_idxBR <= to_integer(shift_right(to_unsigned(ball_pos(0)+13,32), 4)); -- Right side will never hit first half brick
+                            if ball_pos(0) < 13 then
                                 ball_col_idxBL <= 0; -- Deal with first half brick
                     
                             else
                                 ball_col_idxBL <= to_integer(shift_right(to_unsigned(ball_pos(0)+8,32), 4)); -- compensate for half-line
                             end if; 
                         else
-                            ball_col_idxBR <= to_integer(shift_right(to_unsigned(ball_pos(0)+18,32), 4)); -- Even lines (full-brick)
+                            ball_col_idxBR <= to_integer(shift_right(to_unsigned(ball_pos(0)+5,32), 4)); -- Even lines (full-brick)
                             ball_col_idxBL <= to_integer(shift_right(to_unsigned(ball_pos(0),32), 4)); -- divide data_pos by 16
                         end if;
 
-                        if brick_tracker(ball_row_idxT, ball_col_idxTR) = '1' then -- if brick is still there
-                            brick_tracker(ball_row_idxT, ball_col_idxTR) <= '0';
-                             -- Update ball velocity
-                             y_accel <= -1;
-                            case x_accel is
-                                when 1 =>
-                                    x_accel <= -1;
-                                when 2 =>
-                                    x_accel <= -2;
-                                when -1 =>
-                                    x_accel <= 1;
-                                when -2 =>
-                                    x_accel <= 2;
-                                when others =>
-                                    x_accel <= 0;
-                            end case;
-                        elsif brick_tracker(ball_row_idxT, ball_col_idxTL) = '1' then
+                        -- if brick_tracker(ball_row_idxT, ball_col_idxTR) = '1' then -- if brick is still there
+                        --     brick_tracker(ball_row_idxT, ball_col_idxTR) <= '0';
+                        --      -- Update ball velocity
+                        --      y_accel <= -1;
+                        --     case x_accel is
+                        --         when 1 =>
+                        --             x_accel <= -1;
+                        --         when 2 =>
+                        --             x_accel <= -2;
+                        --         when -1 =>
+                        --             x_accel <= 1;
+                        --         when -2 =>
+                        --             x_accel <= 2;
+                        --         when others =>
+                        --             x_accel <= 0;
+                        --     end case;
+                        if brick_tracker(ball_row_idxT, ball_col_idxTL) = '1' then
                             brick_tracker(ball_row_idxT, ball_col_idxTL) <= '0';
                              -- Update ball velocity
-                             y_accel <= -1;
+                            case y_accel is
+                                when 1 =>
+                                    y_accel <= -1;
+                                when -1 =>
+                                    y_accel <= 1;
+                                when others =>
+                                    y_accel <= 0;
+                            end case;
                             case x_accel is
                                 when 1 =>
-                                    x_accel <= -1;
-                                when 2 =>
                                     x_accel <= -2;
+                                when 2 =>
+                                    x_accel <= -1;
                                 when -1 =>
-                                    x_accel <= 1;
-                                when -2 =>
                                     x_accel <= 2;
+                                when -2 =>
+                                    x_accel <= 1;
                                 when others =>
                                     x_accel <= 0;
                             end case;
-                        elsif brick_tracker(ball_row_idxB, ball_col_idxBL) = '1' and ball_pos(1) < 229 then
-                            brick_tracker(ball_row_idxB, ball_col_idxBL) <= '0';
-                             -- Update ball velocity
-                            y_accel <= 1;
-                            case x_accel is
-                                when 1 =>
-                                    x_accel <= -1;
-                                when 2 =>
-                                    x_accel <= -2;
-                                when -1 =>
-                                    x_accel <= 1;
-                                when -2 =>
-                                    x_accel <= 2;
-                                when others =>
-                                    x_accel <= 0;
-                            end case;
-                        elsif brick_tracker(ball_row_idxB, ball_col_idxBR) = '1' and ball_pos(1) < 229 then
-                            brick_tracker(ball_row_idxB, ball_col_idxBR) <= '0';
-                            -- Update ball velocity
-                            y_accel <= 1;
-                            case x_accel is
-                                when 1 =>
-                                    x_accel <= -1;
-                                when 2 =>
-                                    x_accel <= -2;
-                                when -1 =>
-                                    x_accel <= 1;
-                                when -2 =>
-                                    x_accel <= 2;
-                                when others =>
-                                    x_accel <= 0;
-                            end case;
+                        -- elsif brick_tracker(ball_row_idxB, ball_col_idxBL) = '1' and ball_pos(1) < 229 then
+                        --     brick_tracker(ball_row_idxB, ball_col_idxBL) <= '0';
+                        --      -- Update ball velocity
+                        --     y_accel <= 1;
+                        --     case x_accel is
+                        --         when 1 =>
+                        --             x_accel <= -1;
+                        --         when 2 =>
+                        --             x_accel <= -2;
+                        --         when -1 =>
+                        --             x_accel <= 1;
+                        --         when -2 =>
+                        --             x_accel <= 2;
+                        --         when others =>
+                        --             x_accel <= 0;
+                        --     end case;
+                        -- elsif brick_tracker(ball_row_idxB, ball_col_idxBR) = '1' and ball_pos(1) < 229 then
+                        --     brick_tracker(ball_row_idxB, ball_col_idxBR) <= '0';
+                        --     -- Update ball velocity
+                        --     y_accel <= 1;
+                        --     case x_accel is
+                        --         when 1 =>
+                        --             x_accel <= -1;
+                        --         when 2 =>
+                        --             x_accel <= -2;
+                        --         when -1 =>
+                        --             x_accel <= 1;
+                        --         when -2 =>
+                        --             x_accel <= 2;
+                        --         when others =>
+                        --             x_accel <= 0;
+                        --     end case;
                         end if;
                     end if;
                 end if;
