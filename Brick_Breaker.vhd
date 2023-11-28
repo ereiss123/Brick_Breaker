@@ -365,11 +365,16 @@ begin -- RTL
                                 R <= white(0); -- draw vertical mortar line for full bricks
                                 G <= white(1);
                                 B <= white(2);
-                            else
+                            elsif data_pos < 639 then
                                 R <= red(0); -- draw brick part of brick
                                 G <= red(1);
                                 B <= red(2);
+                            else 
+                                R <= black(0);
+                                G <= black(1);
+                                B <= black(2);
                             end if;
+                            
                         else -- Even lines (full-brick)
                             if data_pos = (full_brick_x(brick_col_idx) + 15) then
                                 R <= white(0); -- draw vertical mortar line
