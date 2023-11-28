@@ -529,13 +529,13 @@ begin -- RTL
                             end case;
                             case x_accel is
                                 when 1 =>
-                                    x_accel <= -2;
-                                when 2 =>
-                                    x_accel <= -1;
-                                when -1 =>
                                     x_accel <= 2;
-                                when -2 =>
+                                when 2 =>
                                     x_accel <= 1;
+                                when -1 =>
+                                    x_accel <= -2;
+                                when -2 =>
+                                    x_accel <= -1;
                                 when others =>
                                     x_accel <= 0;
                             end case;
