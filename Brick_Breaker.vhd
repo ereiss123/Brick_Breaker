@@ -448,12 +448,14 @@ begin -- RTL
                         ball_active <= '0';
                         go <= '1';
                     elsif ball_pos(0) < 1 then -- left wall
+                        go <= '1';
                         if x_accel =- 2 then
                             x_accel <= 2;
                         else
                             x_accel <= 1;
                         end if;
                     elsif ((ball_pos(0) + 10) > 638) then -- right wall
+                        go <= '1';
                         if x_accel = 2 then
                             x_accel <= - 2;
                         else
@@ -462,10 +464,12 @@ begin -- RTL
 
                     elsif ball_pos(1) = 1 then -- bounce off top wall
                         y_accel <= 1;
+                        go <= '1';
 
                         -- Paddle
                     elsif (ball_pos(1) + 10) >= paddle_pos(1) and ((ball_pos(0) + 10 >= paddle_pos(0)) and (ball_pos(0) < paddle_pos(0) + 40)) then -- bounce off paddle 
                         y_accel <= - 1;
+                        go <= '1';
                         -- Bounce ball depending on where it hits the paddle
                         if ball_pos(0) + 10 >= paddle_pos(0) and ball_pos(0) < (paddle_pos(0) + 9) then --leftmost quadrant
                             x_accel <= - 2;
