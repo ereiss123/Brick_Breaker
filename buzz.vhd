@@ -93,10 +93,10 @@ begin
                     when "100" => --brick
                         if loop_count < 10000000 then
                             loop_count <= loop_count + 1;
-                            if counter < 10000 then
+                            if counter < 15000 then
                                 counter <= counter + 1;
                                 buzzer <= '1';
-                            elsif counter >= 10000 and counter < 500000 then
+                            elsif counter >= 15000 and counter < 5000000 then
                                 counter <= counter + 1;
                                 buzzer <= '0';
                             else
