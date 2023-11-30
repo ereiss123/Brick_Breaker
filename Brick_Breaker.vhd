@@ -448,14 +448,14 @@ begin -- RTL
                         ball_active <= '0';
                         go <= "001";
                     elsif ball_pos(0) < 1 then -- left wall
-                        go <= "001";
+                        go <= "011";
                         if x_accel =- 2 then
                             x_accel <= 2;
                         else
                             x_accel <= 1;
                         end if;
                     elsif ((ball_pos(0) + 10) > 638) then -- right wall
-                        go <= "001";
+                        go <= "011";
                         if x_accel = 2 then
                             x_accel <= - 2;
                         else
@@ -464,12 +464,12 @@ begin -- RTL
 
                     elsif ball_pos(1) = 1 then -- bounce off top wall
                         y_accel <= 1;
-                        go <= "001";
+                        go <= "011";
 
                         -- Paddle
                     elsif (ball_pos(1) + 10) >= paddle_pos(1) and ((ball_pos(0) + 10 >= paddle_pos(0)) and (ball_pos(0) < paddle_pos(0) + 40)) then -- bounce off paddle 
                         y_accel <= - 1;
-                        go <= "001";
+                        go <= "010";
                         -- Bounce ball depending on where it hits the paddle
                         if ball_pos(0) + 10 >= paddle_pos(0) and ball_pos(0) < (paddle_pos(0) + 9) then --leftmost quadrant
                             x_accel <= - 2;
@@ -492,6 +492,7 @@ begin -- RTL
                         ball_parity_bottom <= to_unsigned(ball_row_idxB, 32)(0); -- get parity of current line
                         -- Column indicies
                         if ball_parity_top = '1' then
+                            go <= "100";
                             ball_col_idxTR <= to_integer(shift_right(to_unsigned(ball_pos(0) + 13, 32), 4)); -- Right side will never hit first half brick
                             if ball_pos(0) < 13 then
                                 ball_col_idxTL <= 0; -- Deal with first half brick
@@ -505,6 +506,7 @@ begin -- RTL
                         end if;
 
                         if ball_parity_bottom = '1' then
+                            go <= "100";
                             ball_col_idxBR <= to_integer(shift_right(to_unsigned(ball_pos(0) + 13, 32), 4)); -- Right side will never hit first half brick
                             if ball_pos(0) < 13 then
                                 ball_col_idxBL <= 0; -- Deal with first half brick
