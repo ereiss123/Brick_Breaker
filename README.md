@@ -3,7 +3,7 @@
 This game is the final project in Reconfigurable Computing (ECE 5730) at Utah State University. 
 
 ## Authors
-- David Rowbotham ([DrowBo990](https://github.com/DRowbo990))
+- David Rowbotham ([Drowbo990](https://github.com/DRowbo990))
 - Eric Reiss ([ereiss123](https://github.com/ereiss123))
 ## Requirements
 1. The digital design must be done in VHDL.
