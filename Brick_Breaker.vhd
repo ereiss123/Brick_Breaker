@@ -118,7 +118,7 @@ architecture rtl of Brick_Breaker is
             clk    : in STD_LOGIC;
             rst    : in STD_LOGIC;
             buzzer : out STD_LOGIC;
-            go     : in STD_LOGIC
+            go     : in STD_LOGIC_VECTOR(2 downto 0)
         );
     end component;
 
@@ -149,7 +149,7 @@ architecture rtl of Brick_Breaker is
     signal adc_count : INTEGER := 0;
     signal adc_state : INTEGER := 0;
     -- signal buzzer : STD_LOGIC := '0';
-    signal go : STD_LOGIC := '0';
+    signal go : STD_LOGIC_VECTOR(2 downto 0) := "000";
 
     -- Colors                        R    G    B
     signal white : color := (x"F", x"F", x"F");
@@ -426,7 +426,7 @@ begin -- RTL
             ball_parity_bottom <= '0';
             ball_parity_top <= '0';
             brick_tracker <= (others => (others => '1'));
-            go <= '0';
+            go <= "000";
         elsif rising_edge(c0_sig) then
             if next_ball = '1' and ball_active = '0' then
                 if ball_counter > 0 then
@@ -446,16 +446,16 @@ begin -- RTL
                     -- Collision detection
                     if ball_pos(1) > 480 then
                         ball_active <= '0';
-                        go <= '1';
+                        go <= "001";
                     elsif ball_pos(0) < 1 then -- left wall
-                        go <= '1';
+                        go <= "001";
                         if x_accel =- 2 then
                             x_accel <= 2;
                         else
                             x_accel <= 1;
                         end if;
                     elsif ((ball_pos(0) + 10) > 638) then -- right wall
-                        go <= '1';
+                        go <= "001";
                         if x_accel = 2 then
                             x_accel <= - 2;
                         else
@@ -464,12 +464,12 @@ begin -- RTL
 
                     elsif ball_pos(1) = 1 then -- bounce off top wall
                         y_accel <= 1;
-                        go <= '1';
+                        go <= "001";
 
                         -- Paddle
                     elsif (ball_pos(1) + 10) >= paddle_pos(1) and ((ball_pos(0) + 10 >= paddle_pos(0)) and (ball_pos(0) < paddle_pos(0) + 40)) then -- bounce off paddle 
                         y_accel <= - 1;
-                        go <= '1';
+                        go <= "001";
                         -- Bounce ball depending on where it hits the paddle
                         if ball_pos(0) + 10 >= paddle_pos(0) and ball_pos(0) < (paddle_pos(0) + 9) then --leftmost quadrant
                             x_accel <= - 2;
@@ -540,13 +540,13 @@ begin -- RTL
                                     x_accel <= 0;
                             end case;
                         else
-                            go <= '0';
+                            go <= "000";
                         end if;
                     else
-                        go <= '0';
+                        go <= "000";
                     end if;
                 else
-                    go <= '0';
+                    go <= "000";
                 end if;
             end if;
         end if;

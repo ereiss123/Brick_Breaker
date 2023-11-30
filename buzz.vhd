@@ -8,7 +8,7 @@ entity buzz is
         clk    : in STD_LOGIC;
         buzzer : out STD_LOGIC;
         rst    : in STD_LOGIC;
-        go     : in STD_LOGIC
+        go     : in STD_LOGIC_VECTOR
     );
 end entity buzz;
 
@@ -26,30 +26,95 @@ begin
             loop_count <= 0;
         elsif rising_edge(clk) then
             if state = '0' then
-                if go = '1' then
+                if go = "001" then
                     state <= '1';
                 else
                     state <= '0';
                 end if;
             elsif state = '1' then
-                if loop_count < 10000000 then
-                    loop_count <= loop_count + 1;
-                    if counter < 25000 then
-                        counter <= counter + 1;
-                        buzzer <= '1';
-                    elsif counter >= 25000 and counter < 50000 then
-                        counter <= counter + 1;
+                case (go) is
+                    when "001" =>
+                        if loop_count < 10000000 then
+                            loop_count <= loop_count + 1;
+                            if counter < 25000 then
+                                counter <= counter + 1;
+                                buzzer <= '1';
+                            elsif counter >= 25000 and counter < 50000 then
+                                counter <= counter + 1;
+                                buzzer <= '0';
+                            else
+                                counter <= 0;
+                                buzzer <= '0';
+                            end if;
+                        else
+                            buzzer <= '0';
+                            state <= '0';
+                            loop_count <= 0;
+                            counter <= 0;
+                        end if;
+                    when "010" =>
+                        if loop_count < 10000000 then
+                            loop_count <= loop_count + 1;
+                            if counter < 25000 then
+                                counter <= counter + 1;
+                                buzzer <= '1';
+                            elsif counter >= 25000 and counter < 50000 then
+                                counter <= counter + 1;
+                                buzzer <= '0';
+                            else
+                                counter <= 0;
+                                buzzer <= '0';
+                            end if;
+                        else
+                            buzzer <= '0';
+                            state <= '0';
+                            loop_count <= 0;
+                            counter <= 0;
+                        end if;
+                    when "011" =>
+                        if loop_count < 10000000 then
+                            loop_count <= loop_count + 1;
+                            if counter < 25000 then
+                                counter <= counter + 1;
+                                buzzer <= '1';
+                            elsif counter >= 25000 and counter < 50000 then
+                                counter <= counter + 1;
+                                buzzer <= '0';
+                            else
+                                counter <= 0;
+                                buzzer <= '0';
+                            end if;
+                        else
+                            buzzer <= '0';
+                            state <= '0';
+                            loop_count <= 0;
+                            counter <= 0;
+                        end if;
+                    when "100" =>
+                        if loop_count < 10000000 then
+                            loop_count <= loop_count + 1;
+                            if counter < 25000 then
+                                counter <= counter + 1;
+                                buzzer <= '1';
+                            elsif counter >= 25000 and counter < 50000 then
+                                counter <= counter + 1;
+                                buzzer <= '0';
+                            else
+                                counter <= 0;
+                                buzzer <= '0';
+                            end if;
+                        else
+                            buzzer <= '0';
+                            state <= '0';
+                            loop_count <= 0;
+                            counter <= 0;
+                        end if;
+                    when others =>
                         buzzer <= '0';
-                    else
+                        state <= '0';
+                        loop_count <= 0;
                         counter <= 0;
-                        buzzer <= '0';
-                    end if;
-                else
-                    buzzer <= '0';
-                    state <= '0';
-                    loop_count <= 0;
-                    counter <= 0;
-                end if;
+                end case;
             end if;
         end if;
     end process;
