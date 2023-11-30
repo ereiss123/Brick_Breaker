@@ -5,44 +5,44 @@ use ieee.numeric_std.all;
 entity buzz is
     port
     (
-        clk    : in STD_LOGIC;
-        buzzer : out STD_LOGIC;
-        rst    : in STD_LOGIC;
-        go     : in STD_LOGIC_VECTOR
+        clk    : in STD_LOGIC;                    -- 50 MHz
+        buzzer : out STD_LOGIC;                   -- outputs on arduino pin 0
+        rst    : in STD_LOGIC;                    -- active high
+        go     : in STD_LOGIC_VECTOR (2 downto 0) -- 001 = death, 010 = paddle, 011 = top/side of screen, 100 = brick
     );
 end entity buzz;
 
 architecture rtl of buzz is
-    signal counter : INTEGER := 10000;
-    signal loop_count : INTEGER := 0;
-    signal state : STD_LOGIC := '0';
+    signal counter : INTEGER := 10000; -- count for frequency to get different sounds
+    signal loop_count : INTEGER := 0; -- count for how long to play sound
+    signal state : STD_LOGIC := '0'; -- state machine state
 begin
     process (clk, rst, go)
     begin
-        if (rst = '1') then
+        if (rst = '1') then -- reset
             state <= '0';
             counter <= 0;
             buzzer <= '0';
             loop_count <= 0;
         elsif rising_edge(clk) then
-            if state = '0' then
+            if state = '0' then -- idle. No buzzer
                 if go /= "000" then
                     state <= '1';
                 else
                     state <= '0';
                 end if;
-            elsif state = '1' then
-                case (go) is
-                    when "001" => --death
-                        if loop_count < 100000000 then
+            elsif state = '1' then -- buzzer
+                case (go) is -- different sounds for different events
+                    when "001" => --death sound
+                        if loop_count < 100000000 then --loop for how long to play sound
                             loop_count <= loop_count + 1;
-                            if counter < 45000 then
+                            if counter < 45000 then -- set buzzer to high to get sound
                                 counter <= counter + 1;
                                 buzzer <= '1';
-                            elsif counter >= 45000 and counter < 50000 then
+                            elsif counter >= 45000 and counter < 50000 then --create low period to get sound
                                 counter <= counter + 1;
                                 buzzer <= '0';
-                            else
+                            else -- reset counter and buzzer
                                 counter <= 0;
                                 buzzer <= '0';
                             end if;

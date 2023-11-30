@@ -23,13 +23,6 @@ entity Brick_Breaker is
         VGA_R  : out STD_LOGIC_VECTOR(3 downto 0);
         VGA_VS : out STD_LOGIC;
 
-        -- -- Accelerometer
-        -- GSENSOR_CS_N : out STD_LOGIC;
-        -- -- GSENSOR_INT      : in std_logic_vector(2 downto 1);
-        -- GSENSOR_SCLK : out STD_LOGIC;
-        -- GSENSOR_SDI  : inout STD_LOGIC;
-        -- GSENSOR_SDO  : inout STD_LOGIC;
-
         -- Arduino
         ARDUINO_IO      : inout STD_LOGIC_VECTOR(15 downto 0);
         ARDUINO_RESET_N : inout STD_LOGIC
@@ -82,8 +75,6 @@ architecture rtl of Brick_Breaker is
     end component;
 
     component psuedorandom_gen is
-        -- generic
-        --     (seed : unsigned(15 downto 0));
         port
         (
             MAX10_CLK1_50 : in STD_LOGIC;
