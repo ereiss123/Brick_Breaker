@@ -9,7 +9,6 @@ entity Brick_Breaker is
     (
         -- CLOCK
         MAX10_CLK1_50 : in STD_LOGIC;
-
         -- SEG7
         HEX0, HEX1, HEX2, HEX3, HEX4, HEX5 : out STD_LOGIC_VECTOR(7 downto 0);
         -- KEY
@@ -123,26 +122,25 @@ architecture rtl of Brick_Breaker is
     -- Signal declaration
     signal rst : STD_LOGIC;
     signal rst_l : STD_LOGIC;
-    signal state : INTEGER := 5;
+    signal state : INTEGER := 5; -- state machine for ball movement
     signal R : STD_LOGIC_VECTOR(3 downto 0);
     signal G : STD_LOGIC_VECTOR(3 downto 0);
     signal B : STD_LOGIC_VECTOR(3 downto 0);
     signal request_data : STD_LOGIC;
     signal current_line : unsigned(9 downto 0);
     signal data_pos : unsigned(9 downto 0); --horizontal counter
-    signal c0_sig : STD_LOGIC;
-    signal c1_sig : STD_LOGIC;
-    signal locked_sig : STD_LOGIC;
+    signal c0_sig : STD_LOGIC; -- vga clock
+    signal c1_sig : STD_LOGIC; -- adc clock
+    signal locked_sig : STD_LOGIC; -- pll lock signal
     signal next_ball : STD_LOGIC;
     signal adc_data : STD_LOGIC_VECTOR(11 downto 0);
-    signal response_valid : STD_LOGIC;
-    signal response_data : STD_LOGIC_VECTOR(11 downto 0);
-    signal adc_count : INTEGER := 0;
+    signal response_valid : STD_LOGIC; -- adc response valid
+    signal response_data : STD_LOGIC_VECTOR(11 downto 0); -- adc response data
+    signal adc_count : INTEGER := 0; -- adc counter
     signal adc_state : INTEGER := 0;
-    -- signal buzzer : STD_LOGIC := '0';
-    signal go : STD_LOGIC_VECTOR(2 downto 0) := "000";
+    signal go : STD_LOGIC_VECTOR(2 downto 0) := "000"; -- tells buzzer what sound to make
 
-    -- Colors                        R    G    B
+    -- Colors                  R     G     B
     signal white : color := (x"F", x"F", x"F");
     signal black : color := (x"0", x"0", x"0");
     signal red : color := (x"F", x"0", x"0");
@@ -240,6 +238,7 @@ begin -- RTL
         VGA_HS       => VGA_HS,
         VGA_VS       => VGA_VS
     );
+
     PLL_inst : VGA_PLL
     port
     map
@@ -295,16 +294,16 @@ begin -- RTL
     clk => MAX10_CLK1_50,
     rst => rst,
     buzzer => ARDUINO_IO(0),
-    go => go
+    go => go -- 000 = no sound, 001 = paddle hit, 010 = brick hit, 011 = wall hit, 100 = game over
     );
 
     -- assign hex values to 7-segment display
-    HEX0 <= seven_seg(ball_counter);
+    HEX0 <= seven_seg(ball_counter); -- balls left
     HEX1 <= (others => '1');
     HEX2 <= (others => '1');
-    HEX3 <= seven_seg(to_integer(unsigned(adc_data(3 downto 0))));
-    HEX4 <= seven_seg(to_integer(unsigned(adc_data(7 downto 4))));
-    HEX5 <= seven_seg(to_integer(unsigned(adc_data(11 downto 8))));
+    HEX3 <= seven_seg(to_integer(unsigned(adc_data(3 downto 0)))); -- adc data
+    HEX4 <= seven_seg(to_integer(unsigned(adc_data(7 downto 4)))); -- adc data
+    HEX5 <= seven_seg(to_integer(unsigned(adc_data(11 downto 8)))); -- adc data
 
     -- Interface with VGA controller
     VGA_proc : process (c0_sig, rst_l)
@@ -417,7 +416,7 @@ begin -- RTL
             ball_parity_bottom <= '0';
             ball_parity_top <= '0';
             brick_tracker <= (others => (others => '1'));
-            go <= "000";
+            go <= "000"; -- resets buzzer to no sound
         elsif rising_edge(c0_sig) then
             if next_ball = '1' and ball_active = '0' then
                 if ball_counter > 0 then
@@ -437,16 +436,16 @@ begin -- RTL
                     -- Collision detection
                     if ball_pos(1) > 480 then
                         ball_active <= '0';
-                        go <= "001";
+                        go <= "001"; -- game over
                     elsif ball_pos(0) < 1 then -- left wall
-                        go <= "011";
+                        go <= "011"; -- wall hit
                         if x_accel =- 2 then
                             x_accel <= 2;
                         else
                             x_accel <= 1;
                         end if;
                     elsif ((ball_pos(0) + 10) > 638) then -- right wall
-                        go <= "011";
+                        go <= "011"; -- wall hit
                         if x_accel = 2 then
                             x_accel <= - 2;
                         else
@@ -455,12 +454,12 @@ begin -- RTL
 
                     elsif ball_pos(1) = 1 then -- bounce off top wall
                         y_accel <= 1;
-                        go <= "011";
+                        go <= "011"; -- wall hit
 
                         -- Paddle
                     elsif (ball_pos(1) + 10) >= paddle_pos(1) and ((ball_pos(0) + 10 >= paddle_pos(0)) and (ball_pos(0) < paddle_pos(0) + 40)) then -- bounce off paddle 
                         y_accel <= - 1;
-                        go <= "010";
+                        go <= "010"; -- paddle hit
                         -- Bounce ball depending on where it hits the paddle
                         if ball_pos(0) + 10 >= paddle_pos(0) and ball_pos(0) < (paddle_pos(0) + 9) then --leftmost quadrant
                             x_accel <= - 2;
@@ -483,7 +482,7 @@ begin -- RTL
                         ball_parity_bottom <= to_unsigned(ball_row_idxB, 32)(0); -- get parity of current line
                         -- Column indicies
                         if ball_parity_top = '1' then
-                            go <= "100";
+                            go <= "100"; -- brick hit
                             ball_col_idxTR <= to_integer(shift_right(to_unsigned(ball_pos(0) + 13, 32), 4)); -- Right side will never hit first half brick
                             if ball_pos(0) < 13 then
                                 ball_col_idxTL <= 0; -- Deal with first half brick
@@ -497,7 +496,7 @@ begin -- RTL
                         end if;
 
                         if ball_parity_bottom = '1' then
-                            go <= "100";
+                            go <= "100"; -- brick hit
                             ball_col_idxBR <= to_integer(shift_right(to_unsigned(ball_pos(0) + 13, 32), 4)); -- Right side will never hit first half brick
                             if ball_pos(0) < 13 then
                                 ball_col_idxBL <= 0; -- Deal with first half brick
