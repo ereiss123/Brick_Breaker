@@ -112,23 +112,22 @@ architecture rtl of Brick_Breaker is
             response_endofpacket   : out STD_LOGIC                                       -- endofpacket
         );
     end component my_adc;
-
-
-    -- component ADC 
-    --     port 
-    --         (
-    --             clk : in STD_LOGIC;
-    --             rst : in STD_LOGIC;
-    --             data : out STD_LOGIC_VECTOR(11 downto 0)
-    --         );
-    -- end component;
+    component buzz is
+        port
+        (
+            clk    : in STD_LOGIC;
+            rst    : in STD_LOGIC;
+            buzzer : out STD_LOGIC;
+            go     : in STD_LOGIC_VECTOR(2 downto 0)
+        );
+    end component;
 
     -- Create a look up table for the 7-segment display
     type LUT is array(15 downto 0) of STD_LOGIC_VECTOR(7 downto 0);
 
     -- 7-segment display look up table. Not to flip bits. 7 segment display is active low.
     signal seven_seg : LUT := (not(X"71"), not(X"79"), not(X"5E"), not(X"58"), not(X"7C"), not(X"77"),
-     X"90", X"80", X"F8", X"82", X"92", X"99", X"B0", X"A4", X"F9", X"C0");
+    X"90", X"80", X"F8", X"82", X"92", X"99", X"B0", X"A4", X"F9", X"C0");
 
     -- Signal declaration
     signal rst : STD_LOGIC;
@@ -147,8 +146,11 @@ architecture rtl of Brick_Breaker is
     signal adc_data : STD_LOGIC_VECTOR(11 downto 0);
     signal response_valid : STD_LOGIC;
     signal response_data : STD_LOGIC_VECTOR(11 downto 0);
-    signal adc_count : integer := 0;
-    signal adc_state : integer := 0;
+    signal adc_count : INTEGER := 0;
+    signal adc_state : INTEGER := 0;
+    -- signal buzzer : STD_LOGIC := '0';
+    signal go : STD_LOGIC_VECTOR(2 downto 0) := "000";
+
     -- Colors                        R    G    B
     signal white : color := (x"F", x"F", x"F");
     signal black : color := (x"0", x"0", x"0");
@@ -157,9 +159,9 @@ architecture rtl of Brick_Breaker is
 
     -- Trackers
     signal ball_timer : INTEGER := 0;
-    signal ball_active : std_logic := '0';
-    signal x_accel : integer := 0;
-    signal y_accel : integer := 0;
+    signal ball_active : STD_LOGIC := '0';
+    signal x_accel : INTEGER := 0;
+    signal y_accel : INTEGER := 0;
     signal ball_row_idxT : INTEGER := 0;
     signal ball_row_idxB : INTEGER := 0;
     signal ball_col_idxTR : INTEGER := 0;
@@ -167,12 +169,12 @@ architecture rtl of Brick_Breaker is
     signal ball_col_idxTL : INTEGER := 0;
     signal ball_col_idxBL : INTEGER := 0;
 
-    signal paddle_x : integer range 0 to 640 := 304;
+    signal paddle_x : INTEGER range 0 to 640 := 304;
     signal rand : unsigned(8 downto 0);
     signal ball_counter : INTEGER := 5;
     signal ball_pos : coorid := (320, 241);
-    signal ball_parity_top : std_logic := '0';
-    signal ball_parity_bottom : std_logic := '0';
+    signal ball_parity_top : STD_LOGIC := '0';
+    signal ball_parity_bottom : STD_LOGIC := '0';
     signal paddle_pos : coorid := (304, 474);
     signal brick_col_idx : INTEGER := 0; -- indicate which column of bricks (0 - 40)
     signal brick_row_idx : INTEGER := 0;
@@ -248,21 +250,23 @@ begin -- RTL
         VGA_VS       => VGA_VS
     );
     PLL_inst : VGA_PLL
-    port map
+    port
+    map
     (
-        areset => rst,
-        inclk0 => MAX10_CLK1_50,
-        c0 => c0_sig,
-        c1	 => c1_sig,
-        locked => locked_sig
+    areset => rst,
+    inclk0 => MAX10_CLK1_50,
+    c0 => c0_sig,
+    c1 => c1_sig,
+    locked => locked_sig
     );
 
     db_inst : debouncer
-    port map(
-        clk => c0_sig,
-        rst => rst,
-        button => KEY(1),
-        button_debounced => next_ball
+    port
+    map(
+    clk => c0_sig,
+    rst => rst,
+    button => KEY(1),
+    button_debounced => next_ball
     );
 
     psuedorandom_gen_inst : psuedorandom_gen
@@ -275,31 +279,33 @@ begin -- RTL
     rand => rand
     );
 
-    u0 : my_adc port map
-        (
-            clock_clk              => c1_sig,                 --     this is the clock signal
-            reset_sink_reset_n     => rst_l,         --     this is the reset signal
-            adc_pll_clock_clk      => c1_sig,                 --     Singal is good. This is the clock running the adc
-            adc_pll_locked_export  => locked_sig,             --     this signal is high when the pll is locked
-            command_valid          => '1',                    --     command.valid
-            command_channel        => "00001",                --     .channel
-            command_startofpacket  => '1',                    --     .startofpacket
-            command_endofpacket    => '1',                    --     .endofpacket
-            command_ready          => open,            --     .ready
-            response_valid         => response_valid,         --     response.valid
-            response_channel       => open,       --     .channel
-            response_data          => response_data,          --     .data
-            response_startofpacket => open, --     .startofpacket
-            response_endofpacket   => open    --     .endofpacket
-        );
+    u0 : my_adc port
+    map
+    (
+    clock_clk => c1_sig, --     this is the clock signal
+    reset_sink_reset_n => rst_l, --     this is the reset signal
+    adc_pll_clock_clk => c1_sig, --     Singal is good. This is the clock running the adc
+    adc_pll_locked_export => locked_sig, --     this signal is high when the pll is locked
+    command_valid => '1', --     command.valid
+    command_channel => "00001", --     .channel
+    command_startofpacket => '1', --     .startofpacket
+    command_endofpacket => '1', --     .endofpacket
+    command_ready => open, --     .ready
+    response_valid => response_valid, --     response.valid
+    response_channel => open, --     .channel
+    response_data => response_data, --     .data
+    response_startofpacket => open, --     .startofpacket
+    response_endofpacket => open --     .endofpacket
+    );
 
-    -- ADC_inst : ADC
-    -- port map
-    -- (   
-    --     clk => c1_sig,
-    --     rst => rst_l,
-    --     data => adc_data
-    -- );
+    buzzer_inst : buzz port
+    map
+    (
+    clk => MAX10_CLK1_50,
+    rst => rst,
+    buzzer => ARDUINO_IO(0),
+    go => go
+    );
 
     -- assign hex values to 7-segment display
     HEX0 <= seven_seg(ball_counter);
@@ -319,7 +325,7 @@ begin -- RTL
             brick_col_idx <= 0;
             brick_row_idx <= 0;
             line_parity <= '0';
-            
+
         elsif rising_edge(c0_sig) then
             -- We need to draw bricks, ball, and paddle 
             if request_data = '1' then
@@ -369,12 +375,12 @@ begin -- RTL
                                 R <= red(0); -- draw brick part of brick
                                 G <= red(1);
                                 B <= red(2);
-                            else 
+                            else
                                 R <= black(0);
                                 G <= black(1);
                                 B <= black(2);
                             end if;
-                            
+
                         else -- Even lines (full-brick)
                             if data_pos = (full_brick_x(brick_col_idx) + 15) then
                                 R <= white(0); -- draw vertical mortar line
@@ -411,15 +417,16 @@ begin -- RTL
             x_accel <= 0;
             y_accel <= 1;
             ball_active <= '0';
-            ball_row_idxT  <= 0;
-            ball_row_idxB  <= 0;
+            ball_row_idxT <= 0;
+            ball_row_idxB <= 0;
             ball_col_idxTR <= 0;
             ball_col_idxTL <= 0;
             ball_col_idxBR <= 0;
             ball_col_idxBL <= 0;
             ball_parity_bottom <= '0';
-            ball_parity_top <= '0'; 
-            brick_tracker <= (others=>(others=>'1'));
+            ball_parity_top <= '0';
+            brick_tracker <= (others => (others => '1'));
+            go <= "000";
         elsif rising_edge(c0_sig) then
             if next_ball = '1' and ball_active = '0' then
                 if ball_counter > 0 then
@@ -437,96 +444,86 @@ begin -- RTL
                     ball_pos <= (ball_pos(0) + x_accel, ball_pos(1) + y_accel);
                     ball_timer <= 0;
                     -- Collision detection
-                    if ball_pos(1) > 480 then 
+                    if ball_pos(1) > 480 then
                         ball_active <= '0';
+                        go <= "001";
                     elsif ball_pos(0) < 1 then -- left wall
-                        if x_accel = -2 then
+                        go <= "011";
+                        if x_accel =- 2 then
                             x_accel <= 2;
                         else
                             x_accel <= 1;
                         end if;
-                    elsif ((ball_pos(0)+10) >  638) then -- right wall
+                    elsif ((ball_pos(0) + 10) > 638) then -- right wall
+                        go <= "011";
                         if x_accel = 2 then
-                            x_accel <= -2;
+                            x_accel <= - 2;
                         else
-                            x_accel <= -1;
+                            x_accel <= - 1;
                         end if;
 
                     elsif ball_pos(1) = 1 then -- bounce off top wall
                         y_accel <= 1;
-                    
-                    -- Paddle
-                    elsif (ball_pos(1)+10) >= paddle_pos(1) and ((ball_pos(0)+10 >= paddle_pos(0)) and (ball_pos(0) < paddle_pos(0)+40))  then   -- bounce off paddle 
-                        y_accel <= -1;
+                        go <= "011";
+
+                        -- Paddle
+                    elsif (ball_pos(1) + 10) >= paddle_pos(1) and ((ball_pos(0) + 10 >= paddle_pos(0)) and (ball_pos(0) < paddle_pos(0) + 40)) then -- bounce off paddle 
+                        y_accel <= - 1;
+                        go <= "010";
                         -- Bounce ball depending on where it hits the paddle
-                        if ball_pos(0)+10 >= paddle_pos(0) and ball_pos(0) < (paddle_pos(0) + 9) then --leftmost quadrant
-                            x_accel <= -2;
-                        elsif ball_pos(0)+10 >= paddle_pos(0)+10 and ball_pos(0) < (paddle_pos(0) + 19) then -- left middle quadrant
-                            x_accel <= -1;
-                        elsif ball_pos(0)+10 >= paddle_pos(0)+20 and ball_pos(0) < (paddle_pos(0) + 29) then -- right middle quadrant
+                        if ball_pos(0) + 10 >= paddle_pos(0) and ball_pos(0) < (paddle_pos(0) + 9) then --leftmost quadrant
+                            x_accel <= - 2;
+                        elsif ball_pos(0) + 10 >= paddle_pos(0) + 10 and ball_pos(0) < (paddle_pos(0) + 19) then -- left middle quadrant
+                            x_accel <= - 1;
+                        elsif ball_pos(0) + 10 >= paddle_pos(0) + 20 and ball_pos(0) < (paddle_pos(0) + 29) then -- right middle quadrant
                             x_accel <= 1;
-                        elsif ball_pos(0)+10 >= paddle_pos(0)+30 and ball_pos(0) < (paddle_pos(0) + 39) then -- rightmost quadrant
+                        elsif ball_pos(0) + 10 >= paddle_pos(0) + 30 and ball_pos(0) < (paddle_pos(0) + 39) then -- rightmost quadrant
                             x_accel <= 2;
                         end if;
 
-                    -- Bricks
-                    elsif ball_pos(1) < 239 then 
+                        -- Bricks
+                    elsif ball_pos(1) < 239 then
                         -- Row indicies
-                        ball_row_idxT <= to_integer(shift_right(to_unsigned(ball_pos(1),32), 3)); -- divide current line by 8
-                        ball_row_idxB <= to_integer(shift_right(to_unsigned(ball_pos(1)+10,32), 3)); -- divide current line by 8
-                        
+                        ball_row_idxT <= to_integer(shift_right(to_unsigned(ball_pos(1), 32), 3)); -- divide current line by 8
+                        ball_row_idxB <= to_integer(shift_right(to_unsigned(ball_pos(1) + 10, 32), 3)); -- divide current line by 8
+
                         -- Ball line parities
-                        ball_parity_top <= to_unsigned(ball_row_idxT,32)(0); -- get parity of current line
-                        ball_parity_bottom <= to_unsigned(ball_row_idxB,32)(0); -- get parity of current line
+                        ball_parity_top <= to_unsigned(ball_row_idxT, 32)(0); -- get parity of current line
+                        ball_parity_bottom <= to_unsigned(ball_row_idxB, 32)(0); -- get parity of current line
                         -- Column indicies
                         if ball_parity_top = '1' then
-                            ball_col_idxTR <= to_integer(shift_right(to_unsigned(ball_pos(0)+13,32), 4)); -- Right side will never hit first half brick
+                            go <= "100";
+                            ball_col_idxTR <= to_integer(shift_right(to_unsigned(ball_pos(0) + 13, 32), 4)); -- Right side will never hit first half brick
                             if ball_pos(0) < 13 then
                                 ball_col_idxTL <= 0; -- Deal with first half brick
-                    
+
                             else
-                                ball_col_idxTL <= to_integer(shift_right(to_unsigned(ball_pos(0)+13,32), 4)); -- compensate for half-line
-                            end if; 
+                                ball_col_idxTL <= to_integer(shift_right(to_unsigned(ball_pos(0) + 13, 32), 4)); -- compensate for half-line
+                            end if;
                         else
-                            ball_col_idxTR <= to_integer(shift_right(to_unsigned(ball_pos(0)+13,32), 4)); -- Even lines (full-brick)
-                            ball_col_idxTL <= to_integer(shift_right(to_unsigned(ball_pos(0)+5,32), 4)); -- divide data_pos by 16
+                            ball_col_idxTR <= to_integer(shift_right(to_unsigned(ball_pos(0) + 13, 32), 4)); -- Even lines (full-brick)
+                            ball_col_idxTL <= to_integer(shift_right(to_unsigned(ball_pos(0) + 5, 32), 4)); -- divide data_pos by 16
                         end if;
 
                         if ball_parity_bottom = '1' then
-                            ball_col_idxBR <= to_integer(shift_right(to_unsigned(ball_pos(0)+13,32), 4)); -- Right side will never hit first half brick
+                            go <= "100";
+                            ball_col_idxBR <= to_integer(shift_right(to_unsigned(ball_pos(0) + 13, 32), 4)); -- Right side will never hit first half brick
                             if ball_pos(0) < 13 then
                                 ball_col_idxBL <= 0; -- Deal with first half brick
-                    
-                            else
-                                ball_col_idxBL <= to_integer(shift_right(to_unsigned(ball_pos(0)+8,32), 4)); -- compensate for half-line
-                            end if; 
-                        else
-                            ball_col_idxBR <= to_integer(shift_right(to_unsigned(ball_pos(0)+5,32), 4)); -- Even lines (full-brick)
-                            ball_col_idxBL <= to_integer(shift_right(to_unsigned(ball_pos(0),32), 4)); -- divide data_pos by 16
-                        end if;
 
-                        -- if brick_tracker(ball_row_idxT, ball_col_idxTR) = '1' then -- if brick is still there
-                        --     brick_tracker(ball_row_idxT, ball_col_idxTR) <= '0';
-                        --      -- Update ball velocity
-                        --      y_accel <= -1;
-                        --     case x_accel is
-                        --         when 1 =>
-                        --             x_accel <= -1;
-                        --         when 2 =>
-                        --             x_accel <= -2;
-                        --         when -1 =>
-                        --             x_accel <= 1;
-                        --         when -2 =>
-                        --             x_accel <= 2;
-                        --         when others =>
-                        --             x_accel <= 0;
-                        --     end case;
+                            else
+                                ball_col_idxBL <= to_integer(shift_right(to_unsigned(ball_pos(0) + 8, 32), 4)); -- compensate for half-line
+                            end if;
+                        else
+                            ball_col_idxBR <= to_integer(shift_right(to_unsigned(ball_pos(0) + 5, 32), 4)); -- Even lines (full-brick)
+                            ball_col_idxBL <= to_integer(shift_right(to_unsigned(ball_pos(0), 32), 4)); -- divide data_pos by 16
+                        end if;
                         if brick_tracker(ball_row_idxT, ball_col_idxTL) = '1' then
                             brick_tracker(ball_row_idxT, ball_col_idxTL) <= '0';
-                             -- Update ball velocity
+                            -- Update ball velocity
                             case y_accel is
                                 when 1 =>
-                                    y_accel <= -1;
+                                    y_accel <= - 1;
                                 when -1 =>
                                     y_accel <= 1;
                                 when others =>
@@ -538,64 +535,36 @@ begin -- RTL
                                 when 2 =>
                                     x_accel <= 1;
                                 when -1 =>
-                                    x_accel <= -2;
+                                    x_accel <= - 2;
                                 when -2 =>
-                                    x_accel <= -1;
+                                    x_accel <= - 1;
                                 when others =>
                                     x_accel <= 0;
                             end case;
-                        -- elsif brick_tracker(ball_row_idxB, ball_col_idxBL) = '1' and ball_pos(1) < 229 then
-                        --     brick_tracker(ball_row_idxB, ball_col_idxBL) <= '0';
-                        --      -- Update ball velocity
-                        --     y_accel <= 1;
-                        --     case x_accel is
-                        --         when 1 =>
-                        --             x_accel <= -1;
-                        --         when 2 =>
-                        --             x_accel <= -2;
-                        --         when -1 =>
-                        --             x_accel <= 1;
-                        --         when -2 =>
-                        --             x_accel <= 2;
-                        --         when others =>
-                        --             x_accel <= 0;
-                        --     end case;
-                        -- elsif brick_tracker(ball_row_idxB, ball_col_idxBR) = '1' and ball_pos(1) < 229 then
-                        --     brick_tracker(ball_row_idxB, ball_col_idxBR) <= '0';
-                        --     -- Update ball velocity
-                        --     y_accel <= 1;
-                        --     case x_accel is
-                        --         when 1 =>
-                        --             x_accel <= -1;
-                        --         when 2 =>
-                        --             x_accel <= -2;
-                        --         when -1 =>
-                        --             x_accel <= 1;
-                        --         when -2 =>
-                        --             x_accel <= 2;
-                        --         when others =>
-                        --             x_accel <= 0;
-                        --     end case;
+                        else
+                            go <= "000";
                         end if;
+                    else
+                        go <= "000";
                     end if;
+                else
+                    go <= "000";
                 end if;
             end if;
         end if;
     end process;
 
-
-
     -- ADC process
-    paddle_proc : process(c1_sig, rst_l)
+    paddle_proc : process (c1_sig, rst_l)
     begin
         if rst_l = '0' then
             paddle_x <= 304;
             paddle_pos <= (304, 474);
         elsif rising_edge(c1_sig) then
-            if shift_right(unsigned(adc_data),1) > 600 then
+            if shift_right(unsigned(adc_data), 1) > 600 then
                 paddle_x <= 600;
             else
-                paddle_x <= to_integer(shift_right(unsigned(adc_data),1));
+                paddle_x <= to_integer(shift_right(unsigned(adc_data), 1));
             end if;
             paddle_pos <= (paddle_x, 474);
         end if;
@@ -610,24 +579,24 @@ begin -- RTL
         elsif rising_edge(c1_sig) then
             case(adc_state) is
                 when 0 =>
-                    if (adc_count = 99999) then -- Update at 1 kHz
-                        adc_count <= 0;
-                        adc_state <= 1;
-                    else
-                        adc_state <= 0;
-                        adc_count <= adc_count + 1;
-                    end if;
+                if (adc_count = 99999) then -- Update at 1 kHz
+                    adc_count <= 0;
+                    adc_state <= 1;
+                else
+                    adc_state <= 0;
+                    adc_count <= adc_count + 1;
+                end if;
                 when 1 =>
                 adc_count <= 0;
-                    if response_valid = '1' then
-                        adc_state <= 0;
-                        adc_data <= response_data;
-                    end if;
-                when others =>
-                    adc_data <= (others => '0');
+                if response_valid = '1' then
                     adc_state <= 0;
+                    adc_data <= response_data;
+                end if;
+                when others =>
+                adc_data <= (others => '0');
+                adc_state <= 0;
             end case;
-        end if; 
+        end if;
     end process;
 
 end architecture rtl;
