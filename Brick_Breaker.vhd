@@ -584,6 +584,7 @@ begin -- RTL
                                     x_accel <= 0;
                             end case;
                         elsif brick_tracker(ball_row_TB, ball_col_TB) = '1' then
+                            go <= "100";
                             if ball_row_TB = 0 and ball_col_TB = 0 then
                                 if ball_pos(1) > 8 then
                                     brick_tracker(ball_row_TB, ball_col_TB) <= '1';
