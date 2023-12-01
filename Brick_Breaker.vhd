@@ -559,31 +559,31 @@ begin -- RTL
                             end if;
                         end if;
 
-                        -- if brick_tracker(ball_row_RL, ball_col_RL) = '1' then
-                        --     if ball_row_RL = 0 and ball_col_RL = 0 then
-                        --         if ball_pos(1) > 8 then
-                        --             brick_tracker(ball_row_RL, ball_col_RL) <= '1';
-                        --         else
-                        --             brick_tracker(ball_row_RL, ball_col_RL) <= '0';
-                        --         end if;
-                        --     else
-                        --         brick_tracker(ball_row_RL, ball_col_RL) <= '0';
-                        --     end if;
-                        --     go <= "100";
-                        --     -- Update ball velocity
-                        --     case x_accel is
-                        --         when 2 =>
-                        --             x_accel <= 4;
-                        --         when 4 =>
-                        --             x_accel <= 2;
-                        --         when -2 =>
-                        --             x_accel <= - 4;
-                        --         when -4 =>
-                        --             x_accel <= - 2;
-                        --         when others =>
-                        --             x_accel <= 0;
-                        --     end case;
-                        if brick_tracker(ball_row_TB, ball_col_TB) = '1' then
+                        if brick_tracker(ball_row_RL, ball_col_RL) = '1' then
+                            if ball_row_RL = 0 and ball_col_RL = 0 then
+                                if ball_pos(1) > 8 then
+                                    brick_tracker(ball_row_RL, ball_col_RL) <= '1';
+                                else
+                                    brick_tracker(ball_row_RL, ball_col_RL) <= '0';
+                                end if;
+                            else
+                                brick_tracker(ball_row_RL, ball_col_RL) <= '0';
+                            end if;
+                            go <= "100";
+                            -- Update ball velocity
+                            case x_accel is
+                                when 2 =>
+                                    x_accel <= -4;
+                                when 4 =>
+                                    x_accel <= -2;
+                                when -2 =>
+                                    x_accel <=  4;
+                                when -4 =>
+                                    x_accel <=  2;
+                                when others =>
+                                    x_accel <= 0;
+                            end case;
+                        elsif brick_tracker(ball_row_TB, ball_col_TB) = '1' then
                             go <= "100";
                             if ball_row_TB = 0 and ball_col_TB = 0 then
                                 if ball_pos(1) > 8 then
@@ -594,19 +594,7 @@ begin -- RTL
                             else
                                 brick_tracker(ball_row_TB, ball_col_TB) <= '0';
                             end if;
-                            
-                            case x_accel is
-                                when 2 =>
-                                    x_accel <= 4;
-                                when 4 =>
-                                    x_accel <= 2;
-                                when -2 =>
-                                    x_accel <= - 4;
-                                when -4 =>
-                                    x_accel <= - 2;
-                                when others =>
-                                    x_accel <= 0;
-                            end case;
+
 
                             case y_accel is
                                 when 2 =>
