@@ -159,6 +159,11 @@ architecture rtl of Brick_Breaker is
     signal ball_col_idxTL : INTEGER := 0;
     signal ball_col_idxBL : INTEGER := 0;
 
+    signal ball_mid : coorid := (0, 0);
+    signal ball_row : integer := 0;
+    signal ball_col : integer := 0;
+    signal ball_parity : std_logic := '0';
+
     signal paddle_x : INTEGER range 0 to 640 := 304;
     signal rand : unsigned(8 downto 0);
     signal ball_counter : INTEGER := 5;
@@ -397,6 +402,8 @@ begin -- RTL
         end if;
     end process;
 
+
+    ball_mid <= (ball_pos(0) + 5, ball_pos(1) + 5);
     -- ball movement state machine
     ball_proc : process (c0_sig, rst_l)
     begin
@@ -474,43 +481,60 @@ begin -- RTL
 
                         -- Bricks
                     elsif ball_pos(1) < 239 then
-                        -- Row indicies
-                        ball_row_idxT <= to_integer(shift_right(to_unsigned(ball_pos(1), 32), 3)); -- divide current line by 8
-                        ball_row_idxB <= to_integer(shift_right(to_unsigned(ball_pos(1) + 10 + 4, 32), 3)); -- divide current line by 8
+                        -- -- Row indicies
+                        -- ball_row_idxT <= to_integer(shift_right(to_unsigned(ball_pos(1), 32), 3)); -- divide current line by 8
+                        -- ball_row_idxB <= to_integer(shift_right(to_unsigned(ball_pos(1) + 10 + 4, 32), 3)); -- divide current line by 8
 
-                        -- Ball line parities
-                        ball_parity_top <= to_unsigned(ball_row_idxT, 32)(31); -- get parity of current line
-                        ball_parity_bottom <= to_unsigned(ball_row_idxB, 32)(31); -- get parity of current line
-                        -- Column indicies
-                        if ball_parity_top = '1' then
-                            go <= "100"; -- brick hit
-                            ball_col_idxTR <= to_integer(shift_right(to_unsigned(ball_pos(0) + 10 + 4, 32), 4)); -- Right side will never hit first half brick
-                            if ball_pos(0) < 8 then
-                                ball_col_idxTL <= 0; -- Deal with first half brick
+                        -- -- Ball line parities
+                        -- ball_parity_top <= to_unsigned(ball_row_idxT, 32)(31); -- get parity of current line
+                        -- ball_parity_bottom <= to_unsigned(ball_row_idxB, 32)(31); -- get parity of current line
 
+
+                        -- -- Column indicies
+                        -- if ball_parity_top = '1' then
+                        --     go <= "100"; -- brick hit
+                        --     ball_col_idxTR <= to_integer(shift_right(to_unsigned(ball_pos(0) + 10 + 4, 32), 4)); -- Right side will never hit first half brick
+                        --     if ball_pos(0) < 8 then
+                        --         ball_col_idxTL <= 0; -- Deal with first half brick
+
+                        --     else
+                        --         ball_col_idxTL <= to_integer(shift_right(to_unsigned(ball_pos(0) + 8, 32), 4)); -- compensate for half-line
+                        --     end if;
+                        -- else
+                        --     ball_col_idxTR <= to_integer(shift_right(to_unsigned(ball_pos(0) + 10 + 4, 32), 4)); -- Even lines (full-brick)
+                        --     ball_col_idxTL <= to_integer(shift_right(to_unsigned(ball_pos(0), 32), 4)); -- divide data_pos by 16
+                        -- end if;
+
+                        -- if ball_parity_bottom = '1' then
+                        --     go <= "100"; -- brick hit
+                        --     ball_col_idxBR <= to_integer(shift_right(to_unsigned(ball_pos(0) + 10 + 4, 32), 4)); -- Right side will never hit first half brick
+                        --     if ball_pos(0) < 12 then
+                        --         ball_col_idxBL <= 0; -- Deal with first half brick
+
+                        --     else
+                        --         ball_col_idxBL <= to_integer(shift_right(to_unsigned(ball_pos(0) + 8 - 4, 32), 4)); -- compensate for half-line
+                        --     end if;
+                        -- else
+                        --     ball_col_idxBR <= to_integer(shift_right(to_unsigned(ball_pos(0) + 10 + 4, 32), 4)); -- Even lines (full-brick)
+                        --     ball_col_idxBL <= to_integer(shift_right(to_unsigned(ball_pos(0)-4, 32), 4)); -- divide data_pos by 16
+                        -- end if;
+
+                        ball_row <= to_integer(shift_right(to_unsigned(ball_mid(1), 32), 3));
+                        ball_parity <= to_unsigned(ball_row, 32)(0);
+                        if ball_parity = '1' then
+                            if ball_mid(0) < 8 then
+                                ball_col <= 0;
                             else
-                                ball_col_idxTL <= to_integer(shift_right(to_unsigned(ball_pos(0) + 8, 32), 4)); -- compensate for half-line
+                                ball_col <= to_integer(shift_right(to_unsigned(ball_mid(0)+8, 32), 4));
                             end if;
                         else
-                            ball_col_idxTR <= to_integer(shift_right(to_unsigned(ball_pos(0) + 10 + 4, 32), 4)); -- Even lines (full-brick)
-                            ball_col_idxTL <= to_integer(shift_right(to_unsigned(ball_pos(0), 32), 4)); -- divide data_pos by 16
+                            ball_col <= to_integer(shift_right(to_unsigned(ball_mid(0), 32), 4));
                         end if;
-
-                        if ball_parity_bottom = '1' then
-                            go <= "100"; -- brick hit
-                            ball_col_idxBR <= to_integer(shift_right(to_unsigned(ball_pos(0) + 10 + 4, 32), 4)); -- Right side will never hit first half brick
-                            if ball_pos(0) < 12 then
-                                ball_col_idxBL <= 0; -- Deal with first half brick
-
-                            else
-                                ball_col_idxBL <= to_integer(shift_right(to_unsigned(ball_pos(0) + 8 - 4, 32), 4)); -- compensate for half-line
-                            end if;
-                        else
-                            ball_col_idxBR <= to_integer(shift_right(to_unsigned(ball_pos(0) + 10 + 4, 32), 4)); -- Even lines (full-brick)
-                            ball_col_idxBL <= to_integer(shift_right(to_unsigned(ball_pos(0)-4, 32), 4)); -- divide data_pos by 16
-                        end if;
-                        if brick_tracker(ball_row_idxT, ball_col_idxTL) = '1' then
-                            brick_tracker(ball_row_idxT, ball_col_idxTL) <= '0';
+                        -- if brick_tracker(ball_row_idxT, ball_col_idxTL) = '1' then
+                        --     brick_tracker(ball_row_idxT, ball_col_idxTL) <= '0';
+                        if brick_tracker(ball_row, ball_col) = '1' then
+                            brick_tracker(ball_row, ball_col) <= '0';
+                            go <= "100";
                             -- Update ball velocity
                             case y_accel is
                                 when 2 =>
