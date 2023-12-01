@@ -390,14 +390,12 @@ begin -- RTL
             x_accel <= 0;
             y_accel <= 2;
             ball_active <= '0';
-            ball_row_idxT <= 0;
-            ball_row_idxB <= 0;
-            ball_col_idxTR <= 0;
-            ball_col_idxTL <= 0;
-            ball_col_idxBR <= 0;
-            ball_col_idxBL <= 0;
-            ball_parity_bottom <= '0';
-            ball_parity_top <= '0';
+            ball_row_TB <= 0;
+            ball_col_TB <= 0;
+            ball_row_RL <= 0;
+            ball_col_RL <= 0;
+            ball_parity_TB <= '0';
+            ball_parity_LR <= '0';
             brick_tracker <= (others => (others => '1'));
             go <= "000"; -- resets buzzer to no sound
         elsif rising_edge(c0_sig) then
@@ -567,18 +565,10 @@ begin -- RTL
                             end if;
                         end if;
 
-                        if brick_tracker(ball_row, ball_col) = '1' then
-                            brick_tracker(ball_row, ball_col) <= '0';
+                        if brick_tracker(ball_row_RL, ball_col_RL) = '1' then
+                            brick_tracker(ball_row_RL, ball_col_RL) <= '0';
                             go <= "100";
                             -- Update ball velocity
-                            case y_accel is
-                                when 2 =>
-                                    y_accel <= - 2;
-                                when -2 =>
-                                    y_accel <= 2;
-                                when others =>
-                                    y_accel <= 0;
-                            end case;
                             case x_accel is
                                 when 2 =>
                                     x_accel <= 4;
@@ -590,6 +580,16 @@ begin -- RTL
                                     x_accel <= - 2;
                                 when others =>
                                     x_accel <= 0;
+                            end case;
+                        elsif brick_tracker(ball_row_TB,ball_col_TB) = '1' then
+                            brick_tracker(ball_row_TB,ball_col_TB) = '0';
+                            case y_accel is 
+                                when 2 =>
+                                    y_accel <= - 2;
+                                when -2 =>
+                                    y_accel <= 2;
+                                when others =>
+                                    y_accel <= 0;
                             end case;
                         else
                             go <= "000";
