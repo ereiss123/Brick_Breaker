@@ -371,10 +371,10 @@ begin -- RTL
         end if;
     end process;
     ball_mid <= (ball_pos(0) + 5, ball_pos(1) + 5);
-    ball_left <= (ball_pos(0) - 2, ball_pos(1) + 5);
-    ball_right <= (ball_pos(0) + 12, ball_pos(1) + 5);
-    ball_top <= (ball_pos(0) + 5, ball_pos(1) - 2);
-    ball_bottom <= (ball_pos(0) + 5, ball_pos(1) + 12);
+    ball_left <= (ball_pos(0) , ball_pos(1) + 5);
+    ball_right <= (ball_pos(0) + 10, ball_pos(1) + 5);
+    ball_top <= (ball_pos(0) + 5, ball_pos(1) );
+    ball_bottom <= (ball_pos(0) + 5, ball_pos(1) + 10);
     -- ball movement state machine
     ball_proc : process (c0_sig, rst_l)
     begin
@@ -449,7 +449,7 @@ begin -- RTL
                         end if;
 
                         -- Bricks
-                    elsif ball_pos(1) < 235 then
+                    elsif ball_pos(1) < 239 then
                         -- Top collision
                         if x_accel > 0 and y_accel > 0 then -- right and down
                             -- Check right side of ball
