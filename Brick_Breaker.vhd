@@ -11,7 +11,6 @@ entity Brick_Breaker is
         MAX10_CLK1_50 : in STD_LOGIC;
         -- SEG7
         HEX0, HEX1, HEX2 : out STD_LOGIC_VECTOR(7 downto 0);
-        -- HEX3, HEX4, HEX5
         -- KEY
         KEY : in STD_LOGIC_VECTOR(1 downto 0);
         -- LED
@@ -182,10 +181,6 @@ architecture rtl of Brick_Breaker is
     184, 200, 216, 232, 248, 264, 280, 296, 312, 328, 344, 360, 376, 392, 408, 424, 440, 456, 472, 488, 504,
     520, 536, 552, 568, 584, 600, 616, 632); -- x coordinate top left corner of each brick in a half row
 
-    -- signal full_brick_x : hhalf_brick_corrid := (1, 17, 33, 49, 65, 81, 97, 113, 129, 145, 161, 177, 193, 209, 225, 241, 257, 273, 289, 305, 321, 337, 353, 369, 385, 401, 417, 433, 449, 465, 481, 497, 513, 529, 545, 561, 577, 593, 609, 625, -1);
-
-    -- signal half_brick_x : hhalf_brick_corrid := (1, 9, 25, 41, 57, 73, 89, 105, 121, 137, 153, 169, 185, 201, 217, 233, 249, 265, 281, 297, 313, 329, 345, 361, 377, 393, 409, 425, 441, 457, 473, 489, 505, 521, 537, 553, 569, 585, 601, 617, 633);
-
     signal brick_y : vbrick_corrid := (0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120,
     128, 136, 144, 152, 160, 168, 176, 184, 192, 200, 208, 216, 224, 232); -- y coordinate of top left corner of each brick
     signal brick_tracker : tracker := (others => (others => '1')); -- 32x40 array of bricks. Active bits indicate brick is still there
@@ -276,9 +271,6 @@ begin -- RTL
     HEX0 <= seven_seg(ball_counter); -- balls left
     HEX1 <= (others => '1');
     HEX2 <= (others => '1');
-    -- HEX3 <= seven_seg(to_integer(unsigned(adc_data(3 downto 0)))); -- adc data
-    -- HEX4 <= seven_seg(to_integer(unsigned(adc_data(7 downto 4)))); -- adc data
-    -- HEX5 <= seven_seg(to_integer(unsigned(adc_data(11 downto 8)))); -- adc data
 
     -- Interface with VGA controller
     VGA_proc : process (c0_sig, rst_l)
