@@ -152,19 +152,17 @@ architecture rtl of Brick_Breaker is
     signal ball_active : STD_LOGIC := '0';
     signal x_accel : INTEGER := 0;
     signal y_accel : INTEGER := 0;
-    
-
     signal ball_mid : coorid := (0, 0);
     signal ball_left : coorid := (0, 0);
     signal ball_right : coorid := (0, 0);
     signal ball_top : coorid := (0, 0);
     signal ball_bottom : coorid := (0, 0);
-    signal ball_row_TB : integer := 0;
-    signal ball_col_TB : integer := 0;
-    signal ball_row_RL : integer := 0;
-    signal ball_col_RL : integer := 0;
-    signal ball_parity_TB : std_logic := '0';
-    signal ball_parity_LR : std_logic := '0';
+    signal ball_row_TB : INTEGER := 0;
+    signal ball_col_TB : INTEGER := 0;
+    signal ball_row_RL : INTEGER := 0;
+    signal ball_col_RL : INTEGER := 0;
+    signal ball_parity_TB : STD_LOGIC := '0';
+    signal ball_parity_LR : STD_LOGIC := '0';
 
     signal paddle_x : INTEGER range 0 to 640 := 304;
     signal rand : unsigned(8 downto 0);
@@ -372,12 +370,10 @@ begin -- RTL
             end if;
         end if;
     end process;
-
-
     ball_mid <= (ball_pos(0) + 5, ball_pos(1) + 5);
-    ball_left <= (ball_pos(0)-4, ball_pos(1) + 5);
+    ball_left <= (ball_pos(0) - 4, ball_pos(1) + 5);
     ball_right <= (ball_pos(0) + 14, ball_pos(1) + 5);
-    ball_top <= (ball_pos(0) + 5, ball_pos(1)-4);
+    ball_top <= (ball_pos(0) + 5, ball_pos(1) - 4);
     ball_bottom <= (ball_pos(0) + 5, ball_pos(1) + 14);
     -- ball movement state machine
     ball_proc : process (c0_sig, rst_l)
@@ -459,8 +455,8 @@ begin -- RTL
                             -- Check right side of ball
                             ball_row_RL <= to_integer(shift_right(ball_right(1), 3)); -- divide y coordinate by 8
                             ball_parity_RL <= to_unsigned(to_integer(shift_right(ball_row_RL, 4)), 32)(0); -- get parity of right side of ball
-                            if ball_parity_RL = '1' then 
-                                if ball_right(0) < 8 then 
+                            if ball_parity_RL = '1' then
+                                if ball_right(0) < 8 then
                                     ball_col_RL <= 0; -- Deal with first half brick
                                 else
                                     ball_col_RL <= to_integer(shift_right(ball_right(0) + 8, 4)); -- compensate rest 
@@ -472,8 +468,8 @@ begin -- RTL
                             -- Check bottom of ball
                             ball_row_TB <= to_integer(shift_right(ball_bottom(1), 3)); -- divide y coordinate by 8
                             ball_parity_TB <= to_unsigned(to_integer(shift_right(ball_row_TB, 4)), 32)(0); -- get parity of bottom of ball
-                            if ball_parity_TB = '1' then 
-                                if ball_bottom(0) < 8 then 
+                            if ball_parity_TB = '1' then
+                                if ball_bottom(0) < 8 then
                                     ball_col_TB <= 0; -- Deal with first half brick
                                 else
                                     ball_col_TB <= to_integer(shift_right(ball_bottom(0) + 8, 4)); -- compensate rest 
@@ -486,8 +482,8 @@ begin -- RTL
                             -- Check right side of ball
                             ball_row_RL <= to_integer(shift_right(ball_left(1), 3)); -- divide y coordinate by 8
                             ball_parity_RL <= to_unsigned(to_integer(shift_right(ball_row_RL, 4)), 32)(0); -- get parity of right side of ball
-                            if ball_parity_RL = '1' then 
-                                if ball_left(0) < 8 then 
+                            if ball_parity_RL = '1' then
+                                if ball_left(0) < 8 then
                                     ball_col_RL <= 0; -- Deal with first half brick
                                 else
                                     ball_col_RL <= to_integer(shift_right(ball_left(0) + 8, 4)); -- compensate rest 
@@ -499,8 +495,8 @@ begin -- RTL
                             -- Check bottom of ball
                             ball_row_TB <= to_integer(shift_right(ball_bottom(1), 3)); -- divide y coordinate by 8
                             ball_parity_TB <= to_unsigned(to_integer(shift_right(ball_row_TB, 4)), 32)(0); -- get parity of bottom of ball
-                            if ball_parity_TB = '1' then 
-                                if ball_bottom(0) < 8 then 
+                            if ball_parity_TB = '1' then
+                                if ball_bottom(0) < 8 then
                                     ball_col_TB <= 0; -- Deal with first half brick
                                 else
                                     ball_col_TB <= to_integer(shift_right(ball_bottom(0) + 8, 4)); -- compensate rest 
@@ -508,14 +504,12 @@ begin -- RTL
                             else
                                 ball_col_TB <= to_integer(shift_right(ball_bottom(0), 4)); -- divide x coordinate by 16
                             end if;
-                            
-                            
                         elsif x_accel > 0 and y_accel < 0 then -- right and up
                             -- Check right side of ball
                             ball_row_RL <= to_integer(shift_right(ball_right(1), 3)); -- divide y coordinate by 8
                             ball_parity_RL <= to_unsigned(to_integer(shift_right(ball_row_RL, 4)), 32)(0); -- get parity of right side of ball
-                            if ball_parity_RL = '1' then 
-                                if ball_right(0) < 8 then 
+                            if ball_parity_RL = '1' then
+                                if ball_right(0) < 8 then
                                     ball_col_RL <= 0; -- Deal with first half brick
                                 else
                                     ball_col_RL <= to_integer(shift_right(ball_right(0) + 8, 4)); -- compensate rest 
@@ -527,8 +521,8 @@ begin -- RTL
                             -- Check bottom of ball
                             ball_row_TB <= to_integer(shift_right(ball_top(1), 3)); -- divide y coordinate by 8
                             ball_parity_TB <= to_unsigned(to_integer(shift_right(ball_row_TB, 4)), 32)(0); -- get parity of bottom of ball
-                            if ball_parity_TB = '1' then 
-                                if ball_top(0) < 8 then 
+                            if ball_parity_TB = '1' then
+                                if ball_top(0) < 8 then
                                     ball_col_TB <= 0; -- Deal with first half brick
                                 else
                                     ball_col_TB <= to_integer(shift_right(ball_top(0) + 8, 4)); -- compensate rest 
@@ -541,8 +535,8 @@ begin -- RTL
                             -- Check right side of ball
                             ball_row_RL <= to_integer(shift_right(ball_left(1), 3)); -- divide y coordinate by 8
                             ball_parity_RL <= to_unsigned(to_integer(shift_right(ball_row_RL, 4)), 32)(0); -- get parity of right side of ball
-                            if ball_parity_RL = '1' then 
-                                if ball_left(0) < 8 then 
+                            if ball_parity_RL = '1' then
+                                if ball_left(0) < 8 then
                                     ball_col_RL <= 0; -- Deal with first half brick
                                 else
                                     ball_col_RL <= to_integer(shift_right(ball_left(0) + 8, 4)); -- compensate rest 
@@ -554,8 +548,8 @@ begin -- RTL
                             -- Check bottom of ball
                             ball_row_TB <= to_integer(shift_right(ball_top(1), 3)); -- divide y coordinate by 8
                             ball_parity_TB <= to_unsigned(to_integer(shift_right(ball_row_TB, 4)), 32)(0); -- get parity of bottom of ball
-                            if ball_parity_TB = '1' then 
-                                if ball_top(0) < 8 then 
+                            if ball_parity_TB = '1' then
+                                if ball_top(0) < 8 then
                                     ball_col_TB <= 0; -- Deal with first half brick
                                 else
                                     ball_col_TB <= to_integer(shift_right(ball_top(0) + 8, 4)); -- compensate rest 
@@ -581,9 +575,9 @@ begin -- RTL
                                 when others =>
                                     x_accel <= 0;
                             end case;
-                        elsif brick_tracker(ball_row_TB,ball_col_TB) = '1' then
-                            brick_tracker(ball_row_TB,ball_col_TB) = '0';
-                            case y_accel is 
+                        elsif brick_tracker(ball_row_TB, ball_col_TB) = '1' then
+                            brick_tracker(ball_row_TB, ball_col_TB) <= '0';
+                            case y_accel is
                                 when 2 =>
                                     y_accel <= - 2;
                                 when -2 =>
