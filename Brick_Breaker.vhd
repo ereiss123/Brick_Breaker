@@ -547,7 +547,7 @@ begin -- RTL
 
                             -- Check bottom of ball
                             ball_row_TB <= to_integer(shift_right(to_unsigned(ball_top(1), 32), 3)); -- divide y coordinate by 8
-                            ball_parity_TB <= to_unsigned(to_integer(shift_right(ball_row_TB, 4)), 32)(0); -- get parity of bottom of ball
+                            ball_parity_TB <= to_unsigned(ball_row_TB, 32)(0); -- get parity of bottom of ball
                             if ball_parity_TB = '1' then
                                 if ball_top(0) < 8 then
                                     ball_col_TB <= 0; -- Deal with first half brick
