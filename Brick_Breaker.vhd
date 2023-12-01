@@ -11,7 +11,6 @@ entity Brick_Breaker is
         MAX10_CLK1_50 : in STD_LOGIC;
         -- SEG7
         HEX0, HEX1, HEX2 : out STD_LOGIC_VECTOR(7 downto 0);
-        -- HEX3, HEX4, HEX5
         -- KEY
         KEY : in STD_LOGIC_VECTOR(1 downto 0);
         -- LED
@@ -152,17 +151,17 @@ architecture rtl of Brick_Breaker is
     signal ball_active : STD_LOGIC := '0';
     signal x_accel : INTEGER := 0;
     signal y_accel : INTEGER := 0;
-    signal ball_row_idxT : INTEGER := 0;
-    signal ball_row_idxB : INTEGER := 0;
-    signal ball_col_idxTR : INTEGER := 0;
-    signal ball_col_idxBR : INTEGER := 0;
-    signal ball_col_idxTL : INTEGER := 0;
-    signal ball_col_idxBL : INTEGER := 0;
-
     signal ball_mid : coorid := (0, 0);
-    signal ball_row : integer := 0;
-    signal ball_col : integer := 0;
-    signal ball_parity : std_logic := '0';
+    signal ball_left : coorid := (0, 0);
+    signal ball_right : coorid := (0, 0);
+    signal ball_top : coorid := (0, 0);
+    signal ball_bottom : coorid := (0, 0);
+    signal ball_row_TB : INTEGER := 0;
+    signal ball_col_TB : INTEGER := 0;
+    signal ball_row_RL : INTEGER := 0;
+    signal ball_col_RL : INTEGER := 0;
+    signal ball_parity_TB : STD_LOGIC := '0';
+    signal ball_parity_RL : STD_LOGIC := '0';
 
     signal paddle_x : INTEGER range 0 to 640 := 304;
     signal rand : unsigned(8 downto 0);
@@ -182,44 +181,9 @@ architecture rtl of Brick_Breaker is
     184, 200, 216, 232, 248, 264, 280, 296, 312, 328, 344, 360, 376, 392, 408, 424, 440, 456, 472, 488, 504,
     520, 536, 552, 568, 584, 600, 616, 632); -- x coordinate top left corner of each brick in a half row
 
-    -- signal full_brick_x : hhalf_brick_corrid := (1, 17, 33, 49, 65, 81, 97, 113, 129, 145, 161, 177, 193, 209, 225, 241, 257, 273, 289, 305, 321, 337, 353, 369, 385, 401, 417, 433, 449, 465, 481, 497, 513, 529, 545, 561, 577, 593, 609, 625, -1);
-
-    -- signal half_brick_x : hhalf_brick_corrid := (1, 9, 25, 41, 57, 73, 89, 105, 121, 137, 153, 169, 185, 201, 217, 233, 249, 265, 281, 297, 313, 329, 345, 361, 377, 393, 409, 425, 441, 457, 473, 489, 505, 521, 537, 553, 569, 585, 601, 617, 633);
-
     signal brick_y : vbrick_corrid := (0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120,
     128, 136, 144, 152, 160, 168, 176, 184, 192, 200, 208, 216, 224, 232); -- y coordinate of top left corner of each brick
-    signal brick_tracker : tracker := (
-    ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0'),
-        ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1')
-    ); -- 32x40 array of bricks. Active bits indicate brick is still there
+    signal brick_tracker : tracker := (others => (others => '1')); -- 32x40 array of bricks. Active bits indicate brick is still there
 begin -- RTL
 
     rst_l <= KEY(0);
@@ -307,9 +271,6 @@ begin -- RTL
     HEX0 <= seven_seg(ball_counter); -- balls left
     HEX1 <= (others => '1');
     HEX2 <= (others => '1');
-    -- HEX3 <= seven_seg(to_integer(unsigned(adc_data(3 downto 0)))); -- adc data
-    -- HEX4 <= seven_seg(to_integer(unsigned(adc_data(7 downto 4)))); -- adc data
-    -- HEX5 <= seven_seg(to_integer(unsigned(adc_data(11 downto 8)))); -- adc data
 
     -- Interface with VGA controller
     VGA_proc : process (c0_sig, rst_l)
@@ -401,9 +362,11 @@ begin -- RTL
             end if;
         end if;
     end process;
-
-
     ball_mid <= (ball_pos(0) + 5, ball_pos(1) + 5);
+    ball_left <= (ball_pos(0), ball_pos(1) + 5);
+    ball_right <= (ball_pos(0) + 10, ball_pos(1) + 5);
+    ball_top <= (ball_pos(0) + 5, ball_pos(1));
+    ball_bottom <= (ball_pos(0) + 5, ball_pos(1) + 10);
     -- ball movement state machine
     ball_proc : process (c0_sig, rst_l)
     begin
@@ -415,14 +378,12 @@ begin -- RTL
             x_accel <= 0;
             y_accel <= 2;
             ball_active <= '0';
-            ball_row_idxT <= 0;
-            ball_row_idxB <= 0;
-            ball_col_idxTR <= 0;
-            ball_col_idxTL <= 0;
-            ball_col_idxBR <= 0;
-            ball_col_idxBL <= 0;
-            ball_parity_bottom <= '0';
-            ball_parity_top <= '0';
+            ball_row_TB <= 0;
+            ball_col_TB <= 0;
+            ball_row_RL <= 0;
+            ball_col_RL <= 0;
+            ball_parity_TB <= '0';
+            ball_parity_RL <= '0';
             brick_tracker <= (others => (others => '1'));
             go <= "000"; -- resets buzzer to no sound
         elsif rising_edge(c0_sig) then
@@ -452,7 +413,7 @@ begin -- RTL
                         else
                             x_accel <= 2;
                         end if;
-                    elsif ((ball_pos(0) + 10) > 638) then -- right wall
+                    elsif ((ball_pos(0) + 10) > 637) then -- right wall
                         go <= "011"; -- wall hit
                         if x_accel = 4 then
                             x_accel <= - 4;
@@ -481,61 +442,150 @@ begin -- RTL
 
                         -- Bricks
                     elsif ball_pos(1) < 239 then
-                        -- -- Row indicies
-                        -- ball_row_idxT <= to_integer(shift_right(to_unsigned(ball_pos(1), 32), 3)); -- divide current line by 8
-                        -- ball_row_idxB <= to_integer(shift_right(to_unsigned(ball_pos(1) + 10 + 4, 32), 3)); -- divide current line by 8
-
-                        -- -- Ball line parities
-                        -- ball_parity_top <= to_unsigned(ball_row_idxT, 32)(31); -- get parity of current line
-                        -- ball_parity_bottom <= to_unsigned(ball_row_idxB, 32)(31); -- get parity of current line
-
-
-                        -- -- Column indicies
-                        -- if ball_parity_top = '1' then
-                        --     go <= "100"; -- brick hit
-                        --     ball_col_idxTR <= to_integer(shift_right(to_unsigned(ball_pos(0) + 10 + 4, 32), 4)); -- Right side will never hit first half brick
-                        --     if ball_pos(0) < 8 then
-                        --         ball_col_idxTL <= 0; -- Deal with first half brick
-
-                        --     else
-                        --         ball_col_idxTL <= to_integer(shift_right(to_unsigned(ball_pos(0) + 8, 32), 4)); -- compensate for half-line
-                        --     end if;
-                        -- else
-                        --     ball_col_idxTR <= to_integer(shift_right(to_unsigned(ball_pos(0) + 10 + 4, 32), 4)); -- Even lines (full-brick)
-                        --     ball_col_idxTL <= to_integer(shift_right(to_unsigned(ball_pos(0), 32), 4)); -- divide data_pos by 16
-                        -- end if;
-
-                        -- if ball_parity_bottom = '1' then
-                        --     go <= "100"; -- brick hit
-                        --     ball_col_idxBR <= to_integer(shift_right(to_unsigned(ball_pos(0) + 10 + 4, 32), 4)); -- Right side will never hit first half brick
-                        --     if ball_pos(0) < 12 then
-                        --         ball_col_idxBL <= 0; -- Deal with first half brick
-
-                        --     else
-                        --         ball_col_idxBL <= to_integer(shift_right(to_unsigned(ball_pos(0) + 8 - 4, 32), 4)); -- compensate for half-line
-                        --     end if;
-                        -- else
-                        --     ball_col_idxBR <= to_integer(shift_right(to_unsigned(ball_pos(0) + 10 + 4, 32), 4)); -- Even lines (full-brick)
-                        --     ball_col_idxBL <= to_integer(shift_right(to_unsigned(ball_pos(0)-4, 32), 4)); -- divide data_pos by 16
-                        -- end if;
-
-                        ball_row <= to_integer(shift_right(to_unsigned(ball_mid(1), 32), 3));
-                        ball_parity <= to_unsigned(ball_row, 32)(0);
-                        if ball_parity = '1' then
-                            if ball_mid(0) < 8 then
-                                ball_col <= 0;
+                        -- Top collision
+                        if x_accel > 0 and y_accel > 0 then -- right and down
+                            -- Check right side of ball
+                            ball_row_RL <= to_integer(shift_right(to_unsigned(ball_right(1), 32), 3)); -- divide y coordinate by 8
+                            ball_parity_RL <= to_unsigned(ball_row_RL, 32)(0); -- get parity of right side of ball
+                            if ball_parity_RL = '1' then
+                                if ball_right(0) < 8 then
+                                    ball_col_RL <= 0; -- Deal with first half brick
+                                else
+                                    ball_col_RL <= to_integer(shift_right(to_unsigned(ball_right(0) + 8, 32), 4)); -- compensate rest 
+                                end if;
                             else
-                                ball_col <= to_integer(shift_right(to_unsigned(ball_mid(0)+8, 32), 4));
+                                ball_col_RL <= to_integer(shift_right(to_unsigned(ball_right(0), 32), 4)); -- divide x coordinate by 16
                             end if;
-                        else
-                            ball_col <= to_integer(shift_right(to_unsigned(ball_mid(0), 32), 4));
+
+                            -- Check bottom of ball
+                            ball_row_TB <= to_integer(shift_right(to_unsigned(ball_bottom(1), 32), 3)); -- divide y coordinate by 8
+                            ball_parity_TB <= to_unsigned(ball_row_TB, 32)(0); -- get parity of bottom of ball
+                            if ball_parity_TB = '1' then
+                                if ball_bottom(0) < 8 then
+                                    ball_col_TB <= 0; -- Deal with first half brick
+                                else
+                                    ball_col_TB <= to_integer(shift_right(to_unsigned(ball_bottom(0) + 8, 32), 4)); -- compensate rest 
+                                end if;
+                            else
+                                ball_col_TB <= to_integer(shift_right(to_unsigned(ball_bottom(0), 32), 4)); -- divide x coordinate by 16
+                            end if;
+
+                        elsif x_accel < 0 and y_accel > 0 then -- left and down
+                            -- Check right side of ball
+                            ball_row_RL <= to_integer(shift_right(to_unsigned(ball_left(1), 32), 3)); -- divide y coordinate by 8
+                            ball_parity_RL <= to_unsigned(ball_row_RL, 32)(0); -- get parity of right side of ball
+                            if ball_parity_RL = '1' then
+                                if ball_left(0) < 8 then
+                                    ball_col_RL <= 0; -- Deal with first half brick
+                                else
+                                    ball_col_RL <= to_integer(shift_right(to_unsigned(ball_left(0), 32) + 8, 4)); -- compensate rest 
+                                end if;
+                            else
+                                ball_col_RL <= to_integer(shift_right(to_unsigned(ball_left(0), 32), 4)); -- divide x coordinate by 16
+                            end if;
+
+                            -- Check bottom of ball
+                            ball_row_TB <= to_integer(shift_right(to_unsigned(ball_bottom(1), 32), 3)); -- divide y coordinate by 8
+                            ball_parity_TB <= to_unsigned(ball_row_TB, 32)(0); -- get parity of bottom of ball
+                            if ball_parity_TB = '1' then
+                                if ball_bottom(0) < 8 then
+                                    ball_col_TB <= 0; -- Deal with first half brick
+                                else
+                                    ball_col_TB <= to_integer(shift_right(to_unsigned(ball_bottom(0) + 8, 32), 4)); -- compensate rest 
+                                end if;
+                            else
+                                ball_col_TB <= to_integer(shift_right(to_unsigned(ball_bottom(0), 32), 4)); -- divide x coordinate by 16
+                            end if;
+                        elsif x_accel > 0 and y_accel < 0 then -- right and up
+                            -- Check right side of ball
+                            ball_row_RL <= to_integer(shift_right(to_unsigned(ball_right(1), 32), 3)); -- divide y coordinate by 8
+                            ball_parity_RL <= to_unsigned(ball_row_RL, 32)(0); -- get parity of right side of ball
+                            if ball_parity_RL = '1' then
+                                if ball_right(0) < 8 then
+                                    ball_col_RL <= 0; -- Deal with first half brick
+                                else
+                                    ball_col_RL <= to_integer(shift_right(to_unsigned(ball_right(0) + 8, 32), 4)); -- compensate rest 
+                                end if;
+                            else
+                                ball_col_RL <= to_integer(shift_right(to_unsigned(ball_right(0), 32), 4)); -- divide x coordinate by 16
+                            end if;
+
+                            -- Check bottom of ball
+                            ball_row_TB <= to_integer(shift_right(to_unsigned(ball_top(1), 32), 3)); -- divide y coordinate by 8
+                            ball_parity_TB <= to_unsigned(ball_row_TB, 32)(0); -- get parity of bottom of ball
+                            if ball_parity_TB = '1' then
+                                if ball_top(0) < 8 then
+                                    ball_col_TB <= 0; -- Deal with first half brick
+                                else
+                                    ball_col_TB <= to_integer(shift_right(to_unsigned(ball_top(0) + 8, 32), 4)); -- compensate rest 
+                                end if;
+                            else
+                                ball_col_TB <= to_integer(shift_right(to_unsigned(ball_top(0), 32), 4)); -- divide x coordinate by 16
+                            end if;
+
+                        elsif x_accel < 0 and y_accel < 0 then -- left and up
+                            -- Check right side of ball
+                            ball_row_RL <= to_integer(shift_right(to_unsigned(ball_left(1), 32), 3)); -- divide y coordinate by 8
+                            ball_parity_RL <= to_unsigned(ball_row_RL, 32)(0); -- get parity of right side of ball
+                            if ball_parity_RL = '1' then
+                                if ball_left(0) < 8 then
+                                    ball_col_RL <= 0; -- Deal with first half brick
+                                else
+                                    ball_col_RL <= to_integer(shift_right(to_unsigned(ball_left(0) + 8, 32), 4)); -- compensate rest 
+                                end if;
+                            else
+                                ball_col_RL <= to_integer(shift_right(to_unsigned(ball_left(0), 32), 4)); -- divide x coordinate by 16
+                            end if;
+
+                            -- Check bottom of ball
+                            ball_row_TB <= to_integer(shift_right(to_unsigned(ball_top(1), 32), 3)); -- divide y coordinate by 8
+                            ball_parity_TB <= to_unsigned(ball_row_TB, 32)(0); -- get parity of bottom of ball
+                            if ball_parity_TB = '1' then
+                                if ball_top(0) < 8 then
+                                    ball_col_TB <= 0; -- Deal with first half brick
+                                else
+                                    ball_col_TB <= to_integer(shift_right(to_unsigned(ball_top(0) + 8, 32), 4)); -- compensate rest 
+                                end if;
+                            else
+                                ball_col_TB <= to_integer(shift_right(to_unsigned(ball_top(0), 32), 4)); -- divide x coordinate by 16
+                            end if;
                         end if;
-                        -- if brick_tracker(ball_row_idxT, ball_col_idxTL) = '1' then
-                        --     brick_tracker(ball_row_idxT, ball_col_idxTL) <= '0';
-                        if brick_tracker(ball_row, ball_col) = '1' then
-                            brick_tracker(ball_row, ball_col) <= '0';
-                            go <= "100";
+
+                        if brick_tracker(ball_row_RL, ball_col_RL) = '1' then
+                            if ball_row_RL = 0 and ball_col_RL = 0 then
+                                if ball_pos(1) > 8 then
+                                    brick_tracker(ball_row_RL, ball_col_RL) <= '1';
+                                else
+                                    brick_tracker(ball_row_RL, ball_col_RL) <= '0';
+                                end if;
+                            else
+                                brick_tracker(ball_row_RL, ball_col_RL) <= '0';
+                            end if;
+                            go <= "100"; -- brick hit
                             -- Update ball velocity
+                            case x_accel is
+                                when 2 =>
+                                    x_accel <= - 4;
+                                when 4 =>
+                                    x_accel <= - 2;
+                                when -2 =>
+                                    x_accel <= 4;
+                                when -4 =>
+                                    x_accel <= 2;
+                                when others =>
+                                    x_accel <= 0;
+                            end case;
+                        elsif brick_tracker(ball_row_TB, ball_col_TB) = '1' then
+                            go <= "100"; -- brick hit
+                            if ball_row_TB = 0 and ball_col_TB = 0 then
+                                if ball_pos(1) > 8 then
+                                    brick_tracker(ball_row_TB, ball_col_TB) <= '1';
+                                else
+                                    brick_tracker(ball_row_TB, ball_col_TB) <= '0';
+                                end if;
+                            else
+                                brick_tracker(ball_row_TB, ball_col_TB) <= '0';
+                            end if;
                             case y_accel is
                                 when 2 =>
                                     y_accel <= - 2;
@@ -543,18 +593,6 @@ begin -- RTL
                                     y_accel <= 2;
                                 when others =>
                                     y_accel <= 0;
-                            end case;
-                            case x_accel is
-                                when 2 =>
-                                    x_accel <= 4;
-                                when 4 =>
-                                    x_accel <= 2;
-                                when -2 =>
-                                    x_accel <= - 4;
-                                when -4 =>
-                                    x_accel <= - 2;
-                                when others =>
-                                    x_accel <= 0;
                             end case;
                         else
                             go <= "000";
