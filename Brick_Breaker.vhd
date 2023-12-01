@@ -10,7 +10,8 @@ entity Brick_Breaker is
         -- CLOCK
         MAX10_CLK1_50 : in STD_LOGIC;
         -- SEG7
-        HEX0, HEX1, HEX2, HEX3, HEX4, HEX5 : out STD_LOGIC_VECTOR(7 downto 0);
+        HEX0, HEX1, HEX2 : out STD_LOGIC_VECTOR(7 downto 0);
+        -- HEX3, HEX4, HEX5
         -- KEY
         KEY : in STD_LOGIC_VECTOR(1 downto 0);
         -- LED
@@ -301,9 +302,9 @@ begin -- RTL
     HEX0 <= seven_seg(ball_counter); -- balls left
     HEX1 <= (others => '1');
     HEX2 <= (others => '1');
-    HEX3 <= seven_seg(to_integer(unsigned(adc_data(3 downto 0)))); -- adc data
-    HEX4 <= seven_seg(to_integer(unsigned(adc_data(7 downto 4)))); -- adc data
-    HEX5 <= seven_seg(to_integer(unsigned(adc_data(11 downto 8)))); -- adc data
+    -- HEX3 <= seven_seg(to_integer(unsigned(adc_data(3 downto 0)))); -- adc data
+    -- HEX4 <= seven_seg(to_integer(unsigned(adc_data(7 downto 4)))); -- adc data
+    -- HEX5 <= seven_seg(to_integer(unsigned(adc_data(11 downto 8)))); -- adc data
 
     -- Interface with VGA controller
     VGA_proc : process (c0_sig, rst_l)
@@ -353,11 +354,11 @@ begin -- RTL
                             G <= white(1);
                             B <= white(2);
                         elsif line_parity = '1' then -- Odd lines (half-brick)
-                            if (data_pos = half_brick_x(brick_col_idx) + 7) and ((brick_col_idx = 0) or (brick_col_idx = 40)) then
+                            if (data_pos = half_brick_x(brick_col_idx) + 8) and ((brick_col_idx = 0) or (brick_col_idx = 40)) then
                                 R <= white(0); -- draw vertical mortar line for half-brick
                                 G <= white(1);
                                 B <= white(2);
-                            elsif data_pos = (half_brick_x(brick_col_idx) + 15) then
+                            elsif data_pos = (half_brick_x(brick_col_idx) + 16) then
                                 R <= white(0); -- draw vertical mortar line for full bricks
                                 G <= white(1);
                                 B <= white(2);
@@ -372,7 +373,7 @@ begin -- RTL
                             end if;
 
                         else -- Even lines (full-brick)
-                            if data_pos = (full_brick_x(brick_col_idx) + 15) then
+                            if data_pos = (full_brick_x(brick_col_idx) + 16) then
                                 R <= white(0); -- draw vertical mortar line
                                 G <= white(1);
                                 B <= white(2);
@@ -405,7 +406,7 @@ begin -- RTL
             state <= 1;
             ball_timer <= 0;
             x_accel <= 0;
-            y_accel <= 1;
+            y_accel <= 2;
             ball_active <= '0';
             ball_row_idxT <= 0;
             ball_row_idxB <= 0;
@@ -422,7 +423,7 @@ begin -- RTL
                 if ball_counter > 0 then
                     ball_counter <= ball_counter - 1;
                     ball_pos <= (to_integer(rand), 241);
-                    y_accel <= 1;
+                    y_accel <= 2;
                     x_accel <= 0;
                     ball_active <= '1';
                 end if;
@@ -439,36 +440,36 @@ begin -- RTL
                         go <= "001"; -- game over
                     elsif ball_pos(0) < 1 then -- left wall
                         go <= "011"; -- wall hit
-                        if x_accel =- 2 then
-                            x_accel <= 2;
+                        if x_accel =- 4 then
+                            x_accel <= 4;
                         else
-                            x_accel <= 1;
+                            x_accel <= 2;
                         end if;
                     elsif ((ball_pos(0) + 10) > 638) then -- right wall
                         go <= "011"; -- wall hit
-                        if x_accel = 2 then
-                            x_accel <= - 2;
+                        if x_accel = 4 then
+                            x_accel <= - 4;
                         else
-                            x_accel <= - 1;
+                            x_accel <= - 2;
                         end if;
 
                     elsif ball_pos(1) = 1 then -- bounce off top wall
-                        y_accel <= 1;
+                        y_accel <= 2;
                         go <= "011"; -- wall hit
 
                         -- Paddle
                     elsif (ball_pos(1) + 10) >= paddle_pos(1) and ((ball_pos(0) + 10 >= paddle_pos(0)) and (ball_pos(0) < paddle_pos(0) + 40)) then -- bounce off paddle 
-                        y_accel <= - 1;
+                        y_accel <= - 2;
                         go <= "010"; -- paddle hit
                         -- Bounce ball depending on where it hits the paddle
                         if ball_pos(0) + 10 >= paddle_pos(0) and ball_pos(0) < (paddle_pos(0) + 9) then --leftmost quadrant
-                            x_accel <= - 2;
+                            x_accel <= - 4;
                         elsif ball_pos(0) + 10 >= paddle_pos(0) + 10 and ball_pos(0) < (paddle_pos(0) + 19) then -- left middle quadrant
-                            x_accel <= - 1;
+                            x_accel <= - 2;
                         elsif ball_pos(0) + 10 >= paddle_pos(0) + 20 and ball_pos(0) < (paddle_pos(0) + 29) then -- right middle quadrant
-                            x_accel <= 1;
-                        elsif ball_pos(0) + 10 >= paddle_pos(0) + 30 and ball_pos(0) < (paddle_pos(0) + 39) then -- rightmost quadrant
                             x_accel <= 2;
+                        elsif ball_pos(0) + 10 >= paddle_pos(0) + 30 and ball_pos(0) < (paddle_pos(0) + 39) then -- rightmost quadrant
+                            x_accel <= 4;
                         end if;
 
                         -- Bricks
@@ -512,22 +513,22 @@ begin -- RTL
                             brick_tracker(ball_row_idxT, ball_col_idxTL) <= '0';
                             -- Update ball velocity
                             case y_accel is
-                                when 1 =>
-                                    y_accel <= - 1;
-                                when -1 =>
-                                    y_accel <= 1;
+                                when 2 =>
+                                    y_accel <= - 2;
+                                when -2 =>
+                                    y_accel <= 2;
                                 when others =>
                                     y_accel <= 0;
                             end case;
                             case x_accel is
-                                when 1 =>
-                                    x_accel <= 2;
                                 when 2 =>
-                                    x_accel <= 1;
-                                when -1 =>
-                                    x_accel <= - 2;
+                                    x_accel <= 4;
+                                when 4 =>
+                                    x_accel <= 2;
                                 when -2 =>
-                                    x_accel <= - 1;
+                                    x_accel <= - 4;
+                                when -4 =>
+                                    x_accel <= - 2;
                                 when others =>
                                     x_accel <= 0;
                             end case;
