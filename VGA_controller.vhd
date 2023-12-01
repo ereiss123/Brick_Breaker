@@ -157,19 +157,16 @@ begin
             VGA_R <= X"0";
             VGA_G <= X"0";
             VGA_B <= X"0";
-            -- request_data <= '0';
-            current_line <= "0000000000";
-            data_pos <= "0000000000";
+            current_line <= (others => '0');
+            data_pos <= (others => '0');
         elsif rising_edge(clk) then
             if v_flag = '1' and h_flag = '1' then
                 current_line <= to_unsigned(line_count, current_line'length);
                 data_pos <= to_unsigned(hor_count, data_pos'length);
-                -- request_data <= '1';
                 VGA_R <= R;
                 VGA_G <= G;
                 VGA_B <= B;
             else
-                -- request_data <= '0';
                 VGA_R <= X"0";
                 VGA_G <= X"0";
                 VGA_B <= X"0";
