@@ -371,10 +371,10 @@ begin -- RTL
         end if;
     end process;
     ball_mid <= (ball_pos(0) + 5, ball_pos(1) + 5);
-    ball_left <= (ball_pos(0) - 4, ball_pos(1) + 5);
-    ball_right <= (ball_pos(0) + 14, ball_pos(1) + 5);
-    ball_top <= (ball_pos(0) + 5, ball_pos(1) - 4);
-    ball_bottom <= (ball_pos(0) + 5, ball_pos(1) + 14);
+    ball_left <= (ball_pos(0) - 2, ball_pos(1) + 5);
+    ball_right <= (ball_pos(0) + 12, ball_pos(1) + 5);
+    ball_top <= (ball_pos(0) + 5, ball_pos(1) - 2);
+    ball_bottom <= (ball_pos(0) + 5, ball_pos(1) + 12);
     -- ball movement state machine
     ball_proc : process (c0_sig, rst_l)
     begin
